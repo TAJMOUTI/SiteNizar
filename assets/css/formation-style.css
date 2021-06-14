@@ -1,0 +1,95 @@
+#formation-timeline {
+  list-style-type: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 200ms ease-in;
+}
+
+.degree {
+  margin-bottom: 20px;
+  padding: 0px 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.degree p {
+  font-weight: 700;
+}
+
+.year {
+  padding: 20px 40px;
+  display: flex;
+  justify-content: center;
+  border-top: 2px solid #D6DCE0;
+  position: relative;
+  transition: all 200ms ease-in;
+}
+.year p {
+  font-weight: 600;
+  padding-right: -20px;
+}
+.year:before {
+  content: "";
+  width: 20px;
+  height: 20px;
+  background-color: white;
+  border-radius: 25px;
+  border: 1px solid #ddd;
+  position: absolute;
+  top: -10px;
+  transition: all 200ms ease-in;
+}
+
+.li.complete .year { 
+  border-top: 2px solid #f5593d;
+}
+.li.complete .year:before {
+  background-color: #f5593d;
+  border: none;
+  transition: all 200ms ease-in;
+}
+
+@media (min-device-width: 320px) and (max-device-width: 700px) {
+  .formation-timeline {
+    list-style-type: none;
+    display: block;
+  }
+
+  .li {
+    transition: all 200ms ease-in;
+    display: flex;
+    width: inherit;
+  }
+
+  .year {
+    width: 200px;
+  }
+
+  .year:before {
+    left: -8%;
+    top: 30%;
+    transition: all 200ms ease-in;
+  }
+
+  .biotext p {
+    top: 50px;
+    text-align: left;
+    font-size: 14px;
+    color: white;
+    display: inline-block;
+  }
+
+  .bio img {
+    border-radius: 20px;
+  }
+
+  .download-resume{
+    color:#f5593d;
+  }
+  .interest {
+    color:#f5593d;
+  }
+}
+

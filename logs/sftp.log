@@ -1,0 +1,139 @@
+Sep  4 15:36:46 10.71.57.0 u99856296 Connection from 10.71.57.0 port 13078 on 82.165.80.240 port 22
+Sep  4 15:36:46 10.71.57.0 u99856296 Accepted password for u99856296 from 10.71.57.0 port 13078 ssh2
+Sep  4 15:36:46 10.71.57.0 u99856296 Starting session: subsystem 'sftp' for u99856296 from 10.71.57.0 port 13078 id 0
+Sep  4 15:36:46 10.71.57.0 u99856296 session opened for local user u99856296 from [10.71.57.0]
+Sep  4 15:39:19 10.71.57.0 u99856296 Connection from 10.71.57.0 port 58654 on 82.165.80.240 port 22
+Sep  4 15:39:24 10.71.57.0 u99856296 Accepted password for u99856296 from 10.71.57.0 port 58654 ssh2
+Sep  4 15:39:24 10.71.57.0 u99856296 Starting session: subsystem 'sftp' for u99856296 from 10.71.57.0 port 58654 id 0
+Sep  4 15:39:24 10.71.57.0 u99856296 session opened for local user u99856296 from [10.71.57.0]
+Sep  4 15:40:45 10.71.57.0 u99856296 Connection from 10.71.57.0 port 64824 on 82.165.80.240 port 22
+Sep  4 15:40:45 10.71.57.0 u99856296 Accepted password for u99856296 from 10.71.57.0 port 64824 ssh2
+Sep  4 15:40:45 10.71.57.0 u99856296 Starting session: subsystem 'sftp' for u99856296 from 10.71.57.0 port 64824 id 0
+Sep  4 15:40:45 10.71.57.0 u99856296 session opened for local user u99856296 from [10.71.57.0]
+Sep  4 15:40:45 10.71.57.0 u99856296 open "/gulpfile.js" flags READ mode 0666
+Sep  4 15:40:45 10.71.57.0 u99856296 close "/gulpfile.js" bytes read 841 written 0
+Sep  4 15:40:45 10.71.57.0 u99856296 [10.71.57.0|get|0|841|0|0|0|2f67756c7066696c652e6a73|]
+Sep  4 15:40:45 10.71.57.0 u99856296 session closed for local user u99856296 from [10.71.57.0]
+Sep  4 15:40:45 10.71.57.0 u99856296 Connection closed by 10.71.57.0 port 64824
+Sep  4 15:40:46 10.71.57.0 u99856296 Connection from 10.71.57.0 port 10760 on 82.165.80.240 port 22
+Sep  4 15:40:46 10.71.57.0 u99856296 Accepted password for u99856296 from 10.71.57.0 port 10760 ssh2
+Sep  4 15:40:46 10.71.57.0 u99856296 Starting session: subsystem 'sftp' for u99856296 from 10.71.57.0 port 10760 id 0
+Sep  4 15:40:46 10.71.57.0 u99856296 session opened for local user u99856296 from [10.71.57.0]
+Sep  4 15:40:45 10.71.57.0 u99856296 Connection from 10.71.57.0 port 64800 on 82.165.80.240 port 22
+Sep  4 15:40:46 10.71.57.0 u99856296 Accepted password for u99856296 from 10.71.57.0 port 64800 ssh2
+Sep  4 15:40:46 10.71.57.0 u99856296 Starting session: subsystem 'sftp' for u99856296 from 10.71.57.0 port 64800 id 0
+Sep  4 15:40:46 10.71.57.0 u99856296 session opened for local user u99856296 from [10.71.57.0]
+Sep  4 15:40:46 10.71.57.0 u99856296 open "/assets/css/portfoliostyle.css" flags READ mode 0666
+Sep  4 15:40:46 10.71.57.0 u99856296 close "/assets/css/portfoliostyle.css" bytes read 3899 written 0
+Sep  4 15:40:46 10.71.57.0 u99856296 [10.71.57.0|get|0|3899|0|0|0|2f6173736574732f6373732f706f7274666f6c696f7374796c652e637373|]
+Sep  4 15:40:46 10.71.57.0 u99856296 open "/home.html" flags READ mode 0666
+Sep  4 15:40:46 10.71.57.0 u99856296 open "/assets/css/paper-kit.css" flags READ mode 0666
+Sep  4 15:40:46 10.71.57.0 u99856296 close "/home.html" bytes read 19009 written 0
+Sep  4 15:40:46 10.71.57.0 u99856296 [10.71.57.0|get|0|19009|0|0|0|2f686f6d652e68746d6c|]
+Sep  4 15:40:46 10.71.57.0 u99856296 session closed for local user u99856296 from [10.71.57.0]
+Sep  4 15:40:47 10.71.57.0 u99856296 Connection closed by 10.71.57.0 port 64800
+Sep  4 15:40:47 10.71.57.0 u99856296 close "/assets/css/paper-kit.css" bytes read 169661 written 0
+Sep  4 15:40:47 10.71.57.0 u99856296 [10.71.57.0|get|1|169661|0|0|0|2f6173736574732f6373732f70617065722d6b69742e637373|]
+Sep  4 15:40:47 10.71.57.0 u99856296 open "/assets/css/formation-style.css" flags READ mode 0666
+Sep  4 15:40:47 10.71.57.0 u99856296 close "/assets/css/formation-style.css" bytes read 1499 written 0
+Sep  4 15:40:47 10.71.57.0 u99856296 [10.71.57.0|get|0|1499|0|0|0|2f6173736574732f6373732f666f726d6174696f6e2d7374796c652e637373|]
+Sep  4 15:40:47 10.71.57.0 u99856296 open "/assets/css/bootstrap.min.css" flags READ mode 0666
+Sep  4 15:40:47 10.71.57.0 u99856296 close "/assets/css/bootstrap.min.css" bytes read 155759 written 0
+Sep  4 15:40:47 10.71.57.0 u99856296 [10.71.57.0|get|0|155759|0|0|0|2f6173736574732f6373732f626f6f7473747261702e6d696e2e637373|]
+Sep  4 15:40:47 10.71.57.0 u99856296 open "/assets/fonts/nucleo-icons.woff2" flags READ mode 0666
+Sep  4 15:40:47 10.71.57.0 u99856296 Connection from 10.71.57.0 port 12252 on 82.165.80.240 port 22
+Sep  4 15:40:47 10.71.57.0 u99856296 Accepted password for u99856296 from 10.71.57.0 port 12252 ssh2
+Sep  4 15:40:47 10.71.57.0 u99856296 close "/assets/fonts/nucleo-icons.woff2" bytes read 17140 written 0
+Sep  4 15:40:47 10.71.57.0 u99856296 [10.71.57.0|get|0|17140|0|0|0|2f6173736574732f666f6e74732f6e75636c656f2d69636f6e732e776f666632|]
+Sep  4 15:40:47 10.71.57.0 u99856296 Starting session: subsystem 'sftp' for u99856296 from 10.71.57.0 port 12252 id 0
+Sep  4 15:40:47 10.71.57.0 u99856296 session opened for local user u99856296 from [10.71.57.0]
+Sep  4 15:40:47 10.71.57.0 u99856296 open "/assets/fonts/nucleo-icons.woff" flags READ mode 0666
+Sep  4 15:40:47 10.71.57.0 u99856296 close "/assets/fonts/nucleo-icons.woff" bytes read 20032 written 0
+Sep  4 15:40:47 10.71.57.0 u99856296 [10.71.57.0|get|0|20032|0|0|0|2f6173736574732f666f6e74732f6e75636c656f2d69636f6e732e776f6666|]
+Sep  4 15:40:47 10.71.57.0 u99856296 open "/assets/css/navbar-toggle.css" flags READ mode 0666
+Sep  4 15:40:47 10.71.57.0 u99856296 open "/assets/fonts/nucleo-icons.ttf" flags READ mode 0666
+Sep  4 15:40:47 10.71.57.0 u99856296 close "/assets/css/navbar-toggle.css" bytes read 0 written 0
+Sep  4 15:40:47 10.71.57.0 u99856296 [10.71.57.0|get|0|0|0|0|0|2f6173736574732f6373732f6e61766261722d746f67676c652e637373|]
+Sep  4 15:40:47 10.71.57.0 u99856296 close "/assets/fonts/nucleo-icons.ttf" bytes read 31704 written 0
+Sep  4 15:40:47 10.71.57.0 u99856296 [10.71.57.0|get|0|31704|0|0|0|2f6173736574732f666f6e74732f6e75636c656f2d69636f6e732e747466|]
+Sep  4 15:40:48 10.71.57.0 u99856296 open "/assets/fonts/nucleo-icons.eot" flags READ mode 0666
+Sep  4 15:40:48 10.71.57.0 u99856296 close "/assets/fonts/nucleo-icons.eot" bytes read 31888 written 0
+Sep  4 15:40:48 10.71.57.0 u99856296 [10.71.57.0|get|0|31888|0|0|0|2f6173736574732f666f6e74732f6e75636c656f2d69636f6e732e656f74|]
+Sep  4 15:40:48 10.71.57.0 u99856296 open "/assets/img/wallpaper3.jpg" flags READ mode 0666
+Sep  4 15:40:48 10.71.57.0 u99856296 close "/assets/img/wallpaper3.jpg" bytes read 106980 written 0
+Sep  4 15:40:48 10.71.57.0 u99856296 [10.71.57.0|get|0|106980|0|0|0|2f6173736574732f696d672f77616c6c7061706572332e6a7067|]
+Sep  4 15:40:48 10.71.57.0 u99856296 open "/assets/img/bio.jpg" flags READ mode 0666
+Sep  4 15:40:48 10.71.57.0 u99856296 open "/assets/img/interest/loko.png" flags READ mode 0666
+Sep  4 15:40:48 10.71.57.0 u99856296 close "/assets/img/bio.jpg" bytes read 139593 written 0
+Sep  4 15:40:48 10.71.57.0 u99856296 [10.71.57.0|get|0|139593|0|0|0|2f6173736574732f696d672f62696f2e6a7067|]
+Sep  4 15:40:48 10.71.57.0 u99856296 close "/assets/img/interest/loko.png" bytes read 483296 written 0
+Sep  4 15:40:48 10.71.57.0 u99856296 [10.71.57.0|get|0|483296|0|0|0|2f6173736574732f696d672f696e7465726573742f6c6f6b6f2e706e67|]
+Sep  4 15:40:48 10.71.57.0 u99856296 open "/assets/img/interest/foot.jpg" flags READ mode 0666
+Sep  4 15:40:48 10.71.57.0 u99856296 open "/assets/img/interest/footus.png" flags READ mode 0666
+Sep  4 15:40:48 10.71.57.0 u99856296 close "/assets/img/interest/foot.jpg" bytes read 181204 written 0
+Sep  4 15:40:48 10.71.57.0 u99856296 [10.71.57.0|get|0|181204|0|0|0|2f6173736574732f696d672f696e7465726573742f666f6f742e6a7067|]
+Sep  4 15:40:48 10.71.57.0 u99856296 close "/assets/img/interest/footus.png" bytes read 493242 written 0
+Sep  4 15:40:48 10.71.57.0 u99856296 [10.71.57.0|get|0|493242|0|0|0|2f6173736574732f696d672f696e7465726573742f666f6f7475732e706e67|]
+Sep  4 15:40:48 10.71.57.0 u99856296 open "/assets/img/jobs/sncf.png" flags READ mode 0666
+Sep  4 15:40:48 10.71.57.0 u99856296 open "/assets/img/jobs/souvenirshop.jpg" flags READ mode 0666
+Sep  4 15:40:48 10.71.57.0 u99856296 close "/assets/img/jobs/sncf.png" bytes read 28902 written 0
+Sep  4 15:40:48 10.71.57.0 u99856296 [10.71.57.0|get|0|28902|0|0|0|2f6173736574732f696d672f6a6f62732f736e63662e706e67|]
+Sep  4 15:40:49 10.71.57.0 u99856296 sent status No such file
+Sep  4 15:40:49 10.71.57.0 u99856296 close "/assets/img/jobs/souvenirshop.jpg" bytes read 42950 written 0
+Sep  4 15:40:49 10.71.57.0 u99856296 [10.71.57.0|get|1|42950|0|0|0|2f6173736574732f696d672f6a6f62732f736f7576656e697273686f702e6a7067|]
+Sep  4 15:40:49 10.71.57.0 u99856296 open "/assets/img/jobs/redstart.png" flags READ mode 0666
+Sep  4 15:40:49 10.71.57.0 u99856296 open "/assets/img/jobs/loko.jpg" flags READ mode 0666
+Sep  4 15:40:49 10.71.57.0 u99856296 close "/assets/img/jobs/redstart.png" bytes read 52844 written 0
+Sep  4 15:40:49 10.71.57.0 u99856296 [10.71.57.0|get|0|52844|0|0|0|2f6173736574732f696d672f6a6f62732f72656473746172742e706e67|]
+Sep  4 15:40:49 10.71.57.0 u99856296 close "/assets/img/jobs/loko.jpg" bytes read 145675 written 0
+Sep  4 15:40:49 10.71.57.0 u99856296 [10.71.57.0|get|0|145675|0|0|0|2f6173736574732f696d672f6a6f62732f6c6f6b6f2e6a7067|]
+Sep  4 15:40:49 10.71.57.0 u99856296 open "/assets/img/realisations/valoris.png" flags READ mode 0666
+Sep  4 15:40:49 10.71.57.0 u99856296 open "/assets/img/realisations/vague.jpg" flags READ mode 0666
+Sep  4 15:40:49 10.71.57.0 u99856296 close "/assets/img/realisations/valoris.png" bytes read 407389 written 0
+Sep  4 15:40:49 10.71.57.0 u99856296 [10.71.57.0|get|0|407389|0|0|0|2f6173736574732f696d672f7265616c69736174696f6e732f76616c6f7269732e706e67|]
+Sep  4 15:40:49 10.71.57.0 u99856296 close "/assets/img/realisations/vague.jpg" bytes read 335975 written 0
+Sep  4 15:40:49 10.71.57.0 u99856296 [10.71.57.0|get|0|335975|0|0|0|2f6173736574732f696d672f7265616c69736174696f6e732f76616775652e6a7067|]
+Sep  4 15:40:49 10.71.57.0 u99856296 open "/assets/img/realisations/jungle.jpg" flags READ mode 0666
+Sep  4 15:40:49 10.71.57.0 u99856296 open "/assets/img/realisations/pyramide.jpg" flags READ mode 0666
+Sep  4 15:40:49 10.71.57.0 u99856296 close "/assets/img/realisations/jungle.jpg" bytes read 130574 written 0
+Sep  4 15:40:49 10.71.57.0 u99856296 [10.71.57.0|get|0|130574|0|0|0|2f6173736574732f696d672f7265616c69736174696f6e732f6a756e676c652e6a7067|]
+Sep  4 15:40:49 10.71.57.0 u99856296 close "/assets/img/realisations/pyramide.jpg" bytes read 69564 written 0
+Sep  4 15:40:49 10.71.57.0 u99856296 [10.71.57.0|get|0|69564|0|0|0|2f6173736574732f696d672f7265616c69736174696f6e732f707972616d6964652e6a7067|]
+Sep  4 15:40:49 10.71.57.0 u99856296 open "/assets/img/skills/sp.png" flags READ mode 0666
+Sep  4 15:40:49 10.71.57.0 u99856296 open "/assets/img/skills/en.png" flags READ mode 0666
+Sep  4 15:40:49 10.71.57.0 u99856296 close "/assets/img/skills/sp.png" bytes read 28126 written 0
+Sep  4 15:40:49 10.71.57.0 u99856296 [10.71.57.0|get|0|28126|0|0|0|2f6173736574732f696d672f736b696c6c732f73702e706e67|]
+Sep  4 15:40:49 10.71.57.0 u99856296 close "/assets/img/skills/en.png" bytes read 41403 written 0
+Sep  4 15:40:49 10.71.57.0 u99856296 [10.71.57.0|get|0|41403|0|0|0|2f6173736574732f696d672f736b696c6c732f656e2e706e67|]
+Sep  4 15:40:50 10.71.57.0 u99856296 open "/assets/js/paper-kit.min.js" flags READ mode 0666
+Sep  4 15:40:50 10.71.57.0 u99856296 open "/assets/js/paper-kit.js.map" flags READ mode 0666
+Sep  4 15:40:50 10.71.57.0 u99856296 close "/assets/js/paper-kit.js.map" bytes read 4932 written 0
+Sep  4 15:40:50 10.71.57.0 u99856296 [10.71.57.0|get|0|4932|0|0|0|2f6173736574732f6a732f70617065722d6b69742e6a732e6d6170|]
+Sep  4 15:40:50 10.71.57.0 u99856296 close "/assets/js/paper-kit.min.js" bytes read 5591 written 0
+Sep  4 15:40:50 10.71.57.0 u99856296 [10.71.57.0|get|0|5591|0|0|0|2f6173736574732f6a732f70617065722d6b69742e6d696e2e6a73|]
+Sep  4 15:40:50 10.71.57.0 u99856296 open "/assets/js/paper-kit.js" flags READ mode 0666
+Sep  4 15:40:50 10.71.57.0 u99856296 close "/assets/js/paper-kit.js" bytes read 9128 written 0
+Sep  4 15:40:50 10.71.57.0 u99856296 [10.71.57.0|get|0|9128|0|0|0|2f6173736574732f6a732f70617065722d6b69742e6a73|]
+Sep  4 15:40:50 10.71.57.0 u99856296 open "/assets/js/core/popper.min.js" flags READ mode 0666
+Sep  4 15:40:50 10.71.57.0 u99856296 close "/assets/js/core/popper.min.js" bytes read 18994 written 0
+Sep  4 15:40:50 10.71.57.0 u99856296 [10.71.57.0|get|0|18994|0|0|0|2f6173736574732f6a732f636f72652f706f707065722e6d696e2e6a73|]
+Sep  4 15:40:50 10.71.57.0 u99856296 open "/assets/js/core/bootstrap.min.js" flags READ mode 0666
+Sep  4 15:40:50 10.71.57.0 u99856296 open "/assets/js/core/jquery.min.js" flags READ mode 0666
+Sep  4 15:40:50 10.71.57.0 u99856296 close "/assets/js/core/bootstrap.min.js" bytes read 58073 written 0
+Sep  4 15:40:50 10.71.57.0 u99856296 [10.71.57.0|get|0|58073|0|0|0|2f6173736574732f6a732f636f72652f626f6f7473747261702e6d696e2e6a73|]
+Sep  4 15:40:50 10.71.57.0 u99856296 close "/assets/js/core/jquery.min.js" bytes read 86659 written 0
+Sep  4 15:40:50 10.71.57.0 u99856296 [10.71.57.0|get|0|86659|0|0|0|2f6173736574732f6a732f636f72652f6a71756572792e6d696e2e6a73|]
+Sep  4 15:40:50 10.71.57.0 u99856296 open "/assets/js/plugins/nouislider.min.js" flags READ mode 0666
+Sep  4 15:40:50 10.71.57.0 u99856296 open "/assets/js/plugins/moment.min.js" flags READ mode 0666
+Sep  4 15:40:50 10.71.57.0 u99856296 close "/assets/js/plugins/nouislider.min.js" bytes read 20024 written 0
+Sep  4 15:40:50 10.71.57.0 u99856296 [10.71.57.0|get|0|20024|0|0|0|2f6173736574732f6a732f706c7567696e732f6e6f7569736c696465722e6d696e2e6a73|]
+Sep  4 15:40:50 10.71.57.0 u99856296 open "/assets/js/plugins/bootstrap-switch.js" flags READ mode 0666
+Sep  4 15:40:51 10.71.57.0 u99856296 close "/assets/js/plugins/moment.min.js" bytes read 51471 written 0
+Sep  4 15:40:51 10.71.57.0 u99856296 [10.71.57.0|get|1|51471|0|0|0|2f6173736574732f6a732f706c7567696e732f6d6f6d656e742e6d696e2e6a73|]
+Sep  4 15:40:51 10.71.57.0 u99856296 close "/assets/js/plugins/bootstrap-switch.js" bytes read 26264 written 0
+Sep  4 15:40:51 10.71.57.0 u99856296 [10.71.57.0|get|1|26264|0|0|0|2f6173736574732f6a732f706c7567696e732f626f6f7473747261702d7377697463682e6a73|]
+Sep  4 15:40:51 10.71.57.0 u99856296 open "/assets/js/plugins/bootstrap-datepicker.js" flags READ mode 0666
+Sep  4 15:40:51 10.71.57.0 u99856296 close "/assets/js/plugins/bootstrap-datepicker.js" bytes read 90220 written 0
+Sep  4 15:40:51 10.71.57.0 u99856296 [10.71.57.0|get|0|90220|0|0|0|2f6173736574732f6a732f706c7567696e732f626f6f7473747261702d646174657069636b65722e6a73|]
+Sep  4 15:40:51 10.71.57.0 u99856296 open "/files/CV NIZAR TAJMOUTI.pdf" flags READ mode 0666
+Sep  4 15:40:51 10.71.57.0 u99856296 open "/logs/sftp.log" flags READ mode 0666
