@@ -73,18 +73,6 @@
     transition: all 200ms ease-in;
   }
 
-  .biotext p {
-    top: 50px;
-    text-align: left;
-    font-size: 14px;
-    color: white;
-    display: inline-block;
-  }
-
-  .bio img {
-    border-radius: 20px;
-  }
-
   .download-resume{
     color:#f5593d;
   }

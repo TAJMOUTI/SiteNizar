@@ -21,7 +21,7 @@ The above copyright notice and this permission notice shall be included in all c
 <head>
   <meta charset="utf-8" />
   <?php include('form-email.php') ?>
-  <link rel="icon" type="image/jpg" href="./assets/img/bio.jpg">
+  <link rel="icon" type="image/jpg" href="./assets/img/bio.png">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <title>
     Nizar Tajmouti
@@ -32,6 +32,7 @@ The above copyright notice and this permission notice shall be included in all c
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
   <!-- CSS Files -->
+  <link href="./assets/css/apropos.css" rel="stylesheet" />
   <link href="./assets/css/bootstrap.min.css" rel="stylesheet" />
   <link href="./assets/css/paper-kit.css?v=2.2.0" rel="stylesheet" />
   <link href="./assets/css/formation-style.css" rel="stylesheet"/>
@@ -87,7 +88,7 @@ The above copyright notice and this permission notice shall be included in all c
     <div class="container">
       <div class="motto text-center">
         <h1>Nizar Tajmouti</h1>
-        <h4>Étudiant en 2ème année de Bachelor numérique</h4>
+        <h4>Ingénieur Informatique & Developpeur Web et Mobile FullStack</h4>
         <br />
         <br />
         <a href="./files/CV NIZAR TAJMOUTI.pdf" download="CV Nizar TAJMOUTI" target="_blank">
@@ -106,27 +107,53 @@ The above copyright notice and this permission notice shall be included in all c
           </div>
         </div>
         <div class="row">
-          <div class="col-md-4 ml-auto mr-auto bio">
-            <div class="text-center">
-                  <img src="./assets/img/bio.jpg" alt="Nizar Tajmouti" class="img-circle img-no-padding img-responsive" width="250px" height="250px">
+          <!-- Gameboy Container (left side) -->
+          <div class="col-md-6">
+            <div class="gameboy">
+              <!-- ECRAN DE JEU -->
+              <div class="game-container">
+                <img src="./assets/img/backgroundgame.png" alt="Background" class="game-container-back" id="game-container-back">
+                <img src="./assets/img/bio.png" alt="Nizar Tajmouti" class="character" id="character">
+              </div>
+              <!-- TOUCHES DIRECIONNELLES -->
+              <div class="controls">
+                <div class="control-row">
+                  <button id="up"><img src="assets/img/haut.png" alt="Up"></button>
+                </div>
+                <div class="control-row">
+                  <button id="left"><img src="assets/img/gauche.png" alt="Left"></button>
+                  <button id="center" disabled></button>
+                  <button id="right"><img src="assets/img/droite.png" alt="Right"></button>
+                </div>
+                <div class="control-row">
+                  <button id="down"><img src="assets/img/bas.png" alt="Down"></button>
+                </div>
+              </div> 
             </div>
           </div>
-          <div class="col-md-6 ml-auto mr-auto biotext">
-            <p>
-            Dans le cadre de ma 2ème année de bachelor numérique à l'ECE TECH,
-            école d’informatique, je recherche un stage à partir d'avril 2020 et pour une durée de 4 mois.
-            </p>
-            <p>
-            J’aimerais mettre en pratique les matières qui me sont enseignées, en
-            particulier le développement web ou encore la gestion des réseaux,
-            activités pour lesquelles je présente de réelles aptitudes.
-           </p>
-           <p>
-            Curieux de nature, je m'intéresse à des sujets variés et aime apprendre
-            de nouvelles choses. Autonome, j'ai entrepris plusieurs projets
-            personnels dans le cadre de divers concours étudiants. J'ai le goût de
-            l'effort, le sens du client et aime travailler en équipe.
-            </p>
+          <!-- Bio Text Container (right side) -->
+          <div class="col-md-6">      
+            <div class="biotext col-sm">
+              <p>
+                Diplômé d'un Master en SI, 
+                je suis toujours ouvert aux opportunités professionnelles stimulantes(CDI ou freelance). 
+                Mon parcours académique m'a permis d'acquérir des compétences solides dans des domaines variés 
+                tels que le développement web, la gestion des réseaux et l'analyse de données.
+              </p><br>
+              <p>
+                Passionné par les nouvelles technologies et curieux de nature, 
+                je suis toujours à la recherche de projets innovants et de défis techniques. 
+                Mes expériences de travail ont renforcé mon autonomie 
+                et ma capacité à répondre aux besoins spécifiques des clients.
+              </p><br>
+              <p>
+                Fort de mon expertise en informatique et de ma volonté d'explorer des domaines diversifiés, 
+                je suis motivé à contribuer activement à des projets ambitieux 
+                tout en continuant à développer mes compétences professionnelles. 
+                Je suis ouvert aux opportunités qui me permettront de mettre en pratique mes connaissances 
+                et d'apprendre de nouvelles technologies dans un environnement dynamique.
+              </p><br>
+            </div>
           </div>
         </div>
       </div>
@@ -465,6 +492,7 @@ The above copyright notice and this permission notice shall be included in all c
   <script src="./assets/js/core/bootstrap.min.js" type="text/javascript"></script>
   <!-- Control Center for Paper Kit: parallax effects, scripts for the example pages etc -->
   <script src="./assets/js/paper-kit.js?v=2.2.0" type="text/javascript"></script>
+  <script src="./assets/js/apropos.js" type="text/javascript"></script>
 </body>
 
 </html>
