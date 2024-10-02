@@ -1,0 +1,28 @@
+#snake-game {
+    background-color: #f2f2f2;
+    border: 2px solid #f5593d;
+    margin: 20px auto;
+    display: block;
+    width: 100%;  /* Canvas prend 100% de la largeur de son conteneur */
+    height: auto;  /* Hauteur auto pour conserver le ratio */
+    max-width: 800px; /* Taille maximale */
+    max-height: 400px; /* Taille maximale */
+}
+
+#replay-container {
+    text-align: center;
+}
+
+#replay-button {
+    background-color: #f5593d;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#replay-button:hover {
+    background-color: #e04b28;
+}

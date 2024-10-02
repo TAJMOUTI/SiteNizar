@@ -1,0 +1,25 @@
+.info {
+    display: flex;
+    flex-direction: column; /* Aligne les éléments verticalement */
+    align-items: center; /* Centre les éléments horizontalement */
+    text-align: center; /* Centre le texte */
+  }
+
+.info-title {
+    font-size: 1rem; /* Ajustez la taille ici (ex: 1.5rem, 2rem, etc.) */
+    font-weight: 400; /* Pour un effet plus marqué, vous pouvez aussi rendre le texte gras */
+  }
+
+.title2{
+    font-weight: 500;
+}
+
+.descriptions {
+    display: flex;
+    justify-content: center; /* Centre les descriptions côte à côte */
+    gap: 20px; /* Espacement entre les descriptions */
+  }
+
+.description {
+    margin: 0; /* Supprime le margin par défaut pour éviter des décalages */
+  }
