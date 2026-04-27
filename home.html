@@ -16,16 +16,15 @@ The above copyright notice and this permission notice shall be included in all c
 
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="fr">
 
 <head>
   <meta charset="utf-8" />
-  <?php include('form-email.php') ?>
+    <!-- <?php include('form-email.php') ?> -->
   <link rel="icon" type="image/jpg" href="./assets/img/bio.png">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <title>
-    Nizar Tajmouti
-  </title>
+  <title>Nizar Tajmouti | Développeur Full-Stack Web & Mobile</title>
+  <meta name="description" content="Portfolio de Nizar Tajmouti, ingénieur informatique et développeur full-stack web et mobile, spécialisé dans la création d'applications, d'outils métiers et d'interfaces utiles." />
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
   
   <!--     Fonts and icons     -->
@@ -90,7 +89,8 @@ The above copyright notice and this permission notice shall be included in all c
     <div class="container">
       <div class="motto text-center">
         <h1>Nizar Tajmouti</h1>
-        <h4>Ingénieur Informatique & Developpeur Web et Mobile FullStack</h4>
+        <h4>Ingénieur logiciel & développeur Full-Stack orienté produit</h4>
+        <h5 class="hero-description">Je conçois des applications web, des outils internes et des automatisations qui simplifient les workflows et apportent de la valeur concrète aux équipes.</h5>
         <br />
         <br />
         <a href="./files/CV NIZAR TAJMOUTI.pdf" download="CV Nizar TAJMOUTI" target="_blank">
@@ -108,9 +108,9 @@ The above copyright notice and this permission notice shall be included in all c
             <br>
           </div>
         </div>
-        <div class="row">
+        <div class="row about-layout">
           <!-- Gameboy Container (left side) -->
-          <div class="col-md-6">
+          <div class="col-md-6 about-photo-col text-center">
             <img src="./assets/img/Nizar.jpg" alt="Nizar Tajmouti" class="profil" id="profil">
             <!-- <div class="gameboy">
                ECRAN DE JEU 
@@ -135,27 +135,26 @@ The above copyright notice and this permission notice shall be included in all c
             </div> -->
           </div>
           <!-- Bio Text Container (right side) -->
-          <div class="col-md-6">      
+          <div class="col-md-6 about-content-col">      
             <div class="biotext col-sm">
               <p>
-                Diplômé d'un Master en SI, 
-                je suis toujours ouvert aux opportunités professionnelles stimulantes(CDI ou freelance). 
-                Mon parcours académique m'a permis d'acquérir des compétences solides dans des domaines variés 
-                tels que le développement web, la gestion des réseaux et l'analyse de données.
-              </p><br>
+                Ingénieur logiciel et développeur full-stack, j’ai acquis une expérience concrète dans la conception, la maintenance et l’évolution d’applications internes, notamment chez Renault Group.
+              </p>
               <p>
-                Passionné par les nouvelles technologies et curieux de nature, 
-                je suis toujours à la recherche de projets innovants et de défis techniques. 
-                Mes expériences de travail ont renforcé mon autonomie 
-                et ma capacité à répondre aux besoins spécifiques des clients.
-              </p><br>
+                J’ai travaillé sur des outils métiers utilisés par des équipes opérationnelles : portails internes, applications de communication, dashboards et interfaces orientées usage. Mon approche consiste à comprendre les besoins réels des utilisateurs pour concevoir des solutions simples, efficaces et maintenables.
+              </p>
               <p>
-                Fort de mon expertise en informatique et de ma volonté d'explorer des domaines diversifiés, 
-                je suis motivé à contribuer activement à des projets ambitieux 
-                tout en continuant à développer mes compétences professionnelles. 
-                Je suis ouvert aux opportunités qui me permettront de mettre en pratique mes connaissances 
-                et d'apprendre de nouvelles technologies dans un environnement dynamique.
-              </p><br>
+                Aujourd’hui, je m’oriente vers des projets mêlant développement, vision produit et automatisation, avec l’objectif de créer des outils qui optimisent les processus et font gagner du temps aux équipes.
+              </p>
+            </div>
+            <div class="about-value-card">
+              <h3 class="title">Ce que je peux apporter</h3>
+              <ul class="about-value-list">
+                <li>Développement d’applications web full-stack (Next.js, Node.js, PHP)</li>
+                <li>Conception de dashboards et outils internes</li>
+                <li>Automatisation de workflows avec n8n</li>
+                <li>Intégration d’APIs et optimisation de processus métier</li>
+              </ul>
             </div>
           </div>
         </div>
@@ -312,13 +311,13 @@ The above copyright notice and this permission notice shall be included in all c
               </div>
               <div class="card-body">
                   <div class="author">
-                    <h4 class="card-title">Ingenieur developpeur full-stack</h4>
+                    <h4 class="card-title">Ingénieur développeur full-stack</h4>
                     <h6 class="card-category text-danger">Renault Group</h6>
                   </div>
                 <p id="souvenir" class="card-description collapse">
                   - Maintenance, correction et implémentation des applications du site Renault Le Mans 
                   <br/>
-                  - Developpement de nouvelles applications pour le site Renault Le Mans
+                  - Développement de nouvelles applications pour le site Renault Le Mans
                   <br/>
                   - Transfert de connaissances et gestion d’une équipe d’apprentis
                 </p>
@@ -357,7 +356,7 @@ The above copyright notice and this permission notice shall be included in all c
               <div class="icon">
                 <i class="nc-icon nc-atom"></i>
                 <p class="info-title">Bases de données</p>
-                <p class="description"><br/>MySQL<br/>PostgreSQL<br/>SQL Server<br/>MangoDB</p>
+                <p class="description"><br/>MySQL<br/>PostgreSQL<br/>SQL Server<br/>MongoDB</p>
               </div>
             </div>
           </div>
@@ -374,6 +373,20 @@ The above copyright notice and this permission notice shall be included in all c
             </div>
           </div>
           <div class="col-md-2"></div>
+        </div>
+
+        <h3 class="title2">Automatisation</h3><br/>
+        <div class="row">
+          <div class="col-md-8 ml-auto mr-auto">
+            <div class="info">
+              <div class="icon">
+                <i class="nc-icon nc-settings-gear-65"></i>
+                <p class="info-title">Automatisation</p>
+                <p class="description"><br/>n8n<br/>Conception de workflows<br/>Intégration d’APIs<br/>Création d’outils internes</p>
+                <p class="description">J’utilise n8n pour automatiser des tâches répétitives, connecter des services et améliorer l’efficacité des équipes.</p>
+              </div>
+            </div>
+          </div>
         </div>
 
         <h3 class="title2">Langues</h2>
@@ -406,7 +419,7 @@ The above copyright notice and this permission notice shall be included in all c
 
             <div class="tl-content">
                 <p>“Webmarket” est une application qui joue le rôle de ‘’store’’ au sein des usines Renault. Elle regroupe l’ensemble des applications utilisées par le métier. L’application a sa propre page de favoris pour les collaborateurs.
-                   Pour les administrateurs, l’outil contient son propre espace de gestion dédié. J'étais en charge de la maintenance évolutif et du bon fonctionnement de "Webmarket".
+                   Pour les administrateurs, l’outil contient son propre espace de gestion dédié. J'étais en charge de la maintenance évolutive et du bon fonctionnement de "Webmarket".
                 </p>
             </div>
 
@@ -437,7 +450,7 @@ The above copyright notice and this permission notice shall be included in all c
   
               <div class="tl-content">
                   <p>“Portail Point Fabrication” est un outil qui fait office de tableau de bord pour tous les niveaux de l’usine. Elle rassemble pour tous les jours de production les priorités de l'usine, de ses départements et de leurs ateliers. 
-                    Entre l’utilisation d’une base de données et la refont graphique de certaines parties de l’application, « Portail Point Fabrication » a été l’un de mes sujets principaux au cours des 2 années de mon alternance. Mes clients faisaient directement partie du Comité de Direction de l’Usine, tant l’importance de l’application.</p>
+                    Entre l’utilisation d’une base de données et la refonte graphique de certaines parties de l’application, « Portail Point Fabrication » a été l’un de mes sujets principaux au cours des 2 années de mon alternance. Mes clients faisaient directement partie du Comité de Direction de l’Usine, tant l’application était importante.</p>
               </div>
   
           </div>
@@ -451,8 +464,8 @@ The above copyright notice and this permission notice shall be included in all c
               </div>
   
               <div class="tl-content">
-                  <p>Jean-Pierre Carlier a entrepris un travail de recherche sur son grand-père André Bach (déporté juif durant la 2nd Guerre Mondiale) afin que son histoire soit transmise à travers les générations. Le livre « L’Histoire d’André Bach » est le résultat de toutes ses années de recherche. 
-                    Jean-Pierre Carlier et sa femme Catherine Carlier m’ont contacté dans l’objectif de faire perdurer cette histoire grâce un site permettant la lecture de ce livre. 
+                  <p>Jean-Pierre Carlier a entrepris un travail de recherche sur son grand-père André Bach (déporté juif durant la Seconde Guerre mondiale) afin que son histoire soit transmise à travers les générations. Le livre « L’Histoire d’André Bach » est le résultat de toutes ses années de recherche. 
+                    Jean-Pierre Carlier et sa femme Catherine Carlier m’ont contacté dans l’objectif de faire perdurer cette histoire grâce à un site permettant la lecture de ce livre. 
                     Je vous conseille vivement la lecture de celui-ci, dont voici le lien : 
                     <a href="https://andrebachbiographie1888-1945.netlify.app/" style="font-size: smaller; color: rgb(165, 165, 165);">https://andrebachbiographie1888-1945.netlify.app/</a></p>
               </div>
