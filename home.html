@@ -397,74 +397,121 @@ The above copyright notice and this permission notice shall be included in all c
         </div>
       </div>
     </div>
-    <div class="section section-dark text-center" id="realisations">
+    <div class="section section-dark realisations-section" id="realisations">
       <div class="container">
-        <h2 class="title">REALISATIONS</h2>
-        <section id="timeline">
-          <!-- WEBMARKET -->
-          <div class="tl-item">
-  
-            <div class="tl-bg" style="background: url('./assets/img/realisations/webmarket.png') no-repeat center center"></div>
+        <div class="realisations-header text-center">
+          <h2 class="title">REALISATIONS</h2>
+          <p class="realisations-subtitle">Des applications internes et interfaces m&eacute;tier con&ccedil;ues pour simplifier les workflows, am&eacute;liorer la visibilit&eacute; op&eacute;rationnelle et faire gagner du temps aux &eacute;quipes.</p>
+        </div>
 
-            <div class="tl-year">
-                <h1>Webmarket</h1>
+        <div class="project-filters" role="tablist" aria-label="Filtrer les r&eacute;alisations">
+          <button class="project-filter is-active" type="button" data-filter="Tous" aria-selected="true">Tous</button>
+          <button class="project-filter" type="button" data-filter="Outils internes" aria-selected="false">Outils internes</button>
+          <button class="project-filter" type="button" data-filter="Dashboard" aria-selected="false">Dashboard</button>
+          <button class="project-filter" type="button" data-filter="Communication" aria-selected="false">Communication</button>
+          <button class="project-filter" type="button" data-filter="Projet web" aria-selected="false">Projet web</button>
+        </div>
+
+        <div class="projects-layout">
+          <div class="projects-grid" aria-label="Liste des projets">
+            <button class="project-card is-active" type="button" data-project="webmarket" data-category="Outils internes" aria-selected="true">
+              <span class="project-card-image" style="background-image: url('./assets/img/realisations/webmarket.png');"></span>
+              <span class="project-card-content">
+                <span class="project-card-meta">Outils internes</span>
+                <span class="project-card-title">Webmarket</span>
+                <span class="project-card-summary">Store applicatif interne Renault centralisant les applications m&eacute;tier.</span>
+                <span class="project-impact">Impact : acc&egrave;s simplifi&eacute; aux outils</span>
+                <span class="project-tags">
+                  <span>Application interne</span>
+                  <span>UX m&eacute;tier</span>
+                  <span>Workflow</span>
+                </span>
+              </span>
+            </button>
+
+            <button class="project-card" type="button" data-project="messagerie-dect" data-category="Communication" aria-selected="false">
+              <span class="project-card-image" style="background-image: url('./assets/img/realisations/messageriedect.png');"></span>
+              <span class="project-card-content">
+                <span class="project-card-meta">Communication</span>
+                <span class="project-card-title">Messagerie DECT</span>
+                <span class="project-card-summary">Solution web permettant d&rsquo;envoyer des messages vers des t&eacute;l&eacute;phones DECT en usine.</span>
+                <span class="project-impact">Impact : coordination terrain plus rapide</span>
+                <span class="project-tags">
+                  <span>Communication</span>
+                  <span>Industrie</span>
+                  <span>R&eacute;activit&eacute;</span>
+                </span>
+              </span>
+            </button>
+
+            <button class="project-card" type="button" data-project="portail-point-fab" data-category="Dashboard" aria-selected="false">
+              <span class="project-card-image" style="background-image: url('./assets/img/realisations/ppfab.png');"></span>
+              <span class="project-card-content">
+                <span class="project-card-meta">Dashboard</span>
+                <span class="project-card-title">Portail Point Fab</span>
+                <span class="project-card-summary">Tableau de bord industriel pour suivre les priorit&eacute;s de production.</span>
+                <span class="project-impact">Impact : meilleure visibilit&eacute; d&eacute;cisionnelle</span>
+                <span class="project-tags">
+                  <span>Dashboard</span>
+                  <span>Data</span>
+                  <span>Production</span>
+                </span>
+              </span>
+            </button>
+
+            <button class="project-card" type="button" data-project="andre-bach" data-category="Projet web" aria-selected="false">
+              <span class="project-card-image" style="background-image: url('./assets/img/realisations/andrebach.png');"></span>
+              <span class="project-card-content">
+                <span class="project-card-meta">Projet web</span>
+                <span class="project-card-title">L&rsquo;Histoire d&rsquo;Andr&eacute; Bach</span>
+                <span class="project-card-summary">Site m&eacute;moriel permettant de consulter et transmettre un t&eacute;moignage historique.</span>
+                <span class="project-impact">Impact : transmission num&eacute;rique durable</span>
+                <span class="project-tags">
+                  <span>Site web</span>
+                  <span>M&eacute;moire</span>
+                  <span>Accessibilit&eacute;</span>
+                </span>
+              </span>
+            </button>
+          </div>
+
+          <article class="project-detail" aria-live="polite">
+            <div class="project-detail-top">
+              <span class="project-detail-category" id="project-detail-category">Outils internes</span>
+              <h3 id="project-detail-title">Webmarket</h3>
+              <p id="project-detail-summary">Store applicatif interne Renault centralisant les applications m&eacute;tier.</p>
             </div>
 
-            <div class="tl-content">
-                <p>“Webmarket” est une application qui joue le rôle de ‘’store’’ au sein des usines Renault. Elle regroupe l’ensemble des applications utilisées par le métier. L’application a sa propre page de favoris pour les collaborateurs.
-                   Pour les administrateurs, l’outil contient son propre espace de gestion dédié. J'étais en charge de la maintenance évolutive et du bon fonctionnement de "Webmarket".
-                </p>
+            <div class="project-detail-grid">
+              <div class="project-detail-item">
+                <span>Contexte</span>
+                <p id="project-detail-context">Application interne de type store applicatif d&eacute;ploy&eacute;e dans un environnement industriel Renault.</p>
+              </div>
+              <div class="project-detail-item">
+                <span>Besoin</span>
+                <p id="project-detail-need">Centraliser les applications m&eacute;tier utilis&eacute;es par les collaborateurs et simplifier leur acc&egrave;s aux outils du quotidien.</p>
+              </div>
+              <div class="project-detail-item">
+                <span>Mon r&ocirc;le</span>
+                <p id="project-detail-role">Maintenance &eacute;volutive, suivi du bon fonctionnement de l&rsquo;application et am&eacute;lioration continue des fonctionnalit&eacute;s.</p>
+              </div>
+              <div class="project-detail-item project-detail-impact">
+                <span>Impact</span>
+                <p id="project-detail-impact">Meilleure accessibilit&eacute; aux outils internes, gain de temps pour les utilisateurs et fluidification des usages en usine.</p>
+              </div>
             </div>
 
-          </div>
-          <!-- Messagerie DECT -->
-          <div class="tl-item">
-  
-              <div class="tl-bg" style="background: url('./assets/img/realisations/messageriedect.png') no-repeat center center"></div>
-  
-              <div class="tl-year">
-                  <h1>Messagerie DECT</h1>
+            <div class="project-detail-footer">
+              <div class="project-detail-tags" id="project-detail-tags" aria-label="Tags du projet">
+                <span>Application interne</span>
+                <span>UX m&eacute;tier</span>
+                <span>Renault</span>
+                <span>Workflow</span>
               </div>
-  
-              <div class="tl-content">
-                  <p>“Messagerie DECT” est une application qui permet d’envoyer des messages depuis un ordinateur de l’usine de Renault directement sur des téléphones DECT (Digital Enhanced Cordless Telecommunications, en français, télécommunications numériques améliorées sans fil). L’objectif de l’outil est de faciliter la communication interne et d’améliorer la réactivité de l'entreprise.
-                    L'objectif était donc la mise en place d’une solution avec des fonctionnalités ergonomiques et sous la forme d’une application web.
-              </div>
-  
-          </div>
-          <!-- Portail Point Fab -->
-          <div class="tl-item">
-  
-              <div class="tl-bg" style="background: url('./assets/img/realisations/ppfab.png') no-repeat center center"></div>
-  
-              <div class="tl-year">
-                <h1 class="f3 text--accent ttu">Portail Point Fab</h1>
-              </div>
-  
-              <div class="tl-content">
-                  <p>“Portail Point Fabrication” est un outil qui fait office de tableau de bord pour tous les niveaux de l’usine. Elle rassemble pour tous les jours de production les priorités de l'usine, de ses départements et de leurs ateliers. 
-                    Entre l’utilisation d’une base de données et la refonte graphique de certaines parties de l’application, « Portail Point Fabrication » a été l’un de mes sujets principaux au cours des 2 années de mon alternance. Mes clients faisaient directement partie du Comité de Direction de l’Usine, tant l’application était importante.</p>
-              </div>
-  
-          </div>
-          <!-- L'histoire d'André Bach -->
-          <div class="tl-item">
-  
-              <div class="tl-bg" style="background: url('./assets/img/realisations/andrebach.png') no-repeat center center"></div>
-  
-              <div class="tl-year">
-                <h1 class="f3 text--accent ttu">L'Histoire d'André Bach</h1>
-              </div>
-  
-              <div class="tl-content">
-                  <p>Jean-Pierre Carlier a entrepris un travail de recherche sur son grand-père André Bach (déporté juif durant la Seconde Guerre mondiale) afin que son histoire soit transmise à travers les générations. Le livre « L’Histoire d’André Bach » est le résultat de toutes ses années de recherche. 
-                    Jean-Pierre Carlier et sa femme Catherine Carlier m’ont contacté dans l’objectif de faire perdurer cette histoire grâce à un site permettant la lecture de ce livre. 
-                    Je vous conseille vivement la lecture de celui-ci, dont voici le lien : 
-                    <a href="https://andrebachbiographie1888-1945.netlify.app/" style="font-size: smaller; color: rgb(165, 165, 165);">https://andrebachbiographie1888-1945.netlify.app/</a></p>
-              </div>
-  
-          </div>
-      </section>
+              <a class="project-detail-link" id="project-detail-link" href="#" target="_blank" rel="noopener">Voir le projet</a>
+            </div>
+          </article>
+        </div>
       </div>
     </div>
     <div class="section text-center" id="interest">
@@ -532,6 +579,7 @@ The above copyright notice and this permission notice shall be included in all c
   <script src="./assets/js/core/bootstrap.min.js" type="text/javascript"></script>
   <!-- Control Center for Paper Kit: parallax effects, scripts for the example pages etc -->
   <script src="./assets/js/paper-kit.js?v=2.2.0" type="text/javascript"></script>
+  <script src="./assets/js/realisations.js" type="text/javascript"></script>
   <!-- Experimental ideas kept inactive until they are stable:
   <script src="./assets/js/experiments/apropos-game.js" type="text/javascript"></script>
   <script src="./assets/js/experiments/formations-snake.js" type="text/javascript"></script> -->
