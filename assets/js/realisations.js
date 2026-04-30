@@ -3,42 +3,50 @@
     webmarket: {
       title: "Webmarket",
       category: "Outils internes",
-      summary: "Store applicatif interne Renault centralisant les applications métier.",
-      context: "Application interne de type store applicatif déployée dans un environnement industriel Renault.",
-      need: "Centraliser les applications métier utilisées par les collaborateurs et simplifier leur accès aux outils du quotidien.",
-      role: "Maintenance évolutive, suivi du bon fonctionnement de l’application et amélioration continue des fonctionnalités.",
-      impact: "Meilleure accessibilité aux outils internes, gain de temps pour les utilisateurs et fluidification des usages en usine.",
-      tags: ["Application interne", "UX métier", "Renault", "Workflow"]
+      summary: "Store interne centralisant les applications métier Renault pour simplifier l'accès et analyser leur usage.",
+      context: "Application interne Renault utilisée comme store d'applications métier accessible sur desktop, tablette et mobile.",
+      problem: "Les utilisateurs perdaient du temps à retrouver leurs outils et aucune donnée ne permettait d'identifier les applications réellement utilisées.",
+      solution: "Ajout d'un dashboard administrateur permettant de suivre les clics sur chaque application, filtrer les données par période et exporter les résultats.",
+      role: "Développement fullstack en autonomie complète : création d'une page admin, implémentation du tracking des clics, ajout de filtres temporels, export Excel des données et amélioration UX.",
+      stack: "HTML / CSS / PHP / MySQL / API REST",
+      impact: "Meilleure visibilité sur l'usage des applications, aide à la prise de décision pour trier les outils et gain de temps pour les utilisateurs.",
+      tags: ["Application interne", "Dashboard admin", "Tracking", "Excel"]
     },
     "messagerie-dect": {
       title: "Messagerie DECT",
       category: "Communication",
-      summary: "Solution web permettant d’envoyer des messages vers des téléphones DECT en usine.",
-      context: "Solution web de messagerie interne permettant d’envoyer des messages depuis un poste informatique vers des téléphones DECT utilisés en usine Renault.",
-      need: "Améliorer la communication opérationnelle et la réactivité des équipes terrain.",
-      role: "Participation à la mise en place d’une application ergonomique adaptée à un usage rapide en environnement industriel.",
-      impact: "Transmission plus rapide des informations et meilleure coordination entre les équipes.",
-      tags: ["Communication", "Industrie", "Web app", "Réactivité"]
+      summary: "Application web remplaçant un outil obsolète pour améliorer la communication terrain en usine.",
+      context: "Projet initié pour remplacer un système d'envoi de messages DECT non maintenu depuis 2007.",
+      problem: "Communication interne lente et outil non adapté aux besoins actuels.",
+      solution: "Création d'une application web permettant d'envoyer des messages depuis un poste informatique vers des téléphones DECT.",
+      role: "Responsable complet du projet : mise en place des sprints, structuration du backlog, développement des premières fonctionnalités, coordination avec un autre alternant développeur sur la suite du projet et passage en rôle chef de projet.",
+      stack: "React / API REST / intégration API interne Renault / génération Excel et PDF",
+      impact: "Communication plus rapide entre équipes, outil validé en phase de test et potentiel de déploiement sur plusieurs sites Renault.",
+      tags: ["Communication", "React", "API interne", "Gestion projet"]
     },
     "portail-point-fab": {
-      title: "Portail Point Fab",
+      title: "Portail Point Fabrication",
       category: "Dashboard",
-      summary: "Tableau de bord industriel pour suivre les priorités de production.",
-      context: "Tableau de bord industriel dédié au suivi quotidien des priorités de production à l’échelle de l’usine, des départements et des ateliers.",
-      need: "Centraliser les priorités de production et offrir une meilleure visibilité aux équipes et décideurs.",
-      role: "Évolution fonctionnelle, exploitation des données et refonte graphique de plusieurs interfaces durant mon alternance.",
-      impact: "Outil utilisé par des interlocuteurs du Comité de Direction de l’usine pour soutenir le pilotage opérationnel et la prise de décision.",
-      tags: ["Dashboard", "Data", "Production", "Décision"]
+      summary: "Dashboard industriel utilisé par le comité de direction pour piloter les priorités de production.",
+      context: "Outil central de pilotage utilisé par toute l'usine, incluant chefs d'atelier et comité de direction.",
+      problem: "Manque de visibilité claire sur les priorités et décisions opérationnelles.",
+      solution: "Amélioration du dashboard avec nouvelles fonctionnalités UX, gestion des données et meilleure lisibilité des informations.",
+      role: "Développement fullstack en autonomie : conception UX sur Figma, développement front et back, ajout de fonctionnalités comme l'autocomplétion, le suivi et la gestion des mails, interaction directe avec les clients métier et optimisation performance.",
+      stack: "HTML / CSS / PHP / MySQL / API REST",
+      impact: "Outil utilisé par le comité de direction, meilleure visibilité décisionnelle et amélioration du pilotage opérationnel.",
+      tags: ["Dashboard", "Production", "Figma", "Pilotage"]
     },
     "andre-bach": {
-      title: "L’Histoire d’André Bach",
+      title: "L'Histoire d'André Bach",
       category: "Projet web",
-      summary: "Site mémoriel permettant de consulter et transmettre un témoignage historique.",
-      context: "Projet mémoriel autour du livre L’Histoire d’André Bach, retraçant l’histoire d’un déporté juif durant la Seconde Guerre mondiale.",
-      need: "Rendre accessible en ligne un travail de recherche familial et historique.",
-      role: "Création d’un site web simple, lisible et durable permettant la consultation du livre.",
-      impact: "Préservation et transmission numérique d’un témoignage historique auprès des générations futures.",
-      tags: ["Site web", "Mémoire", "Accessibilité", "Transmission"],
+      summary: "Site web public permettant de transmettre un témoignage historique de manière durable.",
+      context: "Projet personnel visant à rendre accessible un livre historique familial.",
+      problem: "Contenu non accessible facilement et non diffusé en ligne.",
+      solution: "Création d'un site web simple, lisible et accessible publiquement.",
+      role: "Développement complet du projet en autonomie : conception, développement et mise en ligne.",
+      stack: "HTML / CSS / JavaScript / Netlify",
+      impact: "Transmission numérique d'un témoignage historique et accessibilité publique du contenu.",
+      tags: ["Site public", "Statique", "Netlify", "Transmission"],
       link: "https://andrebachbiographie1888-1945.netlify.app/"
     }
   };
@@ -58,8 +66,10 @@
     title: document.getElementById("project-detail-title"),
     summary: document.getElementById("project-detail-summary"),
     context: document.getElementById("project-detail-context"),
-    need: document.getElementById("project-detail-need"),
+    problem: document.getElementById("project-detail-problem"),
+    solution: document.getElementById("project-detail-solution"),
     role: document.getElementById("project-detail-role"),
+    stack: document.getElementById("project-detail-stack"),
     impact: document.getElementById("project-detail-impact"),
     tags: document.getElementById("project-detail-tags"),
     link: document.getElementById("project-detail-link")
@@ -129,8 +139,10 @@
     detail.title.textContent = project.title;
     detail.summary.textContent = project.summary;
     detail.context.textContent = project.context;
-    detail.need.textContent = project.need;
+    detail.problem.textContent = project.problem;
+    detail.solution.textContent = project.solution;
     detail.role.textContent = project.role;
+    detail.stack.textContent = project.stack;
     detail.impact.textContent = project.impact;
 
     detail.tags.innerHTML = "";
