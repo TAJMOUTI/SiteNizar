@@ -107,22 +107,26 @@ header .actif {
 .projects-layout {
     display: grid;
     grid-template-columns: minmax(0, 60%) minmax(320px, 40%);
-    gap: 14px;
+    gap: 18px;
     align-items: start;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 8px;
-    background: rgba(255, 255, 255, 0.03);
-    padding: 12px;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    padding: 0;
 }
 
 .projects-grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 12px;
+    align-items: start;
+    align-content: start;
     align-self: start;
     margin-top: 0;
     padding-top: 0;
 }
+
+/* Future improvement: when more projects are added, replace the static grid with pagination/list navigation. */
 
 .project-card {
     -webkit-appearance: none;
@@ -130,7 +134,7 @@ header .actif {
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    min-height: 214px;
+    min-height: 204px;
     margin-top: 0;
     vertical-align: top;
     padding: 0;
@@ -222,7 +226,7 @@ header .actif {
 .project-detail {
     margin-top: 0;
     height: auto;
-    min-height: 440px;
+    min-height: 0;
     max-height: none;
     border: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: 8px;
@@ -335,7 +339,6 @@ header .actif {
 @media (max-width: 991px) {
     .projects-layout {
         grid-template-columns: 1fr;
-        padding: 10px;
     }
 
     .projects-grid {
