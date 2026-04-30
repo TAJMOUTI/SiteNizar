@@ -8319,8 +8319,19 @@ License - nucleoapp.com/license/
     padding: 70px 0 76px;
   }
 
+  #contact .contact {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 190px), 1fr));
+    gap: 18px;
+    margin-right: 0;
+    margin-left: 0;
+  }
+
   #contact .contact .col-md-4 {
-    margin-bottom: 18px;
+    width: auto;
+    max-width: none;
+    padding-right: 0;
+    padding-left: 0;
   }
 }
 
@@ -8347,15 +8358,13 @@ License - nucleoapp.com/license/
     white-space: normal;
   }
 
+  #contact .contact {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 150px), 1fr));
+    gap: 14px;
+  }
+
   #contact .contact-card {
     min-height: auto;
-    padding: 20px;
-  }
-}
-
-@media (max-width: 420px) {
-  #contact .contact-card {
-    align-items: flex-start;
     padding: 18px;
   }
 
@@ -8367,12 +8376,36 @@ License - nucleoapp.com/license/
     font-size: 19px;
   }
 
+  #contact .contact-card-kicker {
+    font-size: 11px;
+  }
+
   #contact .contact-card-title {
     font-size: 20px;
   }
 
   #contact .contact-card-detail {
     font-size: 13px;
+  }
+}
+
+@media (max-width: 420px) {
+  #contact .contact-card {
+    flex-direction: column;
+    padding: 16px;
+  }
+
+  #contact .contact-card-icon {
+    margin-right: 0;
+    margin-bottom: 12px;
+  }
+
+  #contact .contact-card-title {
+    font-size: 19px;
+  }
+
+  #contact .contact-card-detail {
+    font-size: 12px;
   }
 }
 
