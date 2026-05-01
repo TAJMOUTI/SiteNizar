@@ -419,7 +419,7 @@ footer a:hover{
 
 .page-header .motto .hero-description {
     max-width: 680px;
-    margin: 0 auto 30px;
+    margin: 0 auto 24px;
     font-size: 0.96em;
     line-height: 1.55;
     font-style: italic;
@@ -433,6 +433,63 @@ footer a:hover{
     display: none;
 }
 
+.hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 4px;
+}
+
+.hero-actions .btn {
+    min-width: 178px;
+    margin: 0;
+    transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease, color 180ms ease;
+}
+
+.hero-actions .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.24);
+}
+
+.hero-action-primary {
+    background: #f5593d;
+    border-color: #f5593d;
+}
+
+.hero-action-secondary {
+    border: 1px solid rgba(255, 255, 255, 0.72);
+    background: transparent;
+    color: #fff;
+}
+
+.hero-action-secondary:hover,
+.hero-action-secondary:focus {
+    background: rgba(255, 255, 255, 0.12);
+    color: #fff;
+}
+
+.hero-cv-action {
+    margin-top: 14px;
+}
+
+.hero-cv-action a {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    color: rgba(255, 255, 255, 0.82);
+    font-size: 0.86rem;
+    font-weight: 600;
+    transition: color 180ms ease, transform 180ms ease;
+}
+
+.hero-cv-action a:hover,
+.hero-cv-action a:focus {
+    color: #fff;
+    text-decoration: none;
+    transform: translateY(-1px);
+}
+
 @media (max-width: 767px) {
     .page-header .motto h4 {
         margin-bottom: 14px;
@@ -440,9 +497,25 @@ footer a:hover{
 
     .page-header .motto .hero-description {
         max-width: 90%;
-        margin: 0 auto 26px;
+        margin: 0 auto 22px;
         font-size: 0.9em;
         line-height: 1.5;
+    }
+
+    .hero-actions {
+        flex-direction: column;
+        align-items: stretch;
+        width: min(100%, 320px);
+        margin-right: auto;
+        margin-left: auto;
+    }
+
+    .hero-actions .btn {
+        width: 100%;
+    }
+
+    .hero-cv-action {
+        margin-top: 12px;
     }
 }
 
