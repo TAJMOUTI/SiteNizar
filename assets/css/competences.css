@@ -23,3 +23,29 @@
 .description {
     margin: 0; /* Supprime le margin par défaut pour éviter des décalages */
   }
+
+@media (max-width: 700px) {
+  .languages-row {
+    align-items: flex-start;
+    justify-content: center;
+    gap: 18px;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .languages-row > .col-md-3:first-child,
+  .languages-row > .col-md-3:last-child {
+    display: none;
+  }
+
+  .languages-row .language-item {
+    flex: 0 1 112px;
+    max-width: 112px;
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+
+  .languages-row .language-item p {
+    margin-top: 8px;
+  }
+}

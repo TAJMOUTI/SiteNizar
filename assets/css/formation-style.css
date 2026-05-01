@@ -51,26 +51,55 @@
   transition: all 200ms ease-in;
 }
 
-@media (min-device-width: 320px) and (max-device-width: 700px) {
-  .formation-timeline {
-    list-style-type: none;
+@media (max-width: 700px) {
+  #formation-timeline {
     display: block;
+    margin: 0 auto;
+    max-width: 360px;
+    padding: 0 15px;
   }
 
-  .li {
-    transition: all 200ms ease-in;
-    display: flex;
-    width: inherit;
+  #formation-timeline .li {
+    align-items: center;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 86px;
+    gap: 16px;
+    margin-bottom: 28px;
+    width: 100%;
   }
 
-  .year {
-    width: 200px;
+  #formation-timeline .degree {
+    align-items: flex-start;
+    margin-bottom: 0;
+    padding: 0;
+    text-align: left;
   }
 
-  .year:before {
-    left: -8%;
-    top: 30%;
-    transition: all 200ms ease-in;
+  #formation-timeline .degree span {
+    font-size: 0.82rem;
+    line-height: 1.35;
+  }
+
+  #formation-timeline .year {
+    align-items: center;
+    border-left: 2px solid #f5593d;
+    border-top: 0;
+    justify-content: center;
+    min-height: 72px;
+    padding: 0 0 0 18px;
+    width: auto;
+  }
+
+  #formation-timeline .year p {
+    font-size: 0.9rem;
+    margin: 0;
+    padding: 0;
+  }
+
+  #formation-timeline .year:before {
+    left: -10px;
+    top: 50%;
+    transform: translateY(-50%);
   }
 
   .download-resume{
