@@ -648,6 +648,10 @@ footer a:hover{
     margin-bottom: 16px;
 }
 
+.page-header .motto h1 span {
+    display: inline;
+}
+
 .page-header .motto .hero-description {
     max-width: 680px;
     margin: 0 auto 24px;
@@ -722,15 +726,46 @@ footer a:hover{
 }
 
 @media (max-width: 767px) {
+    .page-header .container {
+        padding-right: 20px;
+        padding-left: 20px;
+    }
+
+    .page-header .motto {
+        max-width: 360px;
+        margin-right: auto;
+        margin-left: auto;
+    }
+
+    .page-header .motto h1 {
+        margin-top: 0;
+        margin-bottom: 18px;
+        font-size: 2.28em;
+        line-height: 1.14;
+    }
+
+    .page-header .motto h1 span {
+        display: block;
+        white-space: nowrap;
+    }
+
+    .page-header .motto h3 {
+        max-width: 100%;
+        margin: 0 auto 10px;
+        font-size: 1.18em;
+        line-height: 1.36;
+    }
+
     .page-header .motto h4 {
-        margin-bottom: 14px;
+        margin-bottom: 12px;
     }
 
     .page-header .motto .hero-description {
-        max-width: 90%;
-        margin: 0 auto 22px;
-        font-size: 0.9em;
-        line-height: 1.5;
+        max-width: 100%;
+        margin: 0 auto 26px;
+        font-size: 0.78em;
+        line-height: 1.45;
+        opacity: 0.58;
     }
 
     .hero-actions {
@@ -739,14 +774,33 @@ footer a:hover{
         width: min(100%, 320px);
         margin-right: auto;
         margin-left: auto;
+        gap: 10px;
     }
 
     .hero-actions .btn {
         width: 100%;
+        min-width: 0;
+        padding-right: 18px;
+        padding-left: 18px;
     }
 
     .hero-cv-action {
-        margin-top: 12px;
+        margin-top: 14px;
+    }
+
+    .hero-cv-action a {
+        font-size: 0.78rem;
+        color: rgba(255, 255, 255, 0.72);
+    }
+}
+
+@media (max-width: 360px) {
+    .page-header .motto h1 {
+        font-size: 2.05em;
+    }
+
+    .page-header .motto h3 {
+        font-size: 1.08em;
     }
 }
 
