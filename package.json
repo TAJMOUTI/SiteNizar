@@ -1,0 +1,11 @@
+{
+  "name": "sitenizar",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Minimal verification scripts for the static portfolio served by XAMPP.",
+  "scripts": {
+    "check": "node scripts/check-files.js",
+    "check:html": "node scripts/check-html.js",
+    "open": "node scripts/open-xampp.js"
+  }
+}
