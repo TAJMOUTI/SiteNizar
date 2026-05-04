@@ -176,7 +176,7 @@
     filters.forEach(function (filter) {
       var isSelected = filter.getAttribute("data-filter") === filterName;
       filter.classList.toggle("is-active", isSelected);
-      filter.setAttribute("aria-selected", isSelected ? "true" : "false");
+      filter.setAttribute("aria-pressed", isSelected ? "true" : "false");
     });
 
     cards.forEach(function (card) {
