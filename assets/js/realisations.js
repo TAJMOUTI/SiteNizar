@@ -154,9 +154,11 @@
 
     if (project.link) {
       detail.link.href = project.link;
+      detail.link.hidden = false;
       detail.link.classList.add("is-visible");
     } else {
       detail.link.removeAttribute("href");
+      detail.link.hidden = true;
       detail.link.classList.remove("is-visible");
     }
 
