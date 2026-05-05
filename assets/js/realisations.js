@@ -80,6 +80,8 @@
   var filters = Array.prototype.slice.call(document.querySelectorAll(".project-filter"));
   var projectsGrid = document.querySelector(".projects-grid");
   var paginationElement = document.querySelector(".project-pagination");
+  var carouselPrevious = document.querySelector(".project-carousel-prev");
+  var carouselNext = document.querySelector(".project-carousel-next");
   var detailElement = document.querySelector(".project-detail");
   var detailGrid = document.querySelector(".project-detail-grid");
   var detailToggle = document.getElementById("project-detail-toggle");
@@ -166,7 +168,24 @@
       return;
     }
 
-    detailElement.style.height = projectsGrid.offsetHeight + "px";
+    var visibleGridHeight = getVisibleGridCardsHeight();
+    detailElement.style.height = visibleGridHeight ? visibleGridHeight + "px" : "";
+  }
+
+  function getVisibleGridCardsHeight() {
+    var visibleCards = cards.filter(function (card) {
+      return !card.hidden;
+    });
+
+    if (!visibleCards.length) {
+      return 0;
+    }
+
+    var gridStyles = window.getComputedStyle(projectsGrid);
+    var rowGap = parseFloat(gridStyles.rowGap || gridStyles.gap || "0") || 0;
+    var firstCardHeight = visibleCards[0].getBoundingClientRect().height;
+
+    return firstCardHeight * 2 + rowGap;
   }
 
   function refreshProjectDetailOverflow() {
@@ -177,6 +196,7 @@
     if (!isDesktopProjectsLayout()) {
       detailElement.classList.remove("has-overflow");
       detailElement.classList.remove("is-expanded");
+      detailGrid.scrollTop = 0;
       detailToggle.hidden = true;
       detailToggle.textContent = "Voir plus";
       detailToggle.setAttribute("aria-expanded", "false");
@@ -185,6 +205,7 @@
 
     detailElement.classList.remove("has-overflow");
     detailElement.classList.remove("is-expanded");
+    detailGrid.scrollTop = 0;
     detailToggle.hidden = true;
     detailToggle.textContent = "Voir plus";
     detailToggle.setAttribute("aria-expanded", "false");
@@ -216,12 +237,26 @@
     return filteredCards.slice(startIndex, startIndex + PROJECTS_PER_PAGE);
   }
 
+  function updateCarouselControls(totalPages) {
+    if (carouselPrevious) {
+      carouselPrevious.disabled = currentPage <= 1;
+      carouselPrevious.hidden = totalPages <= 1;
+    }
+
+    if (carouselNext) {
+      carouselNext.disabled = currentPage >= totalPages;
+      carouselNext.hidden = totalPages <= 1;
+    }
+  }
+
   function renderPagination(totalPages) {
     if (!paginationElement) {
+      updateCarouselControls(totalPages);
       return;
     }
 
     paginationElement.innerHTML = "";
+    updateCarouselControls(totalPages);
 
     if (totalPages <= 1) {
       paginationElement.hidden = true;
@@ -230,40 +265,22 @@
 
     paginationElement.hidden = false;
 
-    var previousButton = document.createElement("button");
-    previousButton.className = "project-page-button";
-    previousButton.type = "button";
-    previousButton.textContent = "Précédent";
-    previousButton.disabled = currentPage === 1;
-    previousButton.addEventListener("click", function () {
-      if (currentPage <= 1) {
-        return;
-      }
-
-      currentPage -= 1;
-      updateProjectPage({ scrollOnMobile: true });
-    });
-    paginationElement.appendChild(previousButton);
-
     var pageStatus = document.createElement("span");
     pageStatus.className = "project-page-status";
     pageStatus.textContent = currentPage + " / " + totalPages;
     paginationElement.appendChild(pageStatus);
+  }
 
-    var nextButton = document.createElement("button");
-    nextButton.className = "project-page-button";
-    nextButton.type = "button";
-    nextButton.textContent = "Suivant";
-    nextButton.disabled = currentPage === totalPages;
-    nextButton.addEventListener("click", function () {
-      if (currentPage >= totalPages) {
-        return;
-      }
+  function goToProjectPage(direction) {
+    var totalPages = getTotalPages(getFilteredCards());
+    var nextPage = currentPage + direction;
 
-      currentPage += 1;
-      updateProjectPage({ scrollOnMobile: true });
-    });
-    paginationElement.appendChild(nextButton);
+    if (nextPage < 1 || nextPage > totalPages) {
+      return;
+    }
+
+    currentPage = nextPage;
+    updateProjectPage({ scrollOnMobile: true });
   }
 
   function updateProjectPage(options) {
@@ -473,6 +490,19 @@
       var isExpanded = detailElement.classList.toggle("is-expanded");
       detailToggle.textContent = isExpanded ? "Réduire" : "Voir plus";
       detailToggle.setAttribute("aria-expanded", isExpanded ? "true" : "false");
+      detailGrid.scrollTop = 0;
+    });
+  }
+
+  if (carouselPrevious) {
+    carouselPrevious.addEventListener("click", function () {
+      goToProjectPage(-1);
+    });
+  }
+
+  if (carouselNext) {
+    carouselNext.addEventListener("click", function () {
+      goToProjectPage(1);
     });
   }
 

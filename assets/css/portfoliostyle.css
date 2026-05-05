@@ -338,37 +338,95 @@ header .actif {
 .projects-layout {
     display: grid;
     grid-template-columns: minmax(0, 60%) minmax(320px, 40%);
-    gap: 18px;
+    column-gap: 18px;
     align-items: start;
+    grid-auto-rows: max-content;
     border: 0;
     border-radius: 0;
     background: transparent;
+    margin: 0;
+    padding: 0;
+}
+
+.projects-left-column {
+    display: grid;
+    grid-column: 1;
+    grid-row: 1;
+    grid-template-rows: auto auto;
+    row-gap: 10px;
+    align-self: start;
+    margin: 0;
+    min-width: 0;
     padding: 0;
 }
 
 .projects-grid {
     display: grid;
+    grid-column: 2;
+    grid-row: 1;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 12px;
     align-items: start;
     align-content: start;
     align-self: start;
-    grid-column: 1;
+    margin: 0;
+    min-height: 0;
+    padding: 0;
+}
+
+.projects-carousel {
+    display: grid;
+    grid-template-columns: 34px minmax(0, 1fr) 34px;
+    grid-template-rows: auto;
     grid-row: 1;
-    margin-top: 0;
-    min-height: calc((clamp(240px, 24vw, 300px) * 2) + 12px);
-    padding-top: 0;
+    column-gap: 8px;
+    align-items: center;
+    height: auto;
+    margin: 0;
+    min-height: 0;
+    min-width: 0;
+    padding: 0;
+}
+
+.project-carousel-arrow {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    width: 34px;
+    height: 46px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+    cursor: pointer;
+    font-size: 1.55rem;
+    font-weight: 800;
+    line-height: 1;
+    transition: background 180ms ease, border-color 180ms ease, opacity 180ms ease;
+}
+
+.project-carousel-arrow:hover,
+.project-carousel-arrow:focus-visible {
+    border-color: #f5593d;
+    background: rgba(245, 89, 61, 0.18);
+    outline: none;
+}
+
+.project-carousel-arrow:disabled {
+    cursor: not-allowed;
+    opacity: 0.28;
 }
 
 .project-pagination {
     display: flex;
     flex-wrap: wrap;
-    grid-column: 1;
     grid-row: 2;
     align-items: center;
     justify-content: center;
     gap: 8px;
-    margin-top: -6px;
+    margin: 0;
+    padding-top: 0;
 }
 
 .project-page-button,
@@ -561,8 +619,9 @@ header .actif {
     flex-direction: column;
     grid-column: 2;
     grid-row: 1;
+    align-self: start;
     overflow: hidden;
-    margin-top: 0;
+    margin: 0;
     height: auto;
     min-height: 0;
     max-height: none;
@@ -612,6 +671,7 @@ header .actif {
 .project-detail-grid {
     display: grid;
     grid-template-columns: 1fr;
+    position: relative;
     flex: 1 1 auto;
     gap: 8px;
     min-height: 0;
@@ -621,15 +681,28 @@ header .actif {
 
 .project-detail.is-expanded .project-detail-grid {
     overflow-y: auto;
+    scrollbar-color: rgba(245, 89, 61, 0.66) rgba(38, 49, 58, 0.12);
+    scrollbar-width: thin;
 }
 
 .project-detail.is-expanded .project-detail-grid::-webkit-scrollbar {
-    width: 7px;
+    width: 9px;
 }
 
 .project-detail.is-expanded .project-detail-grid::-webkit-scrollbar-thumb {
     border-radius: 999px;
-    background: rgba(245, 89, 61, 0.42);
+    background: rgba(245, 89, 61, 0.66);
+}
+
+.project-detail.has-overflow:not(.is-expanded) .project-detail-grid::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 24px;
+    background: linear-gradient(rgba(247, 248, 250, 0), #f7f8fa);
+    pointer-events: none;
 }
 
 .project-detail-item {
@@ -723,6 +796,12 @@ header .actif {
 @media (max-width: 991px) {
     .projects-layout {
         grid-template-columns: 1fr;
+        row-gap: 10px;
+    }
+
+    .projects-left-column {
+        grid-column: auto;
+        gap: 10px;
     }
 
     .projects-grid {
@@ -732,10 +811,18 @@ header .actif {
         min-height: 0;
     }
 
+    .projects-carousel {
+        grid-template-columns: 40px minmax(0, 1fr) 40px;
+        column-gap: 8px;
+    }
+
+    .project-carousel-arrow {
+        width: 40px;
+        height: 42px;
+    }
+
     .project-pagination {
-        grid-column: auto;
-        grid-row: auto;
-        margin-top: -4px;
+        margin-top: 0;
     }
 
     .project-detail-grid {
@@ -747,6 +834,7 @@ header .actif {
         grid-row: auto;
         height: auto !important;
         overflow: visible;
+        margin-top: 0;
         min-height: 0;
     }
 
@@ -763,6 +851,27 @@ header .actif {
 
     .projects-grid {
         grid-template-columns: 1fr;
+    }
+
+    .projects-carousel {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .projects-carousel .projects-grid {
+        grid-column: 1 / -1;
+        grid-row: 1;
+    }
+
+    .project-carousel-prev {
+        grid-column: 1;
+        grid-row: 2;
+        justify-self: end;
+    }
+
+    .project-carousel-next {
+        grid-column: 2;
+        grid-row: 2;
+        justify-self: start;
     }
 
     .project-detail-grid {

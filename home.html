@@ -447,8 +447,11 @@ The above copyright notice and this permission notice shall be included in all c
         </div>
 
         <div class="projects-layout">
-          <div class="projects-grid" aria-label="Liste des projets">
-            <button class="project-card is-active" type="button" data-project="webmarket" data-category="Outils internes" aria-selected="true">
+          <div class="projects-left-column">
+            <div class="projects-carousel">
+              <button class="project-carousel-arrow project-carousel-prev" type="button" aria-label="Projets pr&eacute;c&eacute;dents" disabled>&lsaquo;</button>
+              <div class="projects-grid" aria-label="Liste des projets">
+              <button class="project-card is-active" type="button" data-project="webmarket" data-category="Outils internes" aria-selected="true">
               <span class="project-card-image" style="background-image: url('./assets/img/realisations/webmarket.png');"></span>
               <span class="project-card-content">
                 <span class="project-card-meta">Outils internes</span>
@@ -461,9 +464,9 @@ The above copyright notice and this permission notice shall be included in all c
                   <span>Workflow</span>
                 </span>
               </span>
-            </button>
+              </button>
 
-            <button class="project-card" type="button" data-project="datahouse" data-category="Outil SaaS" aria-selected="false">
+              <button class="project-card" type="button" data-project="datahouse" data-category="Outil SaaS" aria-selected="false">
               <span class="project-card-image" style="background-image: url('./assets/img/realisations/datahouse.png');"></span>
               <span class="project-card-content">
                 <span class="project-card-meta">Outil SaaS</span>
@@ -479,9 +482,9 @@ The above copyright notice and this permission notice shall be included in all c
                   <span>IaC</span>
                 </span>
               </span>
-            </button>
+              </button>
 
-            <button class="project-card" type="button" data-project="assistant-mail-n8n" data-category="Automation" aria-selected="false">
+              <button class="project-card" type="button" data-project="assistant-mail-n8n" data-category="Automation" aria-selected="false">
               <span class="project-card-image" style="background-image: url('./assets/img/realisations/valoris.png');"></span>
               <span class="project-card-content">
                 <span class="project-card-meta">Automation</span>
@@ -495,9 +498,9 @@ The above copyright notice and this permission notice shall be included in all c
                   <span>API</span>
                 </span>
               </span>
-            </button>
+              </button>
 
-            <button class="project-card" type="button" data-project="messagerie-dect" data-category="Communication" aria-selected="false">
+              <button class="project-card" type="button" data-project="messagerie-dect" data-category="Communication" aria-selected="false">
               <span class="project-card-image" style="background-image: url('./assets/img/realisations/messageriedect.png');"></span>
               <span class="project-card-content">
                 <span class="project-card-meta">Communication</span>
@@ -510,9 +513,9 @@ The above copyright notice and this permission notice shall be included in all c
                   <span>R&eacute;activit&eacute;</span>
                 </span>
               </span>
-            </button>
+              </button>
 
-            <button class="project-card" type="button" data-project="portail-point-fab" data-category="Dashboard" aria-selected="false">
+              <button class="project-card" type="button" data-project="portail-point-fab" data-category="Dashboard" aria-selected="false">
               <span class="project-card-image" style="background-image: url('./assets/img/realisations/ppfab.png');"></span>
               <span class="project-card-content">
                 <span class="project-card-meta">Dashboard</span>
@@ -525,9 +528,9 @@ The above copyright notice and this permission notice shall be included in all c
                   <span>Production</span>
                 </span>
               </span>
-            </button>
+              </button>
 
-            <button class="project-card" type="button" data-project="andre-bach" data-category="Projet web" aria-selected="false">
+              <button class="project-card" type="button" data-project="andre-bach" data-category="Projet web" aria-selected="false">
               <span class="project-card-image" style="background-image: url('./assets/img/realisations/andrebach.png');"></span>
               <span class="project-card-content">
                 <span class="project-card-meta">Projet web</span>
@@ -540,10 +543,13 @@ The above copyright notice and this permission notice shall be included in all c
                   <span>Accessibilit&eacute;</span>
                 </span>
               </span>
-            </button>
-          </div>
+              </button>
+              </div>
+              <button class="project-carousel-arrow project-carousel-next" type="button" aria-label="Projets suivants">&rsaquo;</button>
+            </div>
 
-          <div class="project-pagination" aria-label="Pagination des r&eacute;alisations"></div>
+            <div class="project-pagination" aria-label="Pagination des r&eacute;alisations"></div>
+          </div>
 
           <article class="project-detail" aria-live="polite">
             <div class="project-detail-top">
