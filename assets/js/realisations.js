@@ -12,6 +12,30 @@
       impact: "Meilleure visibilité sur l'usage des applications, aide à la prise de décision pour trier les outils et gain de temps pour les utilisateurs.",
       tags: ["Application interne", "Dashboard admin", "Tracking", "Excel"]
     },
+    "datahouse": {
+      title: "DataHouse",
+      category: "Outil SaaS",
+      summary: "Plateforme SaaS de gestion de données métier basée sur des schémas dynamiques, permettant de générer des interfaces, dashboards et documents à partir des données.",
+      context: "DataHouse est une plateforme SaaS utilisée pour construire des outils métier sur mesure à partir de schémas de données dynamiques, sans repartir de zéro à chaque besoin client.",
+      problem: "Les équipes métier ont souvent besoin d’outils spécifiques pour gérer des entités complexes, générer des documents, suivre des dossiers ou produire des dashboards, mais le développement d’une application dédiée pour chaque cas est long, coûteux et difficile à maintenir.",
+      solution: "Mise en place de schémas dynamiques JSON pour modéliser les données métier, générer automatiquement des formulaires, vues, dashboards, relations entre entités et documents PDF à partir des données.",
+      role: "Développement fullstack sur la plateforme : implémentation de vues dynamiques, logique d’autosave, gestion des états readonly/anonymisation, personnalisation de composants React, création de pipelines MongoDB et génération de documents.",
+      stack: "Next.js / React / TypeScript / MongoDB aggregation pipelines / SWR / Valtio / @react-pdf / Infrastructure as Code",
+      impact: "Accélération du développement d’applications métier, réduction des erreurs humaines, meilleure fiabilité des données et automatisation de processus complexes comme la génération de documents, les calculs métier et les dashboards.",
+      tags: ["SaaS", "Fullstack", "MongoDB", "Next.js", "TypeScript", "IaC"]
+    },
+    "assistant-mail-n8n": {
+      title: "Assistant Mail n8n",
+      category: "Automation",
+      summary: "Workflow automatisé pour gérer les emails : lecture, extraction d'informations et actions automatiques.",
+      context: "Automatisation du traitement des emails entrants pour réduire les tâches manuelles répétitives.",
+      problem: "Les emails nécessitent des actions manuelles fréquentes (lecture, extraction de données, suppression, récupération d'informations).",
+      solution: "Création d'un workflow n8n capable de récupérer le dernier email, extraire des informations (code, contenu, données utiles), supprimer ou archiver des emails et automatiser certaines réponses ou traitements.",
+      role: "Conception et implémentation complète du workflow n8n, définition de la logique métier, intégration API et automatisation des actions.",
+      stack: "n8n / API Email / Webhooks / automatisation",
+      impact: "Réduction des tâches répétitives, gain de temps et fiabilisation du traitement des emails.",
+      tags: ["n8n", "Automation", "Email", "API"]
+    },
     "messagerie-dect": {
       title: "Messagerie DECT",
       category: "Communication",
@@ -51,11 +75,18 @@
     }
   };
 
+  var PROJECTS_PER_PAGE = 4;
   var cards = Array.prototype.slice.call(document.querySelectorAll(".project-card"));
   var filters = Array.prototype.slice.call(document.querySelectorAll(".project-filter"));
+  var projectsGrid = document.querySelector(".projects-grid");
+  var paginationElement = document.querySelector(".project-pagination");
   var detailElement = document.querySelector(".project-detail");
+  var detailGrid = document.querySelector(".project-detail-grid");
+  var detailToggle = document.getElementById("project-detail-toggle");
   var realisationsSection = document.getElementById("realisations");
   var detailAnimationTimeout = null;
+  var activeFilter = "Tous";
+  var currentPage = 1;
 
   if (!cards.length || !filters.length || !detailElement) {
     return;
@@ -121,6 +152,235 @@
     });
   }
 
+  function isDesktopProjectsLayout() {
+    return window.innerWidth > 991;
+  }
+
+  function syncProjectDetailHeight() {
+    if (!projectsGrid || !detailElement) {
+      return;
+    }
+
+    if (!isDesktopProjectsLayout()) {
+      detailElement.style.height = "";
+      return;
+    }
+
+    detailElement.style.height = projectsGrid.offsetHeight + "px";
+  }
+
+  function refreshProjectDetailOverflow() {
+    if (!detailElement || !detailGrid || !detailToggle) {
+      return;
+    }
+
+    if (!isDesktopProjectsLayout()) {
+      detailElement.classList.remove("has-overflow");
+      detailElement.classList.remove("is-expanded");
+      detailToggle.hidden = true;
+      detailToggle.textContent = "Voir plus";
+      detailToggle.setAttribute("aria-expanded", "false");
+      return;
+    }
+
+    detailElement.classList.remove("has-overflow");
+    detailElement.classList.remove("is-expanded");
+    detailToggle.hidden = true;
+    detailToggle.textContent = "Voir plus";
+    detailToggle.setAttribute("aria-expanded", "false");
+
+    window.requestAnimationFrame(function () {
+      var hasOverflow = detailGrid.scrollHeight > detailGrid.clientHeight + 1;
+      detailElement.classList.toggle("has-overflow", hasOverflow);
+      detailToggle.hidden = !hasOverflow;
+    });
+  }
+
+  function refreshProjectDetailLayout() {
+    syncProjectDetailHeight();
+    refreshProjectDetailOverflow();
+  }
+
+  function getFilteredCards() {
+    return cards.filter(function (card) {
+      return activeFilter === "Tous" || card.getAttribute("data-category") === activeFilter;
+    });
+  }
+
+  function getTotalPages(filteredCards) {
+    return Math.max(1, Math.ceil(filteredCards.length / PROJECTS_PER_PAGE));
+  }
+
+  function getPageCards(filteredCards) {
+    var startIndex = (currentPage - 1) * PROJECTS_PER_PAGE;
+    return filteredCards.slice(startIndex, startIndex + PROJECTS_PER_PAGE);
+  }
+
+  function renderPagination(totalPages) {
+    if (!paginationElement) {
+      return;
+    }
+
+    paginationElement.innerHTML = "";
+
+    if (totalPages <= 1) {
+      paginationElement.hidden = true;
+      return;
+    }
+
+    paginationElement.hidden = false;
+
+    var previousButton = document.createElement("button");
+    previousButton.className = "project-page-button";
+    previousButton.type = "button";
+    previousButton.textContent = "Précédent";
+    previousButton.disabled = currentPage === 1;
+    previousButton.addEventListener("click", function () {
+      if (currentPage <= 1) {
+        return;
+      }
+
+      currentPage -= 1;
+      updateProjectPage({ scrollOnMobile: true });
+    });
+    paginationElement.appendChild(previousButton);
+
+    var pageStatus = document.createElement("span");
+    pageStatus.className = "project-page-status";
+    pageStatus.textContent = currentPage + " / " + totalPages;
+    paginationElement.appendChild(pageStatus);
+
+    var nextButton = document.createElement("button");
+    nextButton.className = "project-page-button";
+    nextButton.type = "button";
+    nextButton.textContent = "Suivant";
+    nextButton.disabled = currentPage === totalPages;
+    nextButton.addEventListener("click", function () {
+      if (currentPage >= totalPages) {
+        return;
+      }
+
+      currentPage += 1;
+      updateProjectPage({ scrollOnMobile: true });
+    });
+    paginationElement.appendChild(nextButton);
+  }
+
+  function updateProjectPage(options) {
+    var settings = options || {};
+    var filteredCards = getFilteredCards();
+    var totalPages = getTotalPages(filteredCards);
+    var pageCards = null;
+    var firstPageCard = null;
+
+    if (currentPage > totalPages) {
+      currentPage = totalPages;
+    }
+
+    pageCards = getPageCards(filteredCards);
+
+    cards.forEach(function (card) {
+      card.hidden = pageCards.indexOf(card) === -1;
+    });
+
+    renderPagination(totalPages);
+
+    if (pageCards.length) {
+      firstPageCard = pageCards[0];
+      setSelectedProject(firstPageCard.getAttribute("data-project"), {
+        animate: settings.animate,
+        scrollOnMobile: settings.scrollOnMobile === true
+      });
+    }
+
+    refreshSummaryToggles();
+
+    window.requestAnimationFrame(function () {
+      refreshProjectDetailLayout();
+    });
+  }
+
+  function refreshSummaryToggle(card) {
+    var summary = card.querySelector(".project-card-summary");
+    var toggle = card.querySelector(".project-card-toggle");
+
+    if (!summary || !toggle || card.hidden) {
+      return;
+    }
+
+    card.classList.remove("has-summary-overflow");
+    card.classList.remove("is-expanded");
+    toggle.textContent = "Voir plus";
+    toggle.setAttribute("aria-expanded", "false");
+
+    window.requestAnimationFrame(function () {
+      var summaryWidth = summary.getBoundingClientRect().width;
+      var fullSummary = summary.cloneNode(true);
+
+      fullSummary.removeAttribute("id");
+      fullSummary.style.position = "absolute";
+      fullSummary.style.visibility = "hidden";
+      fullSummary.style.pointerEvents = "none";
+      fullSummary.style.display = "block";
+      fullSummary.style.overflow = "visible";
+      fullSummary.style.maxHeight = "none";
+      fullSummary.style.webkitLineClamp = "unset";
+      fullSummary.style.webkitBoxOrient = "initial";
+      fullSummary.style.width = summaryWidth + "px";
+
+      summary.parentNode.appendChild(fullSummary);
+
+      var hasOverflow = fullSummary.scrollHeight > summary.clientHeight + 1;
+
+      summary.parentNode.removeChild(fullSummary);
+      card.classList.toggle("has-summary-overflow", hasOverflow);
+      toggle.hidden = !hasOverflow;
+    });
+  }
+
+  function setupSummaryToggles() {
+    cards.forEach(function (card) {
+      var summary = card.querySelector(".project-card-summary");
+
+      if (!summary || card.querySelector(".project-card-toggle")) {
+        return;
+      }
+
+      var toggle = document.createElement("span");
+      toggle.className = "project-card-toggle";
+      toggle.setAttribute("role", "button");
+      toggle.setAttribute("tabindex", "0");
+      toggle.setAttribute("aria-expanded", "false");
+      toggle.hidden = true;
+      toggle.textContent = "Voir plus";
+      summary.insertAdjacentElement("afterend", toggle);
+
+      function toggleSummary(event) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        var isExpanded = card.classList.toggle("is-expanded");
+        toggle.textContent = isExpanded ? "Réduire" : "Voir plus";
+        toggle.setAttribute("aria-expanded", isExpanded ? "true" : "false");
+      }
+
+      toggle.addEventListener("click", toggleSummary);
+      toggle.addEventListener("keydown", function (event) {
+        if (event.key !== "Enter" && event.key !== " ") {
+          return;
+        }
+
+        toggleSummary(event);
+      });
+    });
+
+    refreshSummaryToggles();
+  }
+
+  function refreshSummaryToggles() {
+    cards.forEach(refreshSummaryToggle);
+  }
+
   function setSelectedProject(projectId, options) {
     var project = projects[projectId];
     var settings = options || {};
@@ -166,14 +426,17 @@
       animateDetail();
     }
 
+    refreshProjectDetailLayout();
+
     if (settings.scrollOnMobile === true) {
       scrollToDetailOnMobile();
     }
   }
 
   function setFilter(filterName, options) {
-    var firstVisibleCard = null;
     var settings = options || {};
+    activeFilter = filterName;
+    currentPage = 1;
 
     filters.forEach(function (filter) {
       var isSelected = filter.getAttribute("data-filter") === filterName;
@@ -181,20 +444,9 @@
       filter.setAttribute("aria-pressed", isSelected ? "true" : "false");
     });
 
-    cards.forEach(function (card) {
-      var matchesFilter = filterName === "Tous" || card.getAttribute("data-category") === filterName;
-      card.hidden = !matchesFilter;
-
-      if (matchesFilter && !firstVisibleCard) {
-        firstVisibleCard = card;
-      }
+    updateProjectPage({
+      scrollOnMobile: settings.scrollOnMobile === true
     });
-
-    if (firstVisibleCard) {
-      setSelectedProject(firstVisibleCard.getAttribute("data-project"), {
-        scrollOnMobile: settings.scrollOnMobile === true
-      });
-    }
   }
 
   cards.forEach(function (card) {
@@ -211,6 +463,23 @@
         scrollOnMobile: true
       });
     });
+  });
+
+  if (detailToggle) {
+    detailToggle.addEventListener("click", function (event) {
+      event.preventDefault();
+      event.stopPropagation();
+
+      var isExpanded = detailElement.classList.toggle("is-expanded");
+      detailToggle.textContent = isExpanded ? "Réduire" : "Voir plus";
+      detailToggle.setAttribute("aria-expanded", isExpanded ? "true" : "false");
+    });
+  }
+
+  setupSummaryToggles();
+  window.addEventListener("resize", function () {
+    refreshSummaryToggles();
+    refreshProjectDetailLayout();
   });
 
   if (realisationsSection && "IntersectionObserver" in window) {
@@ -230,7 +499,7 @@
     sectionObserver.observe(realisationsSection);
   }
 
-  setSelectedProject("webmarket", {
+  updateProjectPage({
     animate: false,
     scrollOnMobile: false
   });

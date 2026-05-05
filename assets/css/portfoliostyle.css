@@ -353,8 +353,57 @@ header .actif {
     align-items: start;
     align-content: start;
     align-self: start;
+    grid-column: 1;
+    grid-row: 1;
     margin-top: 0;
+    min-height: calc((clamp(240px, 24vw, 300px) * 2) + 12px);
     padding-top: 0;
+}
+
+.project-pagination {
+    display: flex;
+    flex-wrap: wrap;
+    grid-column: 1;
+    grid-row: 2;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: -6px;
+}
+
+.project-page-button,
+.project-page-status {
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.06);
+    color: rgba(255, 255, 255, 0.82);
+    font-size: 0.78rem;
+    font-weight: 700;
+    line-height: 1.2;
+    padding: 7px 10px;
+}
+
+.project-page-button {
+    cursor: pointer;
+    transition: background 180ms ease, border-color 180ms ease, color 180ms ease;
+}
+
+.project-page-button:hover,
+.project-page-button:focus-visible,
+.project-page-button.is-active {
+    border-color: #f5593d;
+    background: rgba(245, 89, 61, 0.16);
+    color: #fff;
+    outline: none;
+}
+
+.project-page-button:disabled {
+    cursor: not-allowed;
+    opacity: 0.45;
+}
+
+.project-pagination[hidden] {
+    display: none;
 }
 
 /* Future improvement: when more projects are added, replace the static grid with pagination/list navigation. */
@@ -365,7 +414,9 @@ header .actif {
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    min-height: 204px;
+    height: clamp(240px, 24vw, 300px);
+    min-height: 0;
+    max-height: 300px;
     margin-top: 0;
     vertical-align: top;
     padding: 0;
@@ -390,9 +441,17 @@ header .actif {
 
 .project-card-image {
     display: block;
+    flex: 0 0 86px;
     min-height: 86px;
     background-position: center;
     background-size: cover;
+    transition: flex-basis 180ms ease, min-height 180ms ease, opacity 180ms ease;
+}
+
+.project-card.is-expanded .project-card-image {
+    flex-basis: 0;
+    min-height: 0;
+    opacity: 0;
 }
 
 .project-card-content {
@@ -400,6 +459,8 @@ header .actif {
     flex: 1;
     flex-direction: column;
     gap: 6px;
+    min-height: 0;
+    overflow: hidden;
     padding: 10px;
 }
 
@@ -419,13 +480,49 @@ header .actif {
 }
 
 .project-card-summary {
+    display: -webkit-box;
+    flex-shrink: 1;
+    min-height: 0;
+    overflow: hidden;
     color: rgba(255, 255, 255, 0.72);
     font-size: 0.76rem;
     line-height: 1.35;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+}
+
+.project-card.is-expanded .project-card-summary {
+    -webkit-line-clamp: 8;
+}
+
+.project-card-toggle {
+    display: none;
+    align-self: center;
+    border: 0;
+    background: transparent;
+    color: rgba(255, 255, 255, 0.86);
+    cursor: pointer;
+    font-size: 0.68rem;
+    font-weight: 800;
+    line-height: 1.2;
+    margin: 2px auto 0;
+    padding: 0;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+.project-card.has-summary-overflow .project-card-toggle {
+    display: inline-flex;
+}
+
+.project-card-toggle:focus-visible {
+    outline: 2px solid rgba(245, 89, 61, 0.7);
+    outline-offset: 2px;
 }
 
 .project-impact {
     display: inline-flex;
+    flex-shrink: 0;
     width: fit-content;
     margin-top: auto;
     border-radius: 6px;
@@ -437,10 +534,15 @@ header .actif {
     padding: 5px 7px;
 }
 
+.project-card.is-expanded .project-impact {
+    margin-top: 0;
+}
+
 .project-tags,
 .project-detail-tags {
     display: flex;
     flex-wrap: wrap;
+    flex-shrink: 0;
     gap: 6px;
 }
 
@@ -455,6 +557,11 @@ header .actif {
 }
 
 .project-detail {
+    display: flex;
+    flex-direction: column;
+    grid-column: 2;
+    grid-row: 1;
+    overflow: hidden;
     margin-top: 0;
     height: auto;
     min-height: 0;
@@ -465,6 +572,10 @@ header .actif {
     color: #26313a;
     padding: 12px;
     text-align: left;
+}
+
+.project-detail-top {
+    flex-shrink: 0;
 }
 
 .project-detail.is-animating {
@@ -501,7 +612,24 @@ header .actif {
 .project-detail-grid {
     display: grid;
     grid-template-columns: 1fr;
+    flex: 1 1 auto;
     gap: 8px;
+    min-height: 0;
+    overflow: hidden;
+    padding-right: 2px;
+}
+
+.project-detail.is-expanded .project-detail-grid {
+    overflow-y: auto;
+}
+
+.project-detail.is-expanded .project-detail-grid::-webkit-scrollbar {
+    width: 7px;
+}
+
+.project-detail.is-expanded .project-detail-grid::-webkit-scrollbar-thumb {
+    border-radius: 999px;
+    background: rgba(245, 89, 61, 0.42);
 }
 
 .project-detail-item {
@@ -535,6 +663,7 @@ header .actif {
 .project-detail-footer {
     display: flex;
     flex-direction: column;
+    flex-shrink: 0;
     gap: 10px;
     margin-top: 10px;
 }
@@ -567,13 +696,46 @@ header .actif {
     display: inline-flex;
 }
 
+.project-detail-toggle {
+    display: none;
+    align-self: center;
+    border: 0;
+    background: transparent;
+    color: #dc442a;
+    cursor: pointer;
+    font-size: 0.74rem;
+    font-weight: 800;
+    line-height: 1.2;
+    padding: 0;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+.project-detail.has-overflow .project-detail-toggle {
+    display: inline-flex;
+}
+
+.project-detail-toggle:focus-visible {
+    outline: 2px solid rgba(245, 89, 61, 0.45);
+    outline-offset: 3px;
+}
+
 @media (max-width: 991px) {
     .projects-layout {
         grid-template-columns: 1fr;
     }
 
     .projects-grid {
+        grid-column: auto;
+        grid-row: auto;
         grid-template-columns: repeat(2, minmax(0, 1fr));
+        min-height: 0;
+    }
+
+    .project-pagination {
+        grid-column: auto;
+        grid-row: auto;
+        margin-top: -4px;
     }
 
     .project-detail-grid {
@@ -581,7 +743,16 @@ header .actif {
     }
 
     .project-detail {
+        grid-column: auto;
+        grid-row: auto;
+        height: auto !important;
+        overflow: visible;
         min-height: 0;
+    }
+
+    .project-detail-grid,
+    .project-detail.is-expanded .project-detail-grid {
+        overflow: visible;
     }
 }
 
@@ -599,7 +770,7 @@ header .actif {
     }
 
     .project-card {
-        min-height: auto;
+        height: clamp(232px, 58vw, 300px);
     }
 
     .project-filter {

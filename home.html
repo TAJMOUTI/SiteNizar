@@ -439,6 +439,8 @@ The above copyright notice and this permission notice shall be included in all c
         <div class="project-filters" aria-label="Filtrer les r&eacute;alisations">
           <button class="project-filter is-active" type="button" data-filter="Tous" aria-pressed="true">Tous</button>
           <button class="project-filter" type="button" data-filter="Outils internes" aria-pressed="false">Outils internes</button>
+          <button class="project-filter" type="button" data-filter="Outil SaaS" aria-pressed="false">Outil SaaS</button>
+          <button class="project-filter" type="button" data-filter="Automation" aria-pressed="false">Automation</button>
           <button class="project-filter" type="button" data-filter="Dashboard" aria-pressed="false">Dashboard</button>
           <button class="project-filter" type="button" data-filter="Communication" aria-pressed="false">Communication</button>
           <button class="project-filter" type="button" data-filter="Projet web" aria-pressed="false">Projet web</button>
@@ -457,6 +459,40 @@ The above copyright notice and this permission notice shall be included in all c
                   <span>Application interne</span>
                   <span>UX m&eacute;tier</span>
                   <span>Workflow</span>
+                </span>
+              </span>
+            </button>
+
+            <button class="project-card" type="button" data-project="datahouse" data-category="Outil SaaS" aria-selected="false">
+              <span class="project-card-image" style="background-image: url('./assets/img/realisations/datahouse.png');"></span>
+              <span class="project-card-content">
+                <span class="project-card-meta">Outil SaaS</span>
+                <span class="project-card-title">DataHouse</span>
+                <span class="project-card-summary">Plateforme SaaS bas&eacute;e sur des sch&eacute;mas dynamiques pour cr&eacute;er rapidement des interfaces m&eacute;tier, dashboards et documents &agrave; partir des donn&eacute;es.</span>
+                <span class="project-impact">B&eacute;n&eacute;fice : cr&eacute;ation plus rapide d&rsquo;outils m&eacute;tier sur mesure</span>
+                <span class="project-tags">
+                  <span>SaaS</span>
+                  <span>Fullstack</span>
+                  <span>MongoDB</span>
+                  <span>Next.js</span>
+                  <span>TypeScript</span>
+                  <span>IaC</span>
+                </span>
+              </span>
+            </button>
+
+            <button class="project-card" type="button" data-project="assistant-mail-n8n" data-category="Automation" aria-selected="false">
+              <span class="project-card-image" style="background-image: url('./assets/img/realisations/valoris.png');"></span>
+              <span class="project-card-content">
+                <span class="project-card-meta">Automation</span>
+                <span class="project-card-title">Assistant Mail n8n</span>
+                <span class="project-card-summary">Workflow automatis&eacute; pour g&eacute;rer les emails : lecture, extraction d&rsquo;informations et actions automatiques.</span>
+                <span class="project-impact">B&eacute;n&eacute;fice : automatisation des t&acirc;ches r&eacute;p&eacute;titives li&eacute;es aux emails</span>
+                <span class="project-tags">
+                  <span>n8n</span>
+                  <span>Automation</span>
+                  <span>Email</span>
+                  <span>API</span>
                 </span>
               </span>
             </button>
@@ -507,6 +543,8 @@ The above copyright notice and this permission notice shall be included in all c
             </button>
           </div>
 
+          <div class="project-pagination" aria-label="Pagination des r&eacute;alisations"></div>
+
           <article class="project-detail" aria-live="polite">
             <div class="project-detail-top">
               <span class="project-detail-category" id="project-detail-category">Outils internes</span>
@@ -548,6 +586,7 @@ The above copyright notice and this permission notice shall be included in all c
                 <span>Renault</span>
                 <span>Workflow</span>
               </div>
+              <button class="project-detail-toggle" id="project-detail-toggle" type="button" hidden>Voir plus</button>
               <a class="project-detail-link" id="project-detail-link" target="_blank" rel="noopener noreferrer" hidden>Voir le projet</a>
             </div>
           </article>
@@ -626,7 +665,7 @@ The above copyright notice and this permission notice shall be included in all c
   <script src="./assets/js/core/bootstrap.min.js" type="text/javascript"></script>
   <!-- Control Center for Paper Kit: parallax effects, scripts for the example pages etc -->
   <script src="./assets/js/paper-kit.js?v=2.2.0" type="text/javascript"></script>
-  <script src="./assets/js/realisations.js" type="text/javascript"></script>
+  <script src="./assets/js/realisations.js?v=2" type="text/javascript"></script>
   <!-- Experimental ideas kept inactive until they are stable:
   <script src="./assets/js/experiments/apropos-game.js" type="text/javascript"></script>
   <script src="./assets/js/experiments/formations-snake.js" type="text/javascript"></script> -->
