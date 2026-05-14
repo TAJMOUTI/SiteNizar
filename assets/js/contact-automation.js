@@ -13,6 +13,7 @@
   var submitButton = modal.querySelector('.smart-contact-submit');
   var submitText = modal.querySelector('[data-smart-contact-submit-text]');
   var firstField = form ? form.querySelector('input[name="name"]') : null;
+  var contactCarousel = document.querySelector('[data-contact-carousel]');
   var lastFocusedElement = null;
   var formStartedAt = null;
   var isSubmitting = false;
@@ -23,6 +24,9 @@
   var processingToastDurationMs = 2500;
   var toastExitDurationMs = 180;
   var processingToastStartedAt = 0;
+  var currentContactIndex = 0;
+  var pauseContactCarouselForModal = function () {};
+  var resumeContactCarouselFromModal = function () {};
 
   function getFieldValue(name) {
     var field = form.elements[name];
@@ -234,6 +238,7 @@
     modal.classList.add('is-open');
     modal.setAttribute('aria-hidden', 'false');
     document.body.classList.add('smart-contact-no-scroll');
+    pauseContactCarouselForModal();
     setStatus('', '');
     clearValidation();
 
@@ -250,6 +255,7 @@
     modal.classList.remove('is-open');
     modal.setAttribute('aria-hidden', 'true');
     document.body.classList.remove('smart-contact-no-scroll');
+    resumeContactCarouselFromModal();
 
     if (!isSubmitting) {
       setLoading(false);
@@ -477,7 +483,167 @@
       });
   }
 
+  function initContactCarousel() {
+    if (!contactCarousel) {
+      return;
+    }
+
+    var track = contactCarousel.querySelector('.contact-carousel-track');
+    var viewport = contactCarousel.querySelector('.contact-carousel-viewport');
+    var previousButton = contactCarousel.querySelector('.contact-carousel-prev');
+    var nextButton = contactCarousel.querySelector('.contact-carousel-next');
+    var status = document.querySelector('.contact-carousel-status');
+    var progress = document.querySelector('.contact-carousel-progress');
+    var progressBar = progress ? progress.querySelector('.contact-carousel-progress-bar') : null;
+    var reduceMotionQuery = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
+    var autoRotateDelay = 3000;
+    var autoRotateTimer = null;
+    var isModalPaused = false;
+
+    if (!track || !viewport || !previousButton || !nextButton) {
+      return;
+    }
+
+    var cards = Array.prototype.slice.call(track.querySelectorAll('.contact-card'));
+
+    if (!cards.length) {
+      return;
+    }
+
+    function prefersReducedMotion() {
+      return reduceMotionQuery && reduceMotionQuery.matches;
+    }
+
+    function clearAutoRotate() {
+      if (autoRotateTimer) {
+        window.clearTimeout(autoRotateTimer);
+        autoRotateTimer = null;
+      }
+    }
+
+    function resetProgress() {
+      if (!progress || !progressBar) {
+        return;
+      }
+
+      progress.classList.remove('is-progressing');
+      progressBar.style.animation = 'none';
+      progressBar.offsetHeight;
+      progressBar.style.animation = '';
+    }
+
+    function startProgress() {
+      if (!progress || !progressBar || prefersReducedMotion()) {
+        resetProgress();
+        return;
+      }
+
+      progress.style.setProperty('--carousel-progress-duration', autoRotateDelay + 'ms');
+      resetProgress();
+      progress.classList.add('is-progressing');
+    }
+
+    function isAutoRotatePaused() {
+      return prefersReducedMotion() || isModalPaused;
+    }
+
+    function scheduleAutoRotate() {
+      clearAutoRotate();
+
+      if (isAutoRotatePaused()) {
+        resetProgress();
+        return;
+      }
+
+      startProgress();
+      autoRotateTimer = window.setTimeout(function () {
+        goToContactCard(currentContactIndex + 1);
+      }, autoRotateDelay);
+    }
+
+    function updateContactCarousel() {
+      cards.forEach(function (card, index) {
+        var position = (index - currentContactIndex + cards.length) % cards.length;
+        var isActive = position === 0;
+        var isNext = position === 1;
+        var isBack = position === 2;
+        var isPrev = position === cards.length - 1;
+
+        card.classList.toggle('is-active', isActive);
+        card.classList.toggle('is-next', isNext);
+        card.classList.toggle('is-back', isBack);
+        card.classList.toggle('is-prev', isPrev);
+
+        if (isActive) {
+          card.setAttribute('aria-current', 'true');
+          card.removeAttribute('tabindex');
+          card.removeAttribute('aria-hidden');
+        } else {
+          card.removeAttribute('aria-current');
+          card.setAttribute('tabindex', '-1');
+          card.setAttribute('aria-hidden', 'true');
+        }
+      });
+
+      if (status) {
+        status.textContent = currentContactIndex + 1 + ' / ' + cards.length;
+      }
+    }
+
+    function goToContactCard(nextIndex) {
+      currentContactIndex = (nextIndex + cards.length) % cards.length;
+      updateContactCarousel();
+      scheduleAutoRotate();
+    }
+
+    previousButton.addEventListener('click', function () {
+      goToContactCard(currentContactIndex - 1);
+    });
+
+    nextButton.addEventListener('click', function () {
+      goToContactCard(currentContactIndex + 1);
+    });
+
+    cards.forEach(function (card, index) {
+      card.addEventListener('click', function (event) {
+        if (index === currentContactIndex) {
+          return;
+        }
+
+        event.preventDefault();
+        goToContactCard(index);
+      });
+    });
+
+    pauseContactCarouselForModal = function () {
+      isModalPaused = true;
+      clearAutoRotate();
+      resetProgress();
+    };
+
+    resumeContactCarouselFromModal = function () {
+      isModalPaused = false;
+      scheduleAutoRotate();
+    };
+
+    if (reduceMotionQuery) {
+      var handleMotionChange = function () {
+        scheduleAutoRotate();
+      };
+
+      if (typeof reduceMotionQuery.addEventListener === 'function') {
+        reduceMotionQuery.addEventListener('change', handleMotionChange);
+      } else if (typeof reduceMotionQuery.addListener === 'function') {
+        reduceMotionQuery.addListener(handleMotionChange);
+      }
+    }
+
+    updateContactCarousel();
+    scheduleAutoRotate();
+  }
+
   openButton.addEventListener('click', openModal);
+  initContactCarousel();
 
   closeButtons.forEach(function (button) {
     button.addEventListener('click', closeModal);

@@ -1086,20 +1086,183 @@ footer a:hover{
 
 /*---------------------------------------------------------------------------------- smart contact modal --------------*/
 
+.contact-carousel {
+    display: grid;
+    grid-template-columns: 42px minmax(0, 820px) 42px;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 18px;
+    min-width: 0;
+    --carousel-progress-duration: 3000ms;
+}
+
+.contact-carousel-progress {
+    width: min(420px, 64vw);
+    height: 4px;
+    margin: 20px auto 0;
+    overflow: hidden;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.08);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+}
+
+.contact-carousel-progress-bar {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(90deg, #ff4b2b, #ff6a3d);
+    box-shadow: 0 0 12px rgba(245, 89, 61, 0.36);
+    transform: scaleX(0);
+    transform-origin: left center;
+}
+
+.contact-carousel-progress.is-progressing .contact-carousel-progress-bar {
+    animation: contactCarouselProgress var(--carousel-progress-duration, 3000ms) linear forwards;
+}
+
+.contact-carousel-viewport {
+    position: relative;
+    overflow: hidden;
+    min-width: 0;
+    height: 208px;
+    padding: 0;
+    perspective: 1050px;
+}
+
+.contact-carousel-track {
+    position: relative;
+    height: 100%;
+    min-width: 0;
+    transform-style: preserve-3d;
+}
+
+.contact-carousel-arrow {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    width: 42px;
+    height: 52px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+    cursor: pointer;
+    font-size: 1.75rem;
+    font-weight: 800;
+    line-height: 1;
+    transition: background 180ms ease, border-color 180ms ease, transform 180ms ease, opacity 180ms ease;
+}
+
+.contact-carousel-arrow:hover,
+.contact-carousel-arrow:focus-visible {
+    border-color: #f5593d;
+    background: rgba(245, 89, 61, 0.18);
+    outline: none;
+    transform: translateY(-1px);
+}
+
+.contact-carousel-status {
+    margin-top: 4px;
+    color: rgba(255, 255, 255, 0.62);
+    font-size: 0.76rem;
+    font-weight: 700;
+    letter-spacing: 0;
+    text-align: center;
+}
+
 #contact .contact-card,
 #contact .contact-card-primary,
 #contact .contact-card-automation {
-    width: 100%;
-    min-height: 158px;
-    border-color: rgba(255, 255, 255, 0.14);
-    background: linear-gradient(145deg, rgba(255, 255, 255, 0.105), rgba(255, 255, 255, 0.035));
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: flex;
+    align-items: center;
+    width: min(460px, 74vw);
+    height: 164px;
+    min-height: 164px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(20, 20, 30, 0.86);
     cursor: pointer;
     font-family: inherit;
+    opacity: 0;
+    filter: none;
+    pointer-events: none;
+    transform: translate(-50%, -50%) scale(0.72);
+    transform-origin: center;
+    transition: transform 920ms cubic-bezier(0.22, 1, 0.36, 1), opacity 780ms ease, filter 780ms ease, background 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+    z-index: 1;
 }
 
-#contact .contact-card-primary .contact-card-icon,
-#contact .contact-card-automation .contact-card-icon {
+#contact .contact-card-content {
+    min-width: 0;
+}
+
+#contact .contact-card-detail {
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+}
+
+#contact .contact-card-primary .contact-card-icon {
     background: rgba(255, 255, 255, 0.1);
+}
+
+#contact .contact-card.is-active {
+    border-color: rgba(245, 89, 61, 0.78);
+    background: linear-gradient(145deg, #2b2730, #191924);
+    box-shadow: 0 24px 58px rgba(0, 0, 0, 0.48), 0 0 0 1px rgba(245, 89, 61, 0.14), 0 14px 36px rgba(245, 89, 61, 0.18);
+    filter: none;
+    opacity: 1;
+    pointer-events: auto;
+    transform: translate3d(-50%, -50%, 90px) translateX(0) scale(1) rotateY(0deg);
+    z-index: 4;
+}
+
+#contact .contact-card.is-prev {
+    filter: blur(1.2px) brightness(0.54) saturate(0.74);
+    opacity: 0.38;
+    transform: translate3d(-50%, -50%, -110px) translateX(-108%) scale(0.84) rotateY(12deg);
+    z-index: 1;
+}
+
+#contact .contact-card.is-next {
+    filter: blur(1.2px) brightness(0.54) saturate(0.74);
+    opacity: 0.38;
+    transform: translate3d(-50%, -50%, -110px) translateX(108%) scale(0.84) rotateY(-12deg);
+    z-index: 1;
+}
+
+#contact .contact-card.is-back {
+    opacity: 0;
+    transform: translate3d(-50%, -50%, -180px) scale(0.74) rotateY(0deg);
+    z-index: 0;
+}
+
+#contact .contact-card:not(.is-active) .contact-card-title,
+#contact .contact-card:not(.is-active) .contact-card-detail,
+#contact .contact-card:not(.is-active) .contact-card-action {
+    opacity: 0;
+}
+
+#contact .contact-card-automation .contact-card-kicker {
+    display: inline-flex;
+    width: fit-content;
+    margin-bottom: 4px;
+    border-radius: 999px;
+    background: rgba(245, 89, 61, 0.18);
+    color: #ffd4ca;
+    font-size: 0.68rem;
+    line-height: 1;
+    padding: 5px 8px;
+}
+
+#contact .contact-card-automation .contact-card-icon {
+    background: rgba(245, 89, 61, 0.2);
 }
 
 #contact .contact-card:hover,
@@ -1109,7 +1272,7 @@ footer a:hover{
 #contact .contact-card-automation:hover,
 #contact .contact-card-automation:focus {
     border-color: rgba(245, 89, 61, 0.72);
-    background: linear-gradient(145deg, rgba(245, 89, 61, 0.18), rgba(255, 255, 255, 0.045));
+    background: linear-gradient(145deg, #3a2d31, #1a1924);
 }
 
 #contact .contact-card:hover .contact-card-icon,
@@ -1126,13 +1289,19 @@ footer a:hover{
 #contact .contact-card-automation:active {
     border-color: rgba(245, 89, 61, 0.88);
     background: linear-gradient(145deg, rgba(230, 57, 70, 0.24), rgba(245, 89, 61, 0.09));
-    transform: translateY(-2px);
+}
+
+#contact .contact-card.is-active:hover,
+#contact .contact-card.is-active:focus {
+    border-color: rgba(245, 89, 61, 0.9);
+    box-shadow: 0 28px 64px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(245, 89, 61, 0.18), 0 18px 44px rgba(245, 89, 61, 0.22);
+    transform: translate3d(-50%, calc(-50% - 4px), 90px) translateX(0) scale(1) rotateY(0deg);
 }
 
 #contact .contact-card-action {
     display: inline-flex;
     width: fit-content;
-    margin-top: 12px;
+    margin-top: 8px;
     border-radius: 999px;
     background: #f5593d;
     color: #fff;
@@ -1140,6 +1309,91 @@ footer a:hover{
     font-weight: 800;
     line-height: 1;
     padding: 9px 12px;
+}
+
+@keyframes contactCarouselProgress {
+    from {
+        transform: scaleX(0);
+    }
+
+    to {
+        transform: scaleX(1);
+    }
+}
+
+@media (max-width: 767px) {
+    .contact-carousel {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin-top: 16px;
+        overflow: hidden;
+    }
+
+    .contact-carousel-progress {
+        width: min(340px, 82vw);
+        margin-top: 18px;
+    }
+
+    .contact-carousel-viewport {
+        grid-column: 1 / -1;
+        grid-row: 1;
+        overflow: hidden;
+        height: 196px;
+        padding: 0;
+        perspective: none;
+    }
+
+    .contact-carousel-track {
+        height: 100%;
+        transform-style: flat;
+    }
+
+    .contact-carousel-prev {
+        grid-column: 1;
+        grid-row: 2;
+        justify-self: end;
+    }
+
+    .contact-carousel-next {
+        grid-column: 2;
+        grid-row: 2;
+        justify-self: start;
+    }
+
+    #contact .contact-card,
+    #contact .contact-card-primary,
+    #contact .contact-card-automation {
+        width: min(100%, 340px);
+        height: 164px;
+        min-height: 164px;
+    }
+
+    #contact .contact-card.is-prev {
+        opacity: 0;
+        filter: none;
+        transform: translate(-50%, -50%) translateX(-96%) scale(0.84);
+    }
+
+    #contact .contact-card.is-next {
+        opacity: 0;
+        filter: none;
+        transform: translate(-50%, -50%) translateX(96%) scale(0.84);
+    }
+
+    #contact .contact-card.is-back {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.72);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .contact-carousel-track,
+    #contact .contact-card,
+    .contact-carousel-arrow,
+    .contact-carousel-progress-bar {
+        animation: none !important;
+        transition: none;
+    }
 }
 
 .smart-contact-modal {
