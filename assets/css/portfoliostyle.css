@@ -1084,3 +1084,451 @@ footer a:hover{
     }
 }
 
+/*---------------------------------------------------------------------------------- smart contact modal --------------*/
+
+#contact .contact-card,
+#contact .contact-card-primary,
+#contact .contact-card-automation {
+    width: 100%;
+    min-height: 158px;
+    border-color: rgba(255, 255, 255, 0.14);
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.105), rgba(255, 255, 255, 0.035));
+    cursor: pointer;
+    font-family: inherit;
+}
+
+#contact .contact-card-primary .contact-card-icon,
+#contact .contact-card-automation .contact-card-icon {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+#contact .contact-card:hover,
+#contact .contact-card:focus,
+#contact .contact-card-primary:hover,
+#contact .contact-card-primary:focus,
+#contact .contact-card-automation:hover,
+#contact .contact-card-automation:focus {
+    border-color: rgba(245, 89, 61, 0.72);
+    background: linear-gradient(145deg, rgba(245, 89, 61, 0.18), rgba(255, 255, 255, 0.045));
+}
+
+#contact .contact-card:hover .contact-card-icon,
+#contact .contact-card:focus .contact-card-icon,
+#contact .contact-card-primary:hover .contact-card-icon,
+#contact .contact-card-primary:focus .contact-card-icon,
+#contact .contact-card-automation:hover .contact-card-icon,
+#contact .contact-card-automation:focus .contact-card-icon {
+    background: rgba(245, 89, 61, 0.28);
+}
+
+#contact .contact-card:active,
+#contact .contact-card-primary:active,
+#contact .contact-card-automation:active {
+    border-color: rgba(245, 89, 61, 0.88);
+    background: linear-gradient(145deg, rgba(230, 57, 70, 0.24), rgba(245, 89, 61, 0.09));
+    transform: translateY(-2px);
+}
+
+#contact .contact-card-action {
+    display: inline-flex;
+    width: fit-content;
+    margin-top: 12px;
+    border-radius: 999px;
+    background: #f5593d;
+    color: #fff;
+    font-size: 0.74rem;
+    font-weight: 800;
+    line-height: 1;
+    padding: 9px 12px;
+}
+
+.smart-contact-modal {
+    position: fixed;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 22px;
+    z-index: 1050;
+}
+
+.smart-contact-modal.is-open {
+    display: flex;
+}
+
+.smart-contact-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.78);
+    backdrop-filter: blur(5px);
+}
+
+.smart-contact-dialog {
+    position: relative;
+    width: min(100%, 820px);
+    max-height: calc(100vh - 44px);
+    overflow-y: auto;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 8px;
+    background: linear-gradient(145deg, #151e27, #080b0f);
+    box-shadow: 0 28px 80px rgba(0, 0, 0, 0.48);
+    color: #fff;
+    padding: 28px;
+    scrollbar-color: rgba(245, 89, 61, 0.7) rgba(255, 255, 255, 0.08);
+    scrollbar-width: thin;
+}
+
+.smart-contact-dialog:focus {
+    outline: 2px solid rgba(245, 89, 61, 0.5);
+    outline-offset: 3px;
+}
+
+.smart-contact-dialog::-webkit-scrollbar {
+    width: 9px;
+}
+
+.smart-contact-dialog::-webkit-scrollbar-thumb {
+    border-radius: 999px;
+    background: rgba(245, 89, 61, 0.7);
+}
+
+.smart-contact-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+    cursor: pointer;
+    transition: background 180ms ease, border-color 180ms ease, transform 180ms ease;
+}
+
+.smart-contact-close:hover,
+.smart-contact-close:focus {
+    border-color: rgba(245, 89, 61, 0.72);
+    background: rgba(245, 89, 61, 0.22);
+    transform: translateY(-1px);
+}
+
+.smart-contact-header {
+    max-width: 690px;
+    margin-bottom: 24px;
+    padding-right: 38px;
+}
+
+.smart-contact-kicker {
+    display: inline-flex;
+    margin-bottom: 10px;
+    color: #f5593d;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.smart-contact-header h3 {
+    margin: 0 0 10px;
+    color: #fff;
+    font-size: 1.62rem;
+    font-weight: 800;
+    line-height: 1.2;
+}
+
+.smart-contact-header p {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.76);
+    font-size: 0.95rem;
+    line-height: 1.65;
+}
+
+.smart-contact-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.smart-contact-form label {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    margin: 0;
+    color: rgba(255, 255, 255, 0.74);
+    font-size: 0.78rem;
+    font-weight: 800;
+}
+
+.smart-contact-form input,
+.smart-contact-form select,
+.smart-contact-form textarea {
+    width: 100%;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.075);
+    color: #fff;
+    font-size: 0.92rem;
+    line-height: 1.35;
+    padding: 12px 13px;
+    transition: border-color 180ms ease, background 180ms ease, box-shadow 180ms ease;
+}
+
+.smart-contact-form select option {
+    color: #17222c;
+}
+
+.smart-contact-form textarea {
+    resize: vertical;
+    min-height: 132px;
+}
+
+.smart-contact-form input:focus,
+.smart-contact-form select:focus,
+.smart-contact-form textarea:focus {
+    border-color: rgba(245, 89, 61, 0.72);
+    background: rgba(255, 255, 255, 0.11);
+    box-shadow: 0 0 0 3px rgba(245, 89, 61, 0.14);
+    outline: none;
+}
+
+.smart-contact-form input.is-invalid,
+.smart-contact-form select.is-invalid,
+.smart-contact-form textarea.is-invalid {
+    border-color: rgba(230, 57, 70, 0.92);
+}
+
+.smart-contact-message {
+    grid-column: 1 / -1;
+}
+
+.smart-contact-honeypot {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+
+.smart-contact-status {
+    min-height: 22px;
+    margin: 16px auto 12px;
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 0.88rem;
+    line-height: 1.45;
+    max-width: 640px;
+    text-align: center;
+}
+
+.smart-contact-status.is-success {
+    color: #7ee2a8;
+}
+
+.smart-contact-status.is-error {
+    color: #ff8d7d;
+}
+
+.smart-contact-status.is-info {
+    color: rgba(255, 255, 255, 0.78);
+}
+
+.smart-contact-submit {
+    display: flex;
+    justify-content: center;
+    min-width: 185px;
+    margin: 0 auto;
+}
+
+.smart-contact-submit.is-loading {
+    cursor: wait;
+    opacity: 0.78;
+}
+
+body.smart-contact-no-scroll {
+    overflow: hidden;
+}
+
+.contact-toast-region {
+    position: fixed;
+    right: 22px;
+    bottom: 22px;
+    z-index: 1200;
+    display: flex;
+    width: min(380px, calc(100vw - 44px));
+    pointer-events: none;
+}
+
+.contact-toast {
+    display: grid;
+    grid-template-columns: 24px minmax(0, 1fr) 32px;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-left: 3px solid #f5593d;
+    border-radius: 8px;
+    background: linear-gradient(145deg, rgba(21, 30, 39, 0.98), rgba(8, 11, 15, 0.98));
+    box-shadow: 0 22px 58px rgba(0, 0, 0, 0.42);
+    color: #fff;
+    opacity: 0;
+    padding: 14px 12px 14px 15px;
+    pointer-events: auto;
+    transform: translateY(14px);
+    transition: opacity 180ms ease, transform 180ms ease, border-color 180ms ease;
+}
+
+.contact-toast.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.contact-toast-indicator {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+}
+
+.contact-toast-processing .contact-toast-indicator {
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top-color: #fff;
+    border-right-color: #f5593d;
+    animation: contactToastSpin 760ms linear infinite;
+}
+
+.contact-toast-success {
+    border-left-color: #7ee2a8;
+}
+
+.contact-toast-success .contact-toast-indicator {
+    background: rgba(126, 226, 168, 0.14);
+}
+
+.contact-toast-success .contact-toast-indicator::before {
+    content: "";
+    width: 10px;
+    height: 6px;
+    border-bottom: 2px solid #7ee2a8;
+    border-left: 2px solid #7ee2a8;
+    transform: rotate(-45deg) translate(1px, -1px);
+}
+
+.contact-toast-error {
+    border-left-color: #ff8d7d;
+}
+
+.contact-toast-error .contact-toast-indicator {
+    background: rgba(255, 141, 125, 0.14);
+}
+
+.contact-toast-error .contact-toast-indicator::before,
+.contact-toast-error .contact-toast-indicator::after {
+    content: "";
+    position: absolute;
+    width: 11px;
+    height: 2px;
+    border-radius: 999px;
+    background: #ff8d7d;
+}
+
+.contact-toast-error .contact-toast-indicator::before {
+    transform: rotate(45deg);
+}
+
+.contact-toast-error .contact-toast-indicator::after {
+    transform: rotate(-45deg);
+}
+
+.contact-toast-message {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.86);
+    font-size: 0.86rem;
+    font-weight: 600;
+    line-height: 1.45;
+}
+
+.contact-toast-close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.06);
+    color: rgba(255, 255, 255, 0.78);
+    cursor: pointer;
+    font-size: 1.15rem;
+    line-height: 1;
+    transition: background 180ms ease, border-color 180ms ease, color 180ms ease;
+}
+
+.contact-toast-close:hover,
+.contact-toast-close:focus {
+    border-color: rgba(245, 89, 61, 0.65);
+    background: rgba(245, 89, 61, 0.16);
+    color: #fff;
+    outline: none;
+}
+
+@keyframes contactToastSpin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@media (max-width: 767px) {
+    .smart-contact-modal {
+        align-items: flex-start;
+        padding: 12px;
+    }
+
+    .smart-contact-dialog {
+        max-height: calc(100vh - 24px);
+        padding: 22px 16px;
+    }
+
+    .smart-contact-header {
+        padding-right: 34px;
+    }
+
+    .smart-contact-header h3 {
+        font-size: 1.3rem;
+    }
+
+    .smart-contact-grid {
+        grid-template-columns: 1fr;
+        gap: 13px;
+    }
+
+    .smart-contact-submit {
+        width: min(100%, 260px);
+    }
+
+    .contact-toast-region {
+        right: 12px;
+        bottom: 12px;
+        left: 12px;
+        width: auto;
+    }
+
+    .contact-toast {
+        grid-template-columns: 22px minmax(0, 1fr) 30px;
+        padding: 13px 11px 13px 13px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .contact-toast,
+    .contact-toast-processing .contact-toast-indicator {
+        animation: none;
+        transition: none;
+    }
+}
+

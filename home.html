@@ -659,8 +659,102 @@ The above copyright notice and this permission notice shall be included in all c
               </span>
             </a>
           </div>
+          <div class="col-md-4">
+            <button class="contact-card contact-card-automation" type="button" data-smart-contact-open aria-haspopup="dialog">
+              <span class="contact-card-icon"><i class="fa fa-cogs" aria-hidden="true"></i></span>
+              <span class="contact-card-content">
+                <span class="contact-card-kicker">Workflow n8n</span>
+                <span class="contact-card-title">Formulaire automatisé</span>
+                <span class="contact-card-detail">Envoyez une demande test : elle sera qualifiée, enregistrée et transmise automatiquement via n8n.</span>
+                <span class="contact-card-action">Tester le formulaire</span>
+              </span>
+            </button>
+          </div>
         </div>
+      </div>
+    </div>
+
+    <div class="smart-contact-modal" data-smart-contact-modal aria-hidden="true">
+      <div class="smart-contact-overlay" data-smart-contact-close></div>
+      <div class="smart-contact-dialog" role="dialog" aria-modal="true" aria-labelledby="smart-contact-title" tabindex="-1">
+        <button class="smart-contact-close" type="button" data-smart-contact-close aria-label="Fermer le formulaire">
+          <i class="fa fa-times" aria-hidden="true"></i>
+        </button>
+        <div class="smart-contact-header">
+          <span class="smart-contact-kicker">Formulaire automatisé</span>
+          <h3 id="smart-contact-title">Tester mon formulaire intelligent</h3>
+          <p>Ce formulaire déclenche un workflow n8n : votre demande est structurée, qualifiée par IA, enregistrée dans un CRM, puis transmise automatiquement.</p>
         </div>
+        <form class="smart-contact-form" data-webhook-url="https://n8n.srv1532105.hstgr.cloud/webhook/portfolio-contact" novalidate>
+          <div class="smart-contact-honeypot" aria-hidden="true">
+            <label for="website_check">Site web</label>
+            <input id="website_check" name="website_check" type="text" tabindex="-1" autocomplete="off">
+          </div>
+          <div class="smart-contact-grid">
+            <label> 
+              <span>Nom Prénom *</span>
+              <input name="name" type="text" autocomplete="name" required>
+            </label>
+            <label>
+              <span>Email *</span>
+              <input name="email" type="email" autocomplete="email" required>
+            </label>
+            <label>
+              <span>Entreprise / organisation</span>
+              <input name="company" type="text" autocomplete="organization">
+            </label>
+            <label>
+              <span>Site web ou LinkedIn</span>
+              <input name="website_or_linkedin" type="url" autocomplete="url" placeholder="https://">
+            </label>
+            <label>
+              <span>Type de demande *</span>
+              <select name="request_type" required>
+                <option value="">Sélectionner</option>
+                <option>Automatisation n8n / IA</option>
+                <option>Outil métier / dashboard</option>
+                <option>Application web / fullstack</option>
+                <option>Génération de documents</option>
+                <option>Optimisation de process</option>
+                <option>Opportunité CDI</option>
+                <option>Mission freelance</option>
+                <option>Collaboration / partenariat</option>
+                <option>Autre</option>
+              </select>
+            </label>
+            <label>
+              <span>Budget / contexte</span>
+              <select name="budget_context">
+                <option value="">Sélectionner</option>
+                <option>Moins de 1 000 €</option>
+                <option>1 000 – 3 000 €</option>
+                <option>3 000 – 5 000 €</option>
+                <option>5 000 €+</option>
+                <option>CDI / recrutement</option>
+                <option>Je ne sais pas encore</option>
+              </select>
+            </label>
+            <label>
+              <span>Urgence</span>
+              <select name="urgency">
+                <option value="">Sélectionner</option>
+                <option>Pas urgent</option>
+                <option>Dans le mois</option>
+                <option>Dès que possible</option>
+                <option>Urgent</option>
+              </select>
+            </label>
+            <label class="smart-contact-message">
+              <span>Message *</span>
+              <textarea name="message" rows="5" required></textarea>
+            </label>
+          </div>
+          <p class="smart-contact-status" data-smart-contact-status role="status" aria-live="polite"></p>
+          <button class="smart-contact-submit btn btn-danger btn-round" type="submit">
+            <span data-smart-contact-submit-text>Envoyer la demande</span>
+          </button>
+        </form>
+      </div>
     </div>
   </main>
   
@@ -671,6 +765,7 @@ The above copyright notice and this permission notice shall be included in all c
   <!-- Control Center for Paper Kit: parallax effects, scripts for the example pages etc -->
   <script src="./assets/js/paper-kit.js?v=2.2.0" type="text/javascript"></script>
   <script src="./assets/js/realisations.js?v=2" type="text/javascript"></script>
+  <script src="./assets/js/contact-automation.js" type="text/javascript"></script>
   <!-- Experimental ideas kept inactive until they are stable:
   <script src="./assets/js/experiments/apropos-game.js" type="text/javascript"></script>
   <script src="./assets/js/experiments/formations-snake.js" type="text/javascript"></script> -->
