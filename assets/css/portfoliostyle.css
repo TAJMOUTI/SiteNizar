@@ -756,7 +756,12 @@ header .actif {
     font-weight: 700;
     padding: 8px 10px;
     text-decoration: none;
+    cursor: pointer;
     transition: background 180ms ease;
+}
+
+.project-detail-link:not([href]) {
+    color: #fff;
 }
 
 .project-detail-link:hover {

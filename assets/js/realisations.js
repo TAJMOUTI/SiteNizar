@@ -26,7 +26,7 @@
     },
     "assistant-mail-n8n": {
       title: "Assistant Mail n8n",
-      category: "Automation",
+      category: "Automatisation IA",
       summary: "Workflow automatisé pour gérer les emails : lecture, extraction d'informations et actions automatiques.",
       context: "Automatisation du traitement des emails entrants pour réduire les tâches manuelles répétitives.",
       problem: "Les emails nécessitent des actions manuelles fréquentes (lecture, extraction de données, suppression, récupération d'informations).",
@@ -34,7 +34,21 @@
       role: "Conception et implémentation complète du workflow n8n, définition de la logique métier, intégration API et automatisation des actions.",
       stack: "n8n / API Email / Webhooks / automatisation",
       impact: "Réduction des tâches répétitives, gain de temps et fiabilisation du traitement des emails.",
-      tags: ["n8n", "Automation", "Email", "API"]
+      tags: ["n8n", "Automatisation IA", "Email", "API"]
+    },
+    "crm-portfolio-ia": {
+      title: "CRM intelligent du portfolio",
+      category: "Automatisation IA",
+      summary: "Workflow n8n connecté au formulaire du portfolio pour qualifier, centraliser et suivre automatiquement les demandes entrantes.",
+      context: "Le portfolio ne se limite pas à présenter des projets : il intègre son propre système automatisé de gestion des contacts.",
+      problem: "Un formulaire classique envoie une demande brute, difficile à qualifier, prioriser et suivre.",
+      solution: "Mise en place d'un workflow n8n connecté au formulaire du portfolio. Chaque demande est normalisée, validée, qualifiée par IA, enregistrée dans un CRM Google Sheets, envoyée en notification Telegram et confirmée automatiquement par email.",
+      role: "Conception du workflow, intégration frontend, structuration CRM, qualification IA, routage, notifications et logique de validation.",
+      stack: "HTML / CSS / JavaScript vanilla / n8n / Webhook / Google Sheets / Telegram / Gmail / OpenAI",
+      impact: "Centralisation des demandes, qualification automatique, suivi plus propre des opportunités et démonstration concrète d'automatisation intégrée à un portfolio professionnel.",
+      tags: ["n8n", "IA", "CRM", "Google Sheets", "Telegram", "Gmail"],
+      action: "smart-contact",
+      actionLabel: "Tester le formulaire"
     },
     "messagerie-dect": {
       title: "Messagerie DECT",
@@ -429,12 +443,26 @@
       detail.tags.appendChild(tagElement);
     });
 
+    detail.link.removeAttribute("data-project-smart-contact-open");
+    detail.link.removeAttribute("role");
+    detail.link.removeAttribute("tabindex");
+
     if (project.link) {
       detail.link.href = project.link;
+      detail.link.textContent = "Voir le projet";
+      detail.link.hidden = false;
+      detail.link.classList.add("is-visible");
+    } else if (project.action === "smart-contact") {
+      detail.link.removeAttribute("href");
+      detail.link.textContent = project.actionLabel || "Tester le formulaire";
+      detail.link.setAttribute("data-project-smart-contact-open", "true");
+      detail.link.setAttribute("role", "button");
+      detail.link.setAttribute("tabindex", "0");
       detail.link.hidden = false;
       detail.link.classList.add("is-visible");
     } else {
       detail.link.removeAttribute("href");
+      detail.link.textContent = "Voir le projet";
       detail.link.hidden = true;
       detail.link.classList.remove("is-visible");
     }
@@ -481,6 +509,23 @@
       });
     });
   });
+
+  if (detail.link) {
+    detail.link.addEventListener("click", function (event) {
+      var smartContactButton = null;
+
+      if (detail.link.getAttribute("data-project-smart-contact-open") !== "true") {
+        return;
+      }
+
+      event.preventDefault();
+      smartContactButton = document.querySelector("[data-smart-contact-open]");
+
+      if (smartContactButton) {
+        smartContactButton.click();
+      }
+    });
+  }
 
   if (detailToggle) {
     detailToggle.addEventListener("click", function (event) {
