@@ -33,34 +33,44 @@
     return field ? field.value.trim() : '';
   }
 
-  function getWebhookDomain() {
-    var webhookUrl = form ? form.getAttribute('data-webhook-url') : '';
+  function getEnvironment() {
+    var hostname = window.location.hostname;
+    var isLocal =
+      hostname === "localhost" ||
+      hostname === "127.0.0.1" ||
+      hostname === "";
 
-    try {
-      return webhookUrl ? new URL(webhookUrl).hostname : '';
-    } catch (error) {
-      return '';
-    }
+    return isLocal ? 'local' : 'prod';
+  }
+
+  function getWebhookUrl(form) {
+    var hostname = window.location.hostname;
+    var isLocal =
+      hostname === "localhost" ||
+      hostname === "127.0.0.1" ||
+      hostname === "";
+
+    return isLocal
+      ? form.dataset.webhookUrlTest
+      : form.dataset.webhookUrlProd;
   }
 
   function getDebugContext(extra) {
-    var messageLength = extra && typeof extra.messageLength === 'number' ? extra.messageLength : getFieldValue('message').length;
-    var requestType = extra && extra.requestType ? extra.requestType : getFieldValue('request_type');
     var context = {
       timestamp: new Date().toISOString(),
-      requestType: requestType,
-      messageLength: messageLength,
-      webhookDomain: getWebhookDomain()
+      environment: getEnvironment()
     };
+    var safeExtra = {};
 
-    return Object.assign(context, extra || {});
-  }
+    if (extra && extra.event) {
+      safeExtra.event = extra.event;
+    }
 
-  function getPayloadDebug(payload) {
-    return {
-      requestType: payload.request_type,
-      messageLength: payload.message.length
-    };
+    if (extra && extra.reason) {
+      safeExtra.reason = extra.reason;
+    }
+
+    return Object.assign(context, safeExtra);
   }
 
   function logContactForm(extra) {
@@ -386,24 +396,23 @@
       return;
     }
 
-    var webhookUrl = form.getAttribute('data-webhook-url');
-    var debugPayload = getPayloadDebug(payload);
+    var webhookUrl = getWebhookUrl(form);
 
     if (!webhookUrl) {
       setStatus('error', 'Le service de traitement est temporairement indisponible. Vous pouvez réessayer ou me contacter directement par email.');
-      logContactForm(Object.assign({
+      logContactForm({
         event: 'submit_failed',
         reason: 'webhook_unavailable'
-      }, debugPayload));
+      });
       return;
     }
 
     isSubmitting = true;
     setLoading(true);
-    logContactForm(Object.assign({
+    logContactForm({
       event: 'portfolio-contact-submit-start',
-      validation: 'OK'
-    }, debugPayload));
+      reason: 'submit_started'
+    });
     closeModal();
     resetFormAfterLaunch();
     processingToastStartedAt = Date.now();
@@ -428,11 +437,10 @@
     fetch(webhookUrl, fetchOptions)
       .then(function (response) {
         if (!response.ok) {
-          logContactForm(Object.assign({
+          logContactForm({
             event: 'submit_failed',
-            reason: response.status >= 500 ? 'temporary_server_error' : 'http_error',
-            status: response.status
-          }, debugPayload));
+            reason: response.status >= 500 ? 'temporary_server_error' : 'http_error'
+          });
 
           throw new Error(response.status >= 500 ? 'temporary_server_error' : 'http_error');
         }
@@ -442,11 +450,10 @@
             duration: 6500
           });
         });
-        logContactForm(Object.assign({
+        logContactForm({
           event: 'submit_success',
-          validation: 'OK',
-          status: response.status
-        }, debugPayload));
+          reason: 'sent'
+        });
       })
       .catch(function (error) {
         var reason = error && error.message ? error.message : 'cors_or_fetch_error';
@@ -455,10 +462,10 @@
         var wasHttpLogged = reason === 'http_error' || reason === 'temporary_server_error';
 
         if (!wasHttpLogged) {
-          logContactForm(Object.assign({
+          logContactForm({
             event: 'submit_failed',
             reason: isTimeout ? 'timeout_error' : isNetworkError ? 'network_error' : 'cors_or_fetch_error'
-          }, debugPayload));
+          });
         }
 
         waitForProcessingToast(function () {
