@@ -38,7 +38,8 @@
     var isLocal =
       hostname === "localhost" ||
       hostname === "127.0.0.1" ||
-      hostname === "";
+      hostname === "" ||
+      /\.local$/i.test(hostname);
 
     return isLocal ? 'local' : 'prod';
   }
@@ -48,7 +49,8 @@
     var isLocal =
       hostname === "localhost" ||
       hostname === "127.0.0.1" ||
-      hostname === "";
+      hostname === "" ||
+      /\.local$/i.test(hostname);
 
     return isLocal
       ? form.dataset.webhookUrlTest
@@ -296,6 +298,8 @@
       metadata: {
         source: 'portfolio',
         origin_page: 'home',
+        environment: getEnvironment(),
+        webhook_target: getEnvironment() === 'local' ? 'test' : 'prod',
         page_url: window.location.href,
         user_agent: navigator.userAgent,
         form_started_at: formStartedAt,
