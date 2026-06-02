@@ -100,6 +100,10 @@
   var detailGrid = document.querySelector(".project-detail-grid");
   var detailToggle = document.getElementById("project-detail-toggle");
   var realisationsSection = document.getElementById("realisations");
+  var lightbox = null;
+  var lightboxImage = null;
+  var lightboxClose = null;
+  var lastLightboxTrigger = null;
   var detailAnimationTimeout = null;
   var activeFilter = "Tous";
   var currentPage = 1;
@@ -324,92 +328,117 @@
       });
     }
 
-    refreshSummaryToggles();
-
     window.requestAnimationFrame(function () {
       refreshProjectDetailLayout();
     });
   }
 
-  function refreshSummaryToggle(card) {
-    var summary = card.querySelector(".project-card-summary");
-    var toggle = card.querySelector(".project-card-toggle");
+  function createLightbox() {
+    lightbox = document.createElement("div");
+    lightbox.className = "project-lightbox";
+    lightbox.setAttribute("role", "dialog");
+    lightbox.setAttribute("aria-modal", "true");
+    lightbox.setAttribute("aria-label", "Capture du projet en grand");
+    lightbox.hidden = true;
 
-    if (!summary || !toggle || card.hidden) {
+    var panel = document.createElement("div");
+    panel.className = "project-lightbox-panel";
+
+    lightboxClose = document.createElement("button");
+    lightboxClose.className = "project-lightbox-close";
+    lightboxClose.type = "button";
+    lightboxClose.setAttribute("aria-label", "Fermer la capture");
+    lightboxClose.textContent = "x";
+
+    lightboxImage = document.createElement("img");
+    lightboxImage.className = "project-lightbox-image";
+    lightboxImage.alt = "";
+
+    panel.appendChild(lightboxClose);
+    panel.appendChild(lightboxImage);
+    lightbox.appendChild(panel);
+    document.body.appendChild(lightbox);
+
+    lightbox.addEventListener("click", function (event) {
+      if (event.target === lightbox) {
+        closeLightbox();
+      }
+    });
+
+    lightboxClose.addEventListener("click", closeLightbox);
+  }
+
+  function openLightbox(card, trigger) {
+    var fullImage = card.getAttribute("data-full-image");
+
+    if (!fullImage) {
       return;
     }
 
-    card.classList.remove("has-summary-overflow");
-    card.classList.remove("is-expanded");
-    toggle.textContent = "Voir plus";
-    toggle.setAttribute("aria-expanded", "false");
+    if (!lightbox) {
+      createLightbox();
+    }
 
+    lastLightboxTrigger = trigger;
+    lightboxImage.src = fullImage;
+    lightboxImage.alt = card.getAttribute("data-image-alt") || "Capture du projet";
+    lightbox.hidden = false;
+    document.body.classList.add("project-lightbox-open");
     window.requestAnimationFrame(function () {
-      var summaryWidth = summary.getBoundingClientRect().width;
-      var fullSummary = summary.cloneNode(true);
-
-      fullSummary.removeAttribute("id");
-      fullSummary.style.position = "absolute";
-      fullSummary.style.visibility = "hidden";
-      fullSummary.style.pointerEvents = "none";
-      fullSummary.style.display = "block";
-      fullSummary.style.overflow = "visible";
-      fullSummary.style.maxHeight = "none";
-      fullSummary.style.webkitLineClamp = "unset";
-      fullSummary.style.webkitBoxOrient = "initial";
-      fullSummary.style.width = summaryWidth + "px";
-
-      summary.parentNode.appendChild(fullSummary);
-
-      var hasOverflow = fullSummary.scrollHeight > summary.clientHeight + 1;
-
-      summary.parentNode.removeChild(fullSummary);
-      card.classList.toggle("has-summary-overflow", hasOverflow);
-      toggle.hidden = !hasOverflow;
+      lightbox.classList.add("is-visible");
+      lightboxClose.focus();
     });
   }
 
-  function setupSummaryToggles() {
-    cards.forEach(function (card) {
-      var summary = card.querySelector(".project-card-summary");
+  function closeLightbox() {
+    if (!lightbox || lightbox.hidden) {
+      return;
+    }
 
-      if (!summary || card.querySelector(".project-card-toggle")) {
+    lightbox.classList.remove("is-visible");
+    lightbox.hidden = true;
+    lightboxImage.removeAttribute("src");
+    document.body.classList.remove("project-lightbox-open");
+
+    if (lastLightboxTrigger) {
+      lastLightboxTrigger.focus();
+      lastLightboxTrigger = null;
+    }
+  }
+
+  function setupCardZooms() {
+    cards.forEach(function (card) {
+      var fullImage = card.getAttribute("data-full-image");
+      var image = card.querySelector(".project-card-image");
+
+      if (!fullImage || !image || card.querySelector(".project-card-zoom")) {
         return;
       }
 
-      var toggle = document.createElement("span");
-      toggle.className = "project-card-toggle";
-      toggle.setAttribute("role", "button");
-      toggle.setAttribute("tabindex", "0");
-      toggle.setAttribute("aria-expanded", "false");
-      toggle.hidden = true;
-      toggle.textContent = "Voir plus";
-      summary.insertAdjacentElement("afterend", toggle);
+      var zoom = document.createElement("span");
 
-      function toggleSummary(event) {
+      zoom.className = "project-card-zoom";
+      zoom.setAttribute("role", "button");
+      zoom.setAttribute("tabindex", "0");
+      zoom.setAttribute("aria-label", "Voir la capture du projet en grand");
+      zoom.textContent = "\u2315";
+      image.insertAdjacentElement("afterend", zoom);
+
+      function zoomProject(event) {
         event.preventDefault();
         event.stopPropagation();
-
-        var isExpanded = card.classList.toggle("is-expanded");
-        toggle.textContent = isExpanded ? "Réduire" : "Voir plus";
-        toggle.setAttribute("aria-expanded", isExpanded ? "true" : "false");
+        openLightbox(card, zoom);
       }
 
-      toggle.addEventListener("click", toggleSummary);
-      toggle.addEventListener("keydown", function (event) {
+      zoom.addEventListener("click", zoomProject);
+      zoom.addEventListener("keydown", function (event) {
         if (event.key !== "Enter" && event.key !== " ") {
           return;
         }
 
-        toggleSummary(event);
+        zoomProject(event);
       });
     });
-
-    refreshSummaryToggles();
-  }
-
-  function refreshSummaryToggles() {
-    cards.forEach(refreshSummaryToggle);
   }
 
   function setSelectedProject(projectId, options) {
@@ -551,9 +580,14 @@
     });
   }
 
-  setupSummaryToggles();
+  document.addEventListener("keydown", function (event) {
+    if (event.key === "Escape") {
+      closeLightbox();
+    }
+  });
+
+  setupCardZooms();
   window.addEventListener("resize", function () {
-    refreshSummaryToggles();
     refreshProjectDetailLayout();
   });
 

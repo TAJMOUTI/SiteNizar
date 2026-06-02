@@ -366,7 +366,7 @@ header .actif {
     grid-row: 1;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 12px;
-    align-items: start;
+    align-items: stretch;
     align-content: start;
     align-self: start;
     margin: 0;
@@ -469,12 +469,12 @@ header .actif {
 .project-card {
     -webkit-appearance: none;
     appearance: none;
+    position: relative;
     display: flex;
     flex-direction: column;
-    overflow: hidden;
-    height: clamp(240px, 24vw, 300px);
+    overflow: visible;
+    height: clamp(330px, 30vw, 370px);
     min-height: 0;
-    max-height: 300px;
     margin-top: 0;
     vertical-align: top;
     padding: 0;
@@ -484,13 +484,14 @@ header .actif {
     color: #fff;
     cursor: pointer;
     text-align: left;
-    transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+    transition: transform 180ms ease, border-color 180ms ease, background 180ms ease, box-shadow 180ms ease;
 }
 
 .project-card:hover,
 .project-card.is-active {
     border-color: rgba(245, 89, 61, 0.8);
     background: #1b2934;
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.24);
 }
 
 .project-card[hidden] {
@@ -499,17 +500,12 @@ header .actif {
 
 .project-card-image {
     display: block;
-    flex: 0 0 86px;
-    min-height: 86px;
+    flex: 0 0 clamp(128px, 13vw, 150px);
+    min-height: clamp(128px, 13vw, 150px);
+    border-radius: 8px 8px 0 0;
     background-position: center;
     background-size: cover;
     transition: flex-basis 180ms ease, min-height 180ms ease, opacity 180ms ease;
-}
-
-.project-card.is-expanded .project-card-image {
-    flex-basis: 0;
-    min-height: 0;
-    opacity: 0;
 }
 
 .project-card-content {
@@ -518,8 +514,8 @@ header .actif {
     flex-direction: column;
     gap: 6px;
     min-height: 0;
-    overflow: hidden;
-    padding: 10px;
+    overflow: visible;
+    padding: 10px 10px 11px;
 }
 
 .project-card-meta,
@@ -533,67 +529,116 @@ header .actif {
 
 .project-card-title {
     color: #fff;
-    font-size: 0.94rem;
+    font-size: 0.92rem;
     font-weight: 700;
+    line-height: 1.22;
 }
 
 .project-card-summary {
-    display: -webkit-box;
-    flex-shrink: 1;
-    min-height: 0;
-    overflow: hidden;
-    color: rgba(255, 255, 255, 0.72);
-    font-size: 0.76rem;
-    line-height: 1.35;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 3;
-}
-
-.project-card.is-expanded .project-card-summary {
-    -webkit-line-clamp: 8;
-}
-
-.project-card-toggle {
     display: none;
-    align-self: center;
-    border: 0;
-    background: transparent;
-    color: rgba(255, 255, 255, 0.86);
-    cursor: pointer;
-    font-size: 0.68rem;
-    font-weight: 800;
-    line-height: 1.2;
-    margin: 2px auto 0;
-    padding: 0;
-    text-decoration: underline;
-    text-underline-offset: 2px;
 }
 
-.project-card.has-summary-overflow .project-card-toggle {
+.project-card-zoom {
+    position: absolute;
+    top: 10px;
+    right: 10px;
     display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    border-radius: 50%;
+    background: rgba(3, 3, 3, 0.72);
+    color: #fff;
+    cursor: pointer;
+    font-size: 1.1rem;
+    font-weight: 800;
+    line-height: 1;
+    transition: background 180ms ease, border-color 180ms ease, transform 180ms ease;
 }
 
-.project-card-toggle:focus-visible {
-    outline: 2px solid rgba(245, 89, 61, 0.7);
+.project-card-zoom:hover,
+.project-card-zoom:focus-visible {
+    border-color: #f5593d;
+    background: rgba(245, 89, 61, 0.86);
+    outline: 2px solid rgba(245, 89, 61, 0.35);
     outline-offset: 2px;
+    transform: scale(1.04);
 }
 
 .project-impact {
     display: inline-flex;
     flex-shrink: 0;
-    width: fit-content;
+    width: 100%;
     margin-top: auto;
     border-radius: 6px;
     background: rgba(245, 89, 61, 0.14);
     color: #fff;
-    font-size: 0.7rem;
+    font-size: 0.66rem;
     font-weight: 700;
-    line-height: 1.4;
+    line-height: 1.35;
     padding: 5px 7px;
 }
 
-.project-card.is-expanded .project-impact {
-    margin-top: 0;
+.project-lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 28px;
+    background: rgba(0, 0, 0, 0.82);
+    opacity: 0;
+    transition: opacity 160ms ease;
+}
+
+.project-lightbox.is-visible {
+    opacity: 1;
+}
+
+.project-lightbox[hidden] {
+    display: none;
+}
+
+.project-lightbox-panel {
+    position: relative;
+    width: min(1120px, 94vw);
+    max-height: 88vh;
+}
+
+.project-lightbox-image {
+    display: block;
+    width: 100%;
+    max-height: 88vh;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 8px;
+    object-fit: contain;
+    background: #101820;
+}
+
+.project-lightbox-close {
+    position: absolute;
+    top: -14px;
+    right: -14px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border: 1px solid rgba(255, 255, 255, 0.24);
+    border-radius: 50%;
+    background: #f5593d;
+    color: #fff;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 800;
+    line-height: 1;
+}
+
+body.project-lightbox-open {
+    overflow: hidden;
 }
 
 .project-tags,
@@ -604,6 +649,12 @@ header .actif {
     gap: 6px;
 }
 
+.project-tags {
+    align-content: flex-start;
+    height: 52px;
+    overflow: visible;
+}
+
 .project-tags span,
 .project-detail-tags span {
     border: 1px solid rgba(255, 255, 255, 0.14);
@@ -612,6 +663,12 @@ header .actif {
     font-size: 0.64rem;
     font-weight: 600;
     padding: 4px 7px;
+}
+
+.project-tags span {
+    font-size: 0.58rem;
+    line-height: 1.15;
+    padding: 3px 5px;
 }
 
 .project-detail {
@@ -884,7 +941,11 @@ header .actif {
     }
 
     .project-card {
-        height: clamp(232px, 58vw, 300px);
+        height: clamp(340px, 88vw, 380px);
+    }
+
+    .project-tags {
+        height: 66px;
     }
 
     .project-filter {
