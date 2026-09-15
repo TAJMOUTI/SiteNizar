@@ -452,7 +452,7 @@
     cards.forEach(function (card) {
       var isSelected = card.getAttribute("data-project") === projectId;
       card.classList.toggle("is-active", isSelected);
-      card.setAttribute("aria-selected", isSelected ? "true" : "false");
+      card.setAttribute("aria-pressed", isSelected ? "true" : "false");
     });
 
     detail.category.textContent = project.category;
@@ -540,6 +540,14 @@
   });
 
   if (detail.link) {
+    detail.link.addEventListener("keydown", function (event) {
+      if (detail.link.getAttribute("data-project-smart-contact-open") === "true" &&
+          (event.key === "Enter" || event.key === " ")) {
+        event.preventDefault();
+        detail.link.click();
+      }
+    });
+
     detail.link.addEventListener("click", function (event) {
       var smartContactButton = null;
 

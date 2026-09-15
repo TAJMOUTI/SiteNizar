@@ -38,3 +38,32 @@ URL locale :
 ```text
 localhost/sitenizar/home.html
 ```
+
+## 3. Refonte en cours — 15 septembre 2026
+
+Branche : `redesign/portfolio-editorial-motion`.
+Direction inspirée de https://www.aashishthakuri.com/ : composition éditoriale, fond sombre et papier crème, animations, compétences en orbite et projets avec révélation ASCII.
+
+La nouvelle page reste statique, avec CSS et JavaScript sans dépendances de runtime. Bootstrap, jQuery et Paper Kit sont conservés sur disque mais ne sont plus chargés. Le formulaire n8n et les informations des projets sont préservés.
+
+Aperçu : `npm run dev`, puis `http://127.0.0.1:4173/home`.
+Sauvegarde locale de la version précédente : `.cache/redesign-baseline`.
+Guide de prévisualisation, fichiers et retour arrière : `docs/REFONTE-EDITORIALE.md`.
+
+Les modifications ne sont pas commitées. Tout commit ou push nécessite l'autorisation de l'utilisateur.
+
+### Avatar interactif — 15 septembre 2026
+
+La section À propos affiche un personnage 3D construit en code, sans image. Il
+tourne de lui-même, se pilote à la souris, au doigt et au clavier, et six zones
+de vêtements mènent chacune à une section du portfolio. Une étiquette suit le
+pointeur et nomme la destination. Les mêmes liens existent en texte sous le
+personnage.
+
+Les onze logos des technologies sont installés en SVG local dans
+`assets/img/skills/`.
+
+Three.js est vendu en version minifiée et chargé uniquement à l'approche de la
+section.
+
+Détail : `docs/IMAGES-ET-AVATAR.md`.

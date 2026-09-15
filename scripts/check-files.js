@@ -3,8 +3,16 @@ const path = require("path");
 
 const requiredFiles = [
   "home.html",
-  "assets/css/portfoliostyle.css",
-  "assets/js/realisations.js",
+  "assets/css/editorial.css",
+  "assets/css/contact-form.css",
+  "assets/js/editorial.js",
+  "assets/js/projects-data.js",
+  "assets/js/contact-automation.js",
+  "assets/css/avatar.css",
+  "assets/js/avatar.js",
+  "assets/js/avatar-model.js",
+  "assets/js/vendor/three.module.min.js",
+  "assets/js/vendor/three.core.min.js",
   "files/CV NIZAR TAJMOUTI.pdf",
 ];
 

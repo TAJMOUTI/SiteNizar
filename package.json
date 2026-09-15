@@ -4,6 +4,7 @@
   "private": true,
   "description": "Minimal verification scripts for the static portfolio served by XAMPP.",
   "scripts": {
+    "dev": "node scripts/serve.js",
     "check": "node scripts/check-files.js",
     "check:html": "node scripts/check-html.js",
     "open": "node scripts/open-xampp.js"

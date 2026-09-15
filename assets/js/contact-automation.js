@@ -449,6 +449,13 @@
           throw new Error(response.status >= 500 ? 'temporary_server_error' : 'http_error');
         }
 
+        return response.json();
+      })
+      .then(function (result) {
+        if (!result || result.success !== true) {
+          throw new Error('request_rejected');
+        }
+
         waitForProcessingToast(function () {
           updateContactToast('success', 'Votre demande a bien été envoyée. Un email de confirmation vous a été transmis.', {
             duration: 6500
@@ -477,7 +484,9 @@
             'error',
             isTimeout
               ? 'Le traitement prend plus de temps que prévu. Vous pouvez réessayer ou me contacter directement par email.'
-              : 'L’envoi a échoué. Vous pouvez réessayer ou me contacter directement par email.',
+              : reason === 'request_rejected'
+                ? 'Votre demande a été refusée. Vérifiez les informations saisies ou contactez-moi directement par email.'
+                : 'L’envoi a échoué. Vous pouvez réessayer ou me contacter directement par email.',
             {
               duration: 8000
             }
@@ -663,6 +672,19 @@
   document.addEventListener('keydown', function (event) {
     if (event.key === 'Escape' && modal.classList.contains('is-open')) {
       closeModal();
+    }
+    if (event.key === 'Tab' && modal.classList.contains('is-open')) {
+      var focusable = Array.prototype.slice.call(dialog.querySelectorAll('button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), a[href]'))
+        .filter(function (element) { return element.tabIndex >= 0 && element.getClientRects().length; });
+      var first = focusable[0];
+      var last = focusable[focusable.length - 1];
+      if (event.shiftKey && (document.activeElement === first || !dialog.contains(document.activeElement))) {
+        event.preventDefault();
+        if (last) last.focus();
+      } else if (!event.shiftKey && (document.activeElement === last || !dialog.contains(document.activeElement))) {
+        event.preventDefault();
+        if (first) first.focus();
+      }
     }
   });
 

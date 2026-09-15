@@ -1,25 +1,9 @@
-<!--
-=========================================================
- Paper Kit 2 - v2.2.0
-=========================================================
-
- Product Page: https://www.creative-tim.com/product/paper-kit-2
- Copyright 2019 Creative Tim (https://www.creative-tim.com)
- Licensed under MIT (https://github.com/creativetimofficial/paper-kit-2/blob/master/LICENSE.md)
-
- Coded by Creative Tim
-
-=========================================================
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. -->
-
 <!doctype html>
-
 <html lang="fr">
   <head>
     <meta charset="utf-8" />
     <!-- <?php include('form-email.php') ?> -->
-    <link rel="icon" type="image/jpg" href="./assets/img/bio.png" />
+    <link rel="icon" type="image/png" href="./assets/img/bio.png" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <title>Nizar Tajmouti | Développeur fullstack Web & Mobile</title>
     <meta
@@ -30,7 +14,7 @@ The above copyright notice and this permission notice shall be included in all c
       name="viewport"
       content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
     />
-    <link rel="canonical" href="https://nizar-tajmouti.fr/home.html" />
+    <link rel="canonical" href="https://nizart.netlify.app/home" />
     <meta
       property="og:title"
       content="Nizar Tajmouti | Développeur fullstack Web & Mobile"
@@ -40,10 +24,10 @@ The above copyright notice and this permission notice shall be included in all c
       content="Portfolio de Nizar Tajmouti, ingénieur informatique et développeur fullstack web et mobile, spécialisé dans la création d'applications, d'outils métiers et d'interfaces utiles."
     />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://nizar-tajmouti.fr/home.html" />
+    <meta property="og:url" content="https://nizart.netlify.app/home" />
     <meta
       property="og:image"
-      content="https://nizar-tajmouti.fr/assets/img/Nizar.jpg"
+      content="https://nizart.netlify.app/assets/img/Nizar.jpg"
     />
     <meta property="og:image:alt" content="Portrait de Nizar Tajmouti" />
     <meta name="twitter:card" content="summary_large_image" />
@@ -57,1214 +41,939 @@ The above copyright notice and this permission notice shall be included in all c
     />
     <meta
       name="twitter:image"
-      content="https://nizar-tajmouti.fr/assets/img/Nizar.jpg"
+      content="https://nizart.netlify.app/assets/img/Nizar.jpg"
     />
 
-    <!--     Fonts and icons     -->
+    <meta name="theme-color" content="#101210" />
     <link
-      href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200"
-      rel="stylesheet"
+      rel="preload"
+      href="./assets/fonts/montserrat-extra-bold.ttf"
+      as="font"
+      type="font/ttf"
+      crossorigin
     />
-    <link
-      href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css"
-      rel="stylesheet"
-    />
-    <!-- CSS Files -->
-    <link href="./assets/css/apropos.css" rel="stylesheet" />
-    <link href="./assets/css/formations.css" rel="stylesheet" />
-    <link href="./assets/css/competences.css" rel="stylesheet" />
-    <link href="./assets/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="./assets/css/paper-kit.css?v=2.2.0" rel="stylesheet" />
-    <link href="./assets/css/formation-style.css" rel="stylesheet" />
-    <link href="./assets/css/portfoliostyle.css" rel="stylesheet" />
+    <link rel="stylesheet" href="./assets/css/contact-form.css" />
+    <link rel="stylesheet" href="./assets/css/editorial.css" />
+    <link rel="stylesheet" href="./assets/css/avatar.css" />
   </head>
-
-  <body class="landing-page sidebar-collapse">
-    <!-- Navbar -->
-    <nav
-      class="navbar navbar-expand-lg fixed-top navbar-transparent"
-      color-on-scroll="300"
-    >
-      <div class="container">
-        <div class="navbar-translate">
-          <a class="navbar-brand" href="home.html" data-placement="bottom">
-            NIZAR TAJMOUTI
-          </a>
-          <button
-            class="navbar-toggler navbar-toggler"
-            type="button"
-            data-toggle="collapse"
-            data-target="#navigation"
-            aria-controls="navigation-index"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-bar bar1"></span>
-            <span class="navbar-toggler-bar bar2"></span>
-            <span class="navbar-toggler-bar bar3"></span>
-          </button>
-        </div>
-        <div
-          class="collapse navbar-collapse justify-content-end"
-          id="navigation"
-        >
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <a href="#propos" class="nav-link btn btn-link btn-danger"
-                >A PROPOS</a
-              >
-            </li>
-            <li class="nav-item">
-              <a href="#realisations" class="nav-link btn btn-link btn-danger"
-                >REALISATIONS</a
-              >
-            </li>
-            <li class="nav-item">
-              <a href="#experience" class="nav-link btn btn-link btn-danger"
-                >EXPERIENCES</a
-              >
-            </li>
-            <li class="nav-item">
-              <a href="#skills" class="nav-link btn btn-link btn-danger">
-                COMPETENCES
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="#contact" class="nav-link btn btn-link btn-danger"
-                >CONTACT</a
-              >
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-    <!-- End Navbar -->
-
-    <div
-      class="page-header"
-      data-parallax="true"
-      style="background-image: url(&quot;./assets/img/wallpaper3.jpg&quot;)"
-    >
-      <div class="filter"></div>
-      <div class="container">
-        <div class="motto text-center">
-          <!--Faire comme sur le site Andre Bach et faire une animation d'apparition - Pour Codex remonter cette phrase pour le faire lorsqu'on fera une modification sur cette partie -->
-          <h1><span>Ingénieur fullstack</span> <span>& Product Owner</span></h1>
-          <h3>
-            Je conçois, développe et pilote des outils et automatisations qui
-            simplifient les workflows métier
-          </h3>
-          <p class="hero-description h5">
-            Dashboards, applications internes et automatisations (n8n) conçus
-            pour améliorer la visibilité, réduire les frictions et faire gagner
-            du temps aux équipes.
-          </p>
-          <div class="hero-actions" aria-label="Actions principales">
-            <a
-              href="#realisations"
-              class="btn btn-danger btn-round hero-action-primary"
-            >
-              Voir mes réalisations
-            </a>
-            <a href="#contact" class="btn btn-round hero-action-secondary">
-              Me contacter
-            </a>
-          </div>
-          <div class="hero-cv-action">
-            <a
-              href="./files/CV Nizar Tajmouti.pdf"
-              download="CV Nizar TAJMOUTI"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <i class="fa fa-download"></i> Télécharger mon CV
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-    <main class="main">
-      <div class="section section-dark" id="propos">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-8 ml-auto mr-auto text-center">
-              <h2 class="title">A PROPOS</h2>
-              <br />
-            </div>
-          </div>
-          <div class="row about-layout">
-            <!-- Gameboy Container (left side) -->
-            <div class="col-md-6 about-photo-col text-center">
-              <img
-                src="./assets/img/Nizar.jpg"
-                alt="Nizar Tajmouti"
-                class="profil"
-                id="profil"
-                loading="lazy"
-              />
-              <!-- <div class="gameboy">
-               ECRAN DE JEU 
-              <div class="game-container">
-                <img src="./assets/img/backgroundgame.png" alt="Background" class="game-container-back" id="game-container-back">
-                <img src="./assets/img/bio.png" alt="Nizar Tajmouti" class="character" id="character">
-              </div>
-               TOUCHES DIRECIONNELLES
-              <div class="controls">
-                <div class="control-row">
-                  <button id="up"><img src="assets/img/haut.png" alt="Up"></button>
-                </div>
-                <div class="control-row">
-                  <button id="left"><img src="assets/img/gauche.png" alt="Left"></button>
-                  <button id="center" disabled></button>
-                  <button id="right"><img src="assets/img/droite.png" alt="Right"></button>
-                </div>
-                <div class="control-row">
-                  <button id="down"><img src="assets/img/bas.png" alt="Down"></button>
-                </div>
-              </div> 
-            </div> -->
-            </div>
-            <!-- Bio Text Container (right side) -->
-            <div class="col-md-6 about-content-col">
-              <div class="biotext col-sm">
-                <p>
-                  Ingénieur logiciel et développeur fullstack, j’ai acquis une
-                  expérience concrète dans la conception, la maintenance et
-                  l’évolution d’applications internes, notamment chez Renault
-                  Group.
-                </p>
-                <p>
-                  J’ai travaillé sur des outils métiers utilisés par des équipes
-                  opérationnelles : portails internes, applications de
-                  communication, dashboards et interfaces orientées usage. Mon
-                  approche consiste à comprendre les besoins réels des
-                  utilisateurs pour concevoir des solutions simples, efficaces
-                  et maintenables.
-                </p>
-                <p>
-                  Aujourd’hui, je m’oriente vers des projets mêlant
-                  développement, vision produit et automatisation, avec
-                  l’objectif de créer des outils qui optimisent les processus et
-                  font gagner du temps aux équipes.
-                </p>
-              </div>
-              <div class="about-value-card">
-                <h3 class="title">Ce que je peux apporter</h3>
-                <ul class="about-value-list">
-                  <li>
-                    Développement d’applications web fullstack (Next.js,
-                    Node.js, PHP)
-                  </li>
-                  <li>Conception de dashboards et outils internes</li>
-                  <li>Automatisation de workflows avec n8n</li>
-                  <li>
-                    Intégration d’APIs et optimisation de processus métier
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="section section-dark realisations-section" id="realisations">
-        <div class="container">
-          <div class="realisations-header text-center">
-            <h2 class="title">REALISATIONS</h2>
-            <p class="realisations-subtitle">
-              Des applications internes et interfaces m&eacute;tier
-              con&ccedil;ues pour simplifier les workflows, am&eacute;liorer la
-              visibilit&eacute; op&eacute;rationnelle et faire gagner du temps
-              aux &eacute;quipes.
-            </p>
-          </div>
-
-          <div
-            class="project-filters"
-            aria-label="Filtrer les r&eacute;alisations"
-          >
-            <button
-              class="project-filter is-active"
-              type="button"
-              data-filter="Tous"
-              aria-pressed="true"
-            >
-              Tous
-            </button>
-            <button
-              class="project-filter"
-              type="button"
-              data-filter="Outils internes"
-              aria-pressed="false"
-            >
-              Outils internes
-            </button>
-            <button
-              class="project-filter"
-              type="button"
-              data-filter="Outil SaaS"
-              aria-pressed="false"
-            >
-              Outil SaaS
-            </button>
-            <button
-              class="project-filter"
-              type="button"
-              data-filter="Automatisation IA"
-              aria-pressed="false"
-            >
-              Automatisation IA
-            </button>
-            <button
-              class="project-filter"
-              type="button"
-              data-filter="Dashboard"
-              aria-pressed="false"
-            >
-              Dashboard
-            </button>
-            <button
-              class="project-filter"
-              type="button"
-              data-filter="Communication"
-              aria-pressed="false"
-            >
-              Communication
-            </button>
-            <button
-              class="project-filter"
-              type="button"
-              data-filter="Projet web"
-              aria-pressed="false"
-            >
-              Projet web
-            </button>
-          </div>
-
-          <div class="projects-layout">
-            <div class="projects-left-column">
-              <div class="projects-carousel">
-                <button
-                  class="project-carousel-arrow project-carousel-prev"
-                  type="button"
-                  aria-label="Projets pr&eacute;c&eacute;dents"
-                  disabled
-                >
-                  &lsaquo;
-                </button>
-                <div class="projects-grid" aria-label="Liste des projets">
-                  <button
-                    class="project-card is-active"
-                    type="button"
-                    data-project="webmarket"
-                    data-category="Outils internes"
-                    data-full-image="./assets/img/realisations/full/webmarket-full.png"
-                    data-image-alt="Capture du projet Webmarket"
-                    aria-selected="true"
-                  >
-                    <span
-                      class="project-card-image"
-                      style="
-                        background-image: url(&quot;./assets/img/realisations/cards/webmarket-card.png&quot;);
-                      "
-                    ></span>
-                    <span class="project-card-content">
-                      <span class="project-card-meta">Outils internes</span>
-                      <span class="project-card-title">Webmarket</span>
-                      <span class="project-card-summary"
-                        >Store interne centralisant les applications
-                        m&eacute;tier Renault pour simplifier l'acc&egrave;s et
-                        analyser leur usage.</span
-                      >
-                      <span class="project-impact"
-                        >B&eacute;n&eacute;fice : visibilit&eacute; sur les
-                        outils utilis&eacute;s</span
-                      >
-                      <span class="project-tags">
-                        <span>Application interne</span>
-                        <span>UX m&eacute;tier</span>
-                        <span>Workflow</span>
-                      </span>
-                    </span>
-                  </button>
-
-                  <button
-                    class="project-card"
-                    type="button"
-                    data-project="datahouse"
-                    data-category="Outil SaaS"
-                    data-full-image="./assets/img/realisations/full/datahouse-full.png"
-                    data-image-alt="Capture du projet DataHouse"
-                    aria-selected="false"
-                  >
-                    <span
-                      class="project-card-image"
-                      style="
-                        background-image: url(&quot;./assets/img/realisations/cards/datahouse-card.png&quot;);
-                      "
-                    ></span>
-                    <span class="project-card-content">
-                      <span class="project-card-meta">Outil SaaS</span>
-                      <span class="project-card-title">DataHouse</span>
-                      <span class="project-card-summary"
-                        >Plateforme SaaS bas&eacute;e sur des sch&eacute;mas
-                        dynamiques pour cr&eacute;er rapidement des interfaces
-                        m&eacute;tier, dashboards et documents &agrave; partir
-                        des donn&eacute;es.</span
-                      >
-                      <span class="project-impact"
-                        >B&eacute;n&eacute;fice : cr&eacute;ation plus rapide
-                        d&rsquo;outils m&eacute;tier sur mesure</span
-                      >
-                      <span class="project-tags">
-                        <span>SaaS</span>
-                        <span>Fullstack</span>
-                        <span>MongoDB</span>
-                        <span>Next.js</span>
-                        <span>TypeScript</span>
-                        <span>IaC</span>
-                      </span>
-                    </span>
-                  </button>
-
-                  <button
-                    class="project-card"
-                    type="button"
-                    data-project="assistant-mail-n8n"
-                    data-category="Automatisation IA"
-                    data-full-image="./assets/img/realisations/full/assistant-email-full.png"
-                    data-image-alt="Capture du projet Assistant Mail n8n"
-                    aria-selected="false"
-                  >
-                    <span
-                      class="project-card-image"
-                      style="
-                        background-image: url(&quot;./assets/img/realisations/cards/assistant-email-card.png&quot;);
-                      "
-                    ></span>
-                    <span class="project-card-content">
-                      <span class="project-card-meta">Automatisation IA</span>
-                      <span class="project-card-title">Assistant Mail n8n</span>
-                      <span class="project-card-summary"
-                        >Workflow automatis&eacute; pour g&eacute;rer les emails
-                        : lecture, extraction d&rsquo;informations et actions
-                        automatiques.</span
-                      >
-                      <span class="project-impact"
-                        >B&eacute;n&eacute;fice : automatisation des
-                        t&acirc;ches r&eacute;p&eacute;titives li&eacute;es aux
-                        emails</span
-                      >
-                      <span class="project-tags">
-                        <span>n8n</span>
-                        <span>Automatisation IA</span>
-                        <span>Email</span>
-                        <span>API</span>
-                      </span>
-                    </span>
-                  </button>
-
-                  <button
-                    class="project-card"
-                    type="button"
-                    data-project="crm-portfolio-ia"
-                    data-category="Automatisation IA"
-                    data-full-image="./assets/img/realisations/full/crm-portfolio-full.png"
-                    data-image-alt="Capture du projet CRM intelligent du portfolio"
-                    aria-selected="false"
-                  >
-                    <span
-                      class="project-card-image"
-                      style="
-                        background-image: url(&quot;./assets/img/realisations/cards/crm-portfolio-card.png&quot;);
-                      "
-                    ></span>
-                    <span class="project-card-content">
-                      <span class="project-card-meta">Automatisation IA</span>
-                      <span class="project-card-title"
-                        >CRM intelligent du portfolio</span
-                      >
-                      <span class="project-card-summary"
-                        >Workflow n8n connect&eacute; au formulaire du portfolio
-                        pour qualifier, centraliser et suivre automatiquement
-                        les demandes entrantes.</span
-                      >
-                      <span class="project-impact"
-                        >B&eacute;n&eacute;fice : qualification et suivi
-                        automatis&eacute;s des contacts</span
-                      >
-                      <span class="project-tags">
-                        <span>n8n</span>
-                        <span>IA</span>
-                        <span>CRM</span>
-                        <span>Google Sheets</span>
-                        <span>Telegram</span>
-                        <span>Gmail</span>
-                      </span>
-                    </span>
-                  </button>
-
-                  <button
-                    class="project-card"
-                    type="button"
-                    data-project="messagerie-dect"
-                    data-category="Communication"
-                    data-full-image="./assets/img/realisations/full/messagerie-dect-full.png"
-                    data-image-alt="Capture du projet Messagerie DECT"
-                    aria-selected="false"
-                  >
-                    <span
-                      class="project-card-image"
-                      style="
-                        background-image: url(&quot;./assets/img/realisations/cards/messagerie-dect-card.png&quot;);
-                      "
-                    ></span>
-                    <span class="project-card-content">
-                      <span class="project-card-meta">Communication</span>
-                      <span class="project-card-title">Messagerie DECT</span>
-                      <span class="project-card-summary"
-                        >Application web rempla&ccedil;ant un outil
-                        obsol&egrave;te pour am&eacute;liorer la communication
-                        terrain en usine.</span
-                      >
-                      <span class="project-impact"
-                        >B&eacute;n&eacute;fice : communication plus
-                        rapide</span
-                      >
-                      <span class="project-tags">
-                        <span>Communication</span>
-                        <span>Industrie</span>
-                        <span>R&eacute;activit&eacute;</span>
-                      </span>
-                    </span>
-                  </button>
-
-                  <button
-                    class="project-card"
-                    type="button"
-                    data-project="portail-point-fab"
-                    data-category="Dashboard"
-                    data-full-image="./assets/img/realisations/full/portail-point-fab-full.png"
-                    data-image-alt="Capture du projet Portail Point Fab"
-                    aria-selected="false"
-                  >
-                    <span
-                      class="project-card-image"
-                      style="
-                        background-image: url(&quot;./assets/img/realisations/cards/portail-point-fab-card.png&quot;);
-                      "
-                    ></span>
-                    <span class="project-card-content">
-                      <span class="project-card-meta">Dashboard</span>
-                      <span class="project-card-title">Portail Point Fab</span>
-                      <span class="project-card-summary"
-                        >Dashboard industriel utilis&eacute; par le
-                        comit&eacute; de direction pour piloter les
-                        priorit&eacute;s de production.</span
-                      >
-                      <span class="project-impact"
-                        >B&eacute;n&eacute;fice : pilotage op&eacute;rationnel
-                        renforc&eacute;</span
-                      >
-                      <span class="project-tags">
-                        <span>Dashboard</span>
-                        <span>Data</span>
-                        <span>Production</span>
-                      </span>
-                    </span>
-                  </button>
-
-                  <button
-                    class="project-card"
-                    type="button"
-                    data-project="andre-bach"
-                    data-category="Projet web"
-                    data-full-image="./assets/img/realisations/full/andre-bach-full.png"
-                    data-image-alt="Capture du projet L'Histoire d'Andr&eacute; Bach"
-                    aria-selected="false"
-                  >
-                    <span
-                      class="project-card-image"
-                      style="
-                        background-image: url(&quot;./assets/img/realisations/cards/andre-bach-card.png&quot;);
-                      "
-                    ></span>
-                    <span class="project-card-content">
-                      <span class="project-card-meta">Projet web</span>
-                      <span class="project-card-title"
-                        >L&rsquo;Histoire d&rsquo;Andr&eacute; Bach</span
-                      >
-                      <span class="project-card-summary"
-                        >Site web public permettant de transmettre un
-                        t&eacute;moignage historique de mani&egrave;re
-                        durable.</span
-                      >
-                      <span class="project-impact"
-                        >B&eacute;n&eacute;fice : contenu accessible en
-                        ligne</span
-                      >
-                      <span class="project-tags">
-                        <span>Site web</span>
-                        <span>M&eacute;moire</span>
-                        <span>Accessibilit&eacute;</span>
-                      </span>
-                    </span>
-                  </button>
-                </div>
-                <button
-                  class="project-carousel-arrow project-carousel-next"
-                  type="button"
-                  aria-label="Projets suivants"
-                >
-                  &rsaquo;
-                </button>
-              </div>
-
-              <div
-                class="project-pagination"
-                aria-label="Pagination des r&eacute;alisations"
-              ></div>
-            </div>
-
-            <article class="project-detail" aria-live="polite">
-              <div class="project-detail-top">
-                <span
-                  class="project-detail-category"
-                  id="project-detail-category"
-                  >Outils internes</span
-                >
-                <h3 id="project-detail-title">Webmarket</h3>
-                <p id="project-detail-summary">
-                  Store interne centralisant les applications m&eacute;tier
-                  Renault pour simplifier l'acc&egrave;s et analyser leur usage.
-                </p>
-              </div>
-
-              <div class="project-detail-grid">
-                <div class="project-detail-item">
-                  <span>Contexte</span>
-                  <p id="project-detail-context">
-                    Application interne Renault utilis&eacute;e comme store
-                    d'applications m&eacute;tier accessible sur desktop,
-                    tablette et mobile.
-                  </p>
-                </div>
-                <div class="project-detail-item">
-                  <span>Probl&egrave;me</span>
-                  <p id="project-detail-problem">
-                    Les utilisateurs perdaient du temps &agrave; retrouver leurs
-                    outils et aucune donn&eacute;e ne permettait d'identifier
-                    les applications r&eacute;ellement utilis&eacute;es.
-                  </p>
-                </div>
-                <div class="project-detail-item">
-                  <span>Solution</span>
-                  <p id="project-detail-solution">
-                    Ajout d'un dashboard administrateur permettant de suivre les
-                    clics sur chaque application, filtrer les donn&eacute;es par
-                    p&eacute;riode et exporter les r&eacute;sultats.
-                  </p>
-                </div>
-                <div class="project-detail-item">
-                  <span>Mon r&ocirc;le</span>
-                  <p id="project-detail-role">
-                    D&eacute;veloppement fullstack en autonomie : page admin,
-                    tracking des clics, filtres temporels, export Excel et
-                    am&eacute;lioration UX.
-                  </p>
-                </div>
-                <div class="project-detail-item">
-                  <span>Stack technique</span>
-                  <p id="project-detail-stack">
-                    HTML / CSS / PHP / MySQL / API REST
-                  </p>
-                </div>
-                <div class="project-detail-item project-detail-impact">
-                  <span>Impact</span>
-                  <p id="project-detail-impact">
-                    Meilleure visibilit&eacute; sur l'usage des applications,
-                    aide &agrave; la prise de d&eacute;cision et gain de temps
-                    pour les utilisateurs.
-                  </p>
-                </div>
-              </div>
-
-              <div class="project-detail-footer">
-                <div
-                  class="project-detail-tags"
-                  id="project-detail-tags"
-                  aria-label="Tags du projet"
-                >
-                  <span>Application interne</span>
-                  <span>UX m&eacute;tier</span>
-                  <span>Renault</span>
-                  <span>Workflow</span>
-                </div>
-                <button
-                  class="project-detail-toggle"
-                  id="project-detail-toggle"
-                  type="button"
-                  hidden
-                >
-                  Voir plus
-                </button>
-                <a
-                  class="project-detail-link"
-                  id="project-detail-link"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  hidden
-                  >Voir le projet</a
-                >
-              </div>
-            </article>
-          </div>
-        </div>
-      </div>
-      <div class="section section-dark experience-section" id="experience">
-        <div class="container">
-          <div class="experience-header text-center">
-            <h2 class="title">EXPERIENCES</h2>
-            <p class="experience-subtitle">
-              Des expériences orientées produit, développement fullstack et
-              automatisation, avec un fil conducteur : comprendre le besoin
-              métier, construire la solution et améliorer l'usage.
-            </p>
-          </div>
-          <div
-            class="experience-timeline"
-            aria-label="Expériences professionnelles"
-          >
-            <article class="experience-card">
-              <div class="experience-meta">
-                <span class="experience-company">Dcrypte</span>
-                <span class="experience-date">2024–2026</span>
-              </div>
-              <div class="experience-content">
-                <div class="experience-title-row">
-                  <span
-                    class="experience-logo experience-logo-placeholder"
-                    aria-hidden="true"
-                    >D</span
-                  >
-                  <h3>Ingénieur logiciel</h3>
-                </div>
-                <ul>
-                  <li>Analyse des besoins clients et cadrage fonctionnel.</li>
-                  <li>Conception et développement d'applications web.</li>
-                  <li>Coordination technique et produit.</li>
-                  <li>Interaction directe avec les clients.</li>
-                  <li>Structuration du code et amélioration continue.</li>
-                </ul>
-              </div>
-            </article>
-            <article class="experience-card experience-card-highlight">
-              <div class="experience-meta">
-                <span class="experience-company">Automatisation n8n</span>
-                <span class="experience-date"
-                  >2026 — Projets personnels / démonstrations portfolio</span
-                >
-              </div>
-              <div class="experience-content">
-                <div class="experience-title-row">
-                  <span
-                    class="experience-logo experience-logo-placeholder"
-                    aria-hidden="true"
-                    >n8n</span
-                  >
-                  <h3>Solution builder automatisation</h3>
-                </div>
-                <ul>
-                  <li>
-                    Création d'un système automatisé de gestion d'appels
-                    d'offres.
-                  </li>
-                  <li>
-                    Automatisation du traitement des emails : récupération du
-                    dernier email et suppression automatisée.
-                  </li>
-                  <li>
-                    Extraction de données depuis les emails, par exemple un code
-                    reçu dans un message.
-                  </li>
-                  <li>Connexion entre services via API.</li>
-                  <li>Réduction des tâches manuelles répétitives.</li>
-                </ul>
-              </div>
-            </article>
-            <article class="experience-card">
-              <div class="experience-meta">
-                <span class="experience-company">Renault Group</span>
-                <span class="experience-date">2022–2023</span>
-              </div>
-              <div class="experience-content">
-                <div class="experience-title-row">
-                  <span class="experience-logo">
-                    <img
-                      src="./assets/img/jobs/renaultgroup.jpg"
-                      alt="Logo Renault Group"
-                      loading="lazy"
-                    />
-                  </span>
-                  <h3>Alternant Ingénieur Développeur Full Stack</h3>
-                </div>
-                <ul>
-                  <li>
-                    Développement d'applications internes industrielles :
-                    dashboards et outils métier.
-                  </li>
-                  <li>
-                    Interaction directe avec les clients internes, CDU et chefs
-                    de département.
-                  </li>
-                  <li>
-                    Développement fullstack sur les couches front, back et data.
-                  </li>
-                  <li>Mise en place de sprints et suivi projet.</li>
-                  <li>
-                    Amélioration de l'UX et des performances applicatives.
-                  </li>
-                </ul>
-              </div>
-            </article>
-            <article class="experience-card">
-              <div class="experience-meta">
-                <span class="experience-company">Stilog IST</span>
-                <span class="experience-date">Mars 2021 – Septembre 2021</span>
-              </div>
-              <div class="experience-content">
-                <div class="experience-title-row">
-                  <span
-                    class="experience-logo experience-logo-placeholder"
-                    aria-hidden="true"
-                    >SI</span
-                  >
-                  <h3>Développeur Full Stack</h3>
-                </div>
-                <ul>
-                  <li>Développement d'une application interne.</li>
-                  <li>
-                    Participation aux développements front-end et back-end.
-                  </li>
-                  <li>Refonte UX/UI de parcours existants.</li>
-                  <li>Collaboration avec l'équipe technique.</li>
-                </ul>
-              </div>
-            </article>
-          </div>
-        </div>
-      </div>
-      <div class="section text-center" id="skills">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-8 ml-auto mr-auto">
-              <h2 class="title">COMPETENCES</h2>
-              <p class="description h5">
-                Des compétences variées allant du développement à la gestion de
-                projet, en passant par le design.
-              </p>
-              <br />
-            </div>
-          </div>
-          <h3 class="title2">Informatique</h3>
-          <br />
-          <div class="row">
-            <div class="col-md-3">
-              <div class="info">
-                <div class="icon">
-                  <i class="nc-icon nc-planet"></i>
-                  <p class="info-title">Technologies</p>
-                  <div class="descriptions">
-                    <p class="description">
-                      <br />HTML 5/CSS 3<br />React<br />Android<br />FlutterFlow
-                    </p>
-                    <p class="description">
-                      <br />PHP<br />Python<br />Java<br />C<br />Node
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="info">
-                <div class="icon">
-                  <i class="nc-icon nc-atom"></i>
-                  <p class="info-title">Bases de données</p>
-                  <p class="description">
-                    <br />MySQL<br />PostgreSQL<br />SQL Server<br />MongoDB
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="info">
-                <div class="icon">
-                  <i class="nc-icon nc-settings"></i>
-                  <p class="info-title">Outils</p>
-                  <div class="descriptions">
-                    <p class="description">
-                      <br />Git<br />Visual Studio Code<br />Pack Office<br />Eclipse
-                    </p>
-                    <p class="description">
-                      <br />Figma<br />Illustrator<br />Adobe XD<br />Photoshop
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="info">
-                <div class="icon">
-                  <i class="nc-icon nc-settings-gear-65"></i>
-                  <p class="info-title">Automatisation</p>
-                  <p class="description">
-                    <br />n8n<br />Conception de workflows<br />Intégration
-                    d’APIs<br />Création d’outils internes
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <h3 class="title2">Langues</h3>
-          <div class="row languages-row">
-            <div class="col-md-3"></div>
-            <div class="col-md-3 language-item">
-              <img
-                src="./assets/img/skills/en.png"
-                alt="Drapeau Angleterre"
-                width="60px"
-                height="60px"
-                loading="lazy"
-              />
-              <p class="text-center">Niveau B2</p>
-            </div>
-            <div class="col-md-3 language-item">
-              <img
-                src="./assets/img/skills/sp.png"
-                alt="Drapeau Espagne"
-                width="60px"
-                height="60px"
-                loading="lazy"
-              />
-              <p class="text-center">Niveau B2</p>
-            </div>
-            <div class="col-md-3"></div>
-          </div>
-        </div>
-      </div>
-      <!-- Section Centres d'interet temporairement masquee. A reactiver plus tard quand son contenu sera retravaille.
-    <div class="section text-center" id="interest">
-      <div class="container">
-        <h2 class="title">CENTRES D'INTERET</h2>
-        <div class="row">
-          <div class="col-md-4">
-                <img src="./assets/img/interest/voyage.jpeg" class="img-thumbnail" alt="Photo illustrant le voyage" loading="lazy">
-                <p class="text-center">Voyage</p>
-          </div>
-          <div class="col-md-4">
-            <img src="./assets/img/interest/foot.jpg" class="img-thumbnail" alt="Photo illustrant le sport" loading="lazy">
-            <p class="text-center">Sport</p>
-          </div>
-          <div class="col-md-4">
-            <img src="./assets/img/interest/montage.jpg" class="img-thumbnail" alt="Photo illustrant le montage vidéo" loading="lazy">
-            <p class="text-center">Montage Vidéo</p>
-          </div>
-        </div>
-      </div>
-    </div>
-      -->
-
-      <div class="section section-dark landing-section" id="contact">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-8 ml-auto mr-auto text-center">
-              <h2 class="title">RESTONS EN CONTACT</h2>
-              <p class="contact-intro">
-                Un projet web, une mission freelance ou une opportunité
-                professionnelle? Parlons d'une solution claire, efficace et
-                adaptée à vos objectifs.
-              </p>
-              <span class="contact-availability"
-                >Disponible pour missions freelance et collaborations tech</span
-              >
-            </div>
-          </div>
-          <div class="contact-carousel-progress" aria-hidden="true">
-            <span class="contact-carousel-progress-bar"></span>
-          </div>
-          <div class="contact-carousel" data-contact-carousel>
-            <button
-              class="contact-carousel-arrow contact-carousel-prev"
-              type="button"
-              aria-label="Contact précédent"
-            >
-              ‹
-            </button>
-
-            <div class="contact-carousel-viewport">
-              <div class="contact-carousel-track">
-                <button
-                  class="contact-card contact-card-automation is-active"
-                  type="button"
-                  data-smart-contact-open
-                  aria-haspopup="dialog"
-                  aria-current="true"
-                >
-                  <span class="contact-card-icon"
-                    ><i class="fa fa-cogs" aria-hidden="true"></i
-                  ></span>
-                  <span class="contact-card-content">
-                    <span class="contact-card-kicker">Workflow n8n</span>
-                    <span class="contact-card-title"
-                      >Formulaire automatisé</span
-                    >
-                    <span class="contact-card-detail"
-                      >Testez une demande qualifiée et transmise automatiquement
-                      via n8n.</span
-                    >
-                    <span class="contact-card-action"
-                      >Tester le formulaire</span
-                    >
-                  </span>
-                </button>
-
-                <a
-                  class="contact-card contact-card-primary"
-                  href="mailto:nizar.tajmouti@outlook.com?Subject=Projet%20freelance%20/%20collaboration"
-                  target="_top"
-                  aria-label="Envoyer un email a Nizar Tajmouti"
-                >
-                  <span class="contact-card-icon"
-                    ><i class="fa fa-envelope" aria-hidden="true"></i
-                  ></span>
-                  <span class="contact-card-content">
-                    <span class="contact-card-kicker">Réponse directe</span>
-                    <span class="contact-card-title">Email</span>
-                    <span class="contact-card-detail"
-                      >nizar.tajmouti@outlook.com</span
-                    >
-                  </span>
-                </a>
-
-                <a
-                  class="contact-card"
-                  href="https://www.linkedin.com/in/nizar-tajmouti-881134158/"
-                  target="_blank"
-                  rel="noopener"
-                  aria-label="Voir le profil LinkedIn de Nizar Tajmouti"
-                >
-                  <span class="contact-card-icon"
-                    ><i class="fa fa-linkedin" aria-hidden="true"></i
-                  ></span>
-                  <span class="contact-card-content">
-                    <span class="contact-card-kicker"
-                      >Profil professionnel</span
-                    >
-                    <span class="contact-card-title">LinkedIn</span>
-                    <span class="contact-card-detail"
-                      >Échanger ou recruter</span
-                    >
-                  </span>
-                </a>
-
-                <a
-                  class="contact-card"
-                  href="https://github.com/TAJMOUTI?tab=repositories"
-                  target="_blank"
-                  rel="noopener"
-                  aria-label="Voir les projets GitHub de Nizar Tajmouti"
-                >
-                  <span class="contact-card-icon"
-                    ><i class="fa fa-github" aria-hidden="true"></i
-                  ></span>
-                  <span class="contact-card-content">
-                    <span class="contact-card-kicker">Code et projets</span>
-                    <span class="contact-card-title">GitHub</span>
-                    <span class="contact-card-detail"
-                      >Consulter mes réalisations</span
-                    >
-                  </span>
-                </a>
-              </div>
-            </div>
-
-            <button
-              class="contact-carousel-arrow contact-carousel-next"
-              type="button"
-              aria-label="Contact suivant"
-            >
-              ›
-            </button>
-          </div>
-          <div class="contact-carousel-status" aria-live="polite">1 / 4</div>
-        </div>
-      </div>
-
-      <div
-        class="smart-contact-modal"
-        data-smart-contact-modal
-        aria-hidden="true"
+  <body>
+    <a class="skip-link" href="#main">Aller au contenu</a>
+    <header class="site-header">
+      <a class="wordmark" href="#accueil" aria-label="Nizar Tajmouti, accueil"
+        >nizar<span>tajmouti<span class="red-dot">.</span></span></a
       >
-        <div class="smart-contact-overlay" data-smart-contact-close></div>
-        <div
-          class="smart-contact-dialog"
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="smart-contact-title"
-          tabindex="-1"
+      <div class="signal-dots" aria-hidden="true"><i></i><i></i><i></i></div>
+      <button
+        class="menu-toggle"
+        aria-expanded="false"
+        aria-controls="navigation"
+      >
+        MENU <span aria-hidden="true">＋</span>
+      </button>
+      <nav id="navigation" aria-label="Navigation principale">
+        <a href="#propos">À propos</a><a href="#skills">Compétences</a
+        ><a href="#realisations">Projets</a><a href="#contact">Parlons-en ↗</a>
+      </nav>
+    </header>
+    <main id="main">
+      <section class="page-header" id="accueil" aria-labelledby="hero-title">
+        <div class="hero-grid" aria-hidden="true"></div>
+        <svg
+          class="hero-thread"
+          viewBox="0 0 1440 1000"
+          preserveAspectRatio="none"
+          aria-hidden="true"
         >
-          <button
-            class="smart-contact-close"
-            type="button"
-            data-smart-contact-close
-            aria-label="Fermer le formulaire"
+          <path
+            d="M-40 790 C170 670 365 1050 530 710 S910 370 1000 670 S570 1080 700 690 S1170 910 1490 70"
+          />
+        </svg>
+        <div class="hero-note mono">
+          <span class="live-dot"></span> FULLSTACK · PRODUIT · AUTOMATISATION
+        </div>
+        <div class="hero-copy">
+          <span class="eyebrow">PORTFOLIO / NIZAR TAJMOUTI</span>
+          <h1 id="hero-title">
+            <span>Des idées.</span><span>Du code.</span
+            ><span>De l’impact<span class="period">.</span></span>
+          </h1>
+          <span class="name-sticker">INGÉNIEUR FULLSTACK & PRODUCT OWNER</span>
+          <p>
+            Je transforme les besoins métier<br />en outils qui simplifient le
+            quotidien.
+          </p>
+          <a class="hero-project-link" href="#realisations"
+            >EXPLORER MES PROJETS <span>↗</span></a
           >
-            <i class="fa fa-times" aria-hidden="true"></i>
-          </button>
-          <div class="smart-contact-header">
-            <span class="smart-contact-kicker">Formulaire automatisé</span>
-            <h3 id="smart-contact-title">Tester mon formulaire intelligent</h3>
-            <p>
-              Ce formulaire déclenche un workflow n8n : votre demande est
-              structurée, qualifiée par IA, enregistrée dans un CRM, puis
-              transmise automatiquement.
-            </p>
+        </div>
+        <a
+          class="hero-photo floating"
+          href="#propos"
+          aria-label="Découvrir mon parcours"
+          ><img
+            src="./assets/img/Nizar.jpg"
+            alt="Nizar Tajmouti"
+            width="389"
+            height="389" /><span>le développeur derrière les idées ↗</span
+          ><i class="photo-tape" aria-hidden="true"></i
+        ></a>
+        <div class="code-sticker floating" aria-hidden="true">
+          <div><span>● ● ●</span> daily-work.js</div>
+          <code
+            ><span>const</span> idée = besoin;<br /><span>const</span> solution
+            = {<br />&nbsp; code: <em>"utile"</em>,<br />&nbsp; humain:
+            <em>true</em>,<br />&nbsp; impact: <em>"concret"</em
+            ><br />};<br /><b>build</b>(solution);</code
+          >
+        </div>
+        <div class="hero-globe floating" aria-hidden="true">
+          <div class="wire-sphere"><i></i><i></i><i></i><i></i></div>
+          <span>CONNECTER LES IDÉES</span>
+        </div>
+        <span class="hero-scribble" aria-hidden="true"
+          >du besoin<br />à la solution ⤴</span
+        >
+        <div class="hero-bottom">
+          <span class="mono">OUTILS MÉTIER / WEB / IA</span
+          ><a href="#propos">RENCONTRER NIZAR <span>↓</span></a
+          ><a
+            href="./files/CV NIZAR TAJMOUTI.pdf"
+            download="CV Nizar TAJMOUTI.pdf"
+            >MON CV ↗</a
+          >
+        </div>
+      </section>
+      <section class="about paper" id="propos" aria-labelledby="about-title">
+        <div class="section-top">
+          <span class="label label-blue">01 / À PROPOS</span
+          ><span class="mono stamp">LA TECH AU SERVICE DE L’USAGE.</span>
+        </div>
+        <div class="about-spread">
+          <div class="portrait-composition reveal">
+            <span class="portrait-orbit" aria-hidden="true"></span>
+            <div class="avatar-card" data-avatar>
+              <div class="avatar-top">
+                <span class="label label-blue">MON AVATAR</span>
+                <span class="mono avatar-hint">GLISSEZ POUR TOURNER ↻</span>
+              </div>
+              <div class="avatar-stage">
+                <p class="avatar-fallback" hidden>
+                  Le rendu 3D n’est pas disponible sur cet appareil. Les liens
+                  ci-dessous mènent aux mêmes sections.
+                </p>
+                <span class="avatar-render-label mono">RENDU 3D TEMPS RÉEL</span>
+              </div>
+              <div class="avatar-controls">
+                <button type="button" data-avatar-turn="-1" aria-label="Tourner vers la gauche">
+                  ←
+                </button>
+                <button type="button" data-avatar-reset>FACE</button>
+                <button type="button" data-avatar-spin aria-pressed="false">
+                  Rotation auto
+                </button>
+                <button type="button" data-avatar-turn="1" aria-label="Tourner vers la droite">
+                  →
+                </button>
+              </div>
+              <p class="avatar-status"></p>
+              <p class="avatar-caption">Nizar, en trois dimensions.</p>
+              <nav class="avatar-text-links" aria-label="Raccourcis depuis l’avatar">
+                <a href="#propos">À propos</a><a href="#skills">Compétences</a
+                ><a href="#realisations">Projets</a><a href="#experience">Parcours</a
+                ><a href="#contact">Contact</a>
+              </nav>
+            </div>
           </div>
-          <form
-            class="smart-contact-form"
-            data-webhook-url-test="https://n8n.srv1532105.hstgr.cloud/webhook-test/portfolio-contact"
-            data-webhook-url-prod="https://n8n.srv1532105.hstgr.cloud/webhook/portfolio-contact"
-            novalidate
+          <div class="about-copy reveal">
+            <h2 id="about-title">Bonjour, moi c’est <em>Nizar.</em></h2>
+            <p class="about-lead">
+              Ingénieur logiciel, développeur fullstack<br />et partenaire de
+              vos projets.
+            </p>
+            <div class="about-columns">
+              <div>
+                <p>
+                  Je conçois, développe et fais évoluer des applications web et
+                  des outils métier. Mon fil conducteur : comprendre les besoins
+                  des équipes et construire des solutions utiles.
+                </p>
+                <p>
+                  De l’industrie chez Renault Group aux applications SaaS chez
+                  Dcrypte, je travaille à la croisée du code, des données et du
+                  produit.
+                </p>
+                <p>
+                  Et quand une tâche se répète, j’explore comment l’automatiser
+                  avec n8n et l’IA.
+                </p>
+              </div>
+              <div class="about-principles">
+                <h3 class="handwritten">Ce qui m’anime</h3>
+                <p><b>01 / Comprendre</b>Partir d’un besoin réel.</p>
+                <p>
+                  <b>02 / Construire</b>Relier interface, logique et données.
+                </p>
+                <p>
+                  <b>03 / Améliorer</b>Soigner l’usage et faire évoluer l’outil.
+                </p>
+                <a class="text-link" href="#experience">MON PARCOURS ↓</a>
+              </div>
+            </div>
+            <div class="about-tags">
+              <span>Développement fullstack</span><span>Product Ownership</span
+              ><span>Automatisation n8n</span>
+            </div>
+          </div>
+        </div>
+        <div
+          class="ticker"
+          role="img"
+          aria-label="Fullstack, produit, données, automatisation, intelligence artificielle"
+        >
+          <div aria-hidden="true">
+            <span>FULLSTACK ✳ PRODUIT ✳ DATA ✳ AUTOMATISATION ✳ IA ✳ </span
+            ><span>FULLSTACK ✳ PRODUIT ✳ DATA ✳ AUTOMATISATION ✳ IA ✳ </span>
+          </div>
+        </div>
+      </section>
+      <section
+        class="skills-section dark-grid"
+        id="skills"
+        aria-labelledby="skills-title"
+      >
+        <div class="section-top">
+          <p class="handwritten">
+            Des outils pour faire<br />avancer les idées.
+          </p>
+          <span class="mono"
+            >COMPRENDRE <i>✦</i> PROTOTYPER <i>✦</i> DÉVELOPPER
+            <i>✦</i> LIVRER</span
+          ><span class="mono">NIZAR TAJMOUTI / CODE · DATA · IA</span>
+        </div>
+        <div class="skills-layout">
+          <div class="skills-heading reveal">
+            <span class="label">02 / COMPÉTENCES</span>
+            <h2 id="skills-title">
+              Tout un<br /><em>univers</em><br />d’outils.
+            </h2>
+            <p>
+              Du frontend à la donnée, chaque technologie trouve sa place au
+              service du projet.
+            </p>
+            <span class="mono orbit-hint">SÉLECTIONNEZ UNE TECHNOLOGIE ↗</span>
+          </div>
+          <div class="orbit-stage" aria-label="Technologies utilisées">
+            <div class="orbit-ring ring-one"></div>
+            <div class="orbit-ring ring-two"></div>
+            <div class="orbit-ring ring-three"></div>
+            <div class="orbit-core" aria-hidden="true">
+              <span>NT</span><small>BUILD / CONNECT</small>
+            </div>
+            <div class="orbit-track track-one">
+              <div class="orbit-slot" style="--angle: 0deg">
+                <button
+                  style="--counter: 0deg; --tool-color: #69cee6"
+                  data-tool="React"
+                  data-description="Interfaces et composants pour les applications web, notamment DataHouse et la messagerie DECT."
+                >
+                  <img src="./assets/img/skills/react.svg" alt="" width="26" height="26" loading="lazy" decoding="async" /><span>React</span>
+                </button>
+              </div>
+              <div class="orbit-slot" style="--angle: 120deg">
+                <button
+                  style="--counter: -120deg; --tool-color: #f49a9b"
+                  data-tool="n8n"
+                  data-description="Workflows, intégrations API et qualification automatique des demandes du portfolio."
+                >
+                  <img src="./assets/img/skills/n8n.svg" alt="" width="26" height="26" loading="lazy" decoding="async" /><span>n8n</span>
+                </button>
+              </div>
+              <div class="orbit-slot" style="--angle: 240deg">
+                <button
+                  style="--counter: -240deg; --tool-color: #dfd9c8"
+                  data-tool="Next.js"
+                  data-description="Développement fullstack et vues métier dynamiques sur la plateforme DataHouse."
+                >
+                  <img src="./assets/img/skills/nextjs.svg" alt="" width="26" height="26" loading="lazy" decoding="async" /><span>Next.js</span>
+                </button>
+              </div>
+            </div>
+            <div class="orbit-track track-two">
+              <div class="orbit-slot" style="--angle: 30deg">
+                <button
+                  style="--counter: -30deg; --tool-color: #70acec"
+                  data-tool="TypeScript"
+                  data-description="Composants React et logique applicative typée sur DataHouse."
+                >
+                  <img src="./assets/img/skills/typescript.svg" alt="" width="26" height="26" loading="lazy" decoding="async" /><span>TypeScript</span>
+                </button>
+              </div>
+              <div class="orbit-slot" style="--angle: 120deg">
+                <button
+                  style="--counter: -120deg; --tool-color: #86c58b"
+                  data-tool="MongoDB"
+                  data-description="Schémas dynamiques et pipelines d’agrégation pour structurer et exploiter les données métier."
+                >
+                  <img src="./assets/img/skills/mongodb.svg" alt="" width="26" height="26" loading="lazy" decoding="async" /><span>MongoDB</span>
+                </button>
+              </div>
+              <div class="orbit-slot" style="--angle: 210deg">
+                <button
+                  style="--counter: -210deg; --tool-color: #b7afe6"
+                  data-tool="PHP"
+                  data-description="Développement backend d’outils internes Renault, avec MySQL et des API REST."
+                >
+                  <img src="./assets/img/skills/php.svg" alt="" width="26" height="26" loading="lazy" decoding="async" /><span>PHP</span>
+                </button>
+              </div>
+              <div class="orbit-slot" style="--angle: 300deg">
+                <button
+                  style="--counter: -300deg; --tool-color: #efca65"
+                  data-tool="JavaScript"
+                  data-description="Interactions web, interfaces et connexion du portfolio au workflow n8n."
+                >
+                  <img src="./assets/img/skills/javascript.svg" alt="" width="26" height="26" loading="lazy" decoding="async" /><span>JavaScript</span>
+                </button>
+              </div>
+            </div>
+            <div class="orbit-track track-three">
+              <div class="orbit-slot" style="--angle: 0deg">
+                <button
+                  style="--counter: 0deg; --tool-color: #df8267"
+                  data-tool="Git"
+                  data-description="Gestion de versions et suivi des évolutions des projets."
+                >
+                  <img src="./assets/img/skills/git.svg" alt="" width="26" height="26" loading="lazy" decoding="async" /><span>Git</span>
+                </button>
+              </div>
+              <div class="orbit-slot" style="--angle: 90deg">
+                <button
+                  style="--counter: -90deg; --tool-color: #76b8db"
+                  data-tool="MySQL"
+                  data-description="Données, suivi d’usage et tableaux de bord des applications métier."
+                >
+                  <img src="./assets/img/skills/mysql.svg" alt="" width="26" height="26" loading="lazy" decoding="async" /><span>MySQL</span>
+                </button>
+              </div>
+              <div class="orbit-slot" style="--angle: 180deg">
+                <button
+                  style="--counter: -180deg; --tool-color: #c596eb"
+                  data-tool="Figma"
+                  data-description="Conception des interfaces et amélioration de l’expérience utilisateur."
+                >
+                  <img src="./assets/img/skills/figma.svg" alt="" width="26" height="26" loading="lazy" decoding="async" /><span>Figma</span>
+                </button>
+              </div>
+              <div class="orbit-slot" style="--angle: 270deg">
+                <button
+                  style="--counter: -270deg; --tool-color: #8cb97a"
+                  data-tool="Node.js"
+                  data-description="JavaScript côté serveur et outils de développement."
+                >
+                  <img src="./assets/img/skills/nodejs.svg" alt="" width="26" height="26" loading="lazy" decoding="async" /><span>Node.js</span>
+                </button>
+              </div>
+            </div>
+          </div>
+          <aside class="skill-note">
+            <span class="label label-red">EN PRATIQUE</span>
+            <h3 id="tool-name">Du code à l’usage.</h3>
+            <p id="tool-description" aria-live="polite">
+              Explorez les outils en orbite pour découvrir leur place dans mes
+              projets.
+            </p>
+            <div class="proof-tags">
+              <span>APPLICATIONS MÉTIER</span><span>DASHBOARDS & DATA</span
+              ><span>INTÉGRATIONS API</span><span>WORKFLOWS N8N</span>
+            </div>
+          </aside>
+        </div>
+        <div class="skills-bottom mono">
+          <span
+            >AUSSI DANS MA BOÎTE À OUTILS : PYTHON · JAVA · POSTGRESQL · HTML /
+            CSS</span
+          ><span>ANGLAIS B2 / ESPAGNOL B2</span>
+        </div>
+      </section>
+
+      <section
+        class="projects-section dark-grid"
+        id="realisations"
+        aria-labelledby="projects-title"
+      >
+        <div class="section-top">
+          <span class="label">03 / RÉALISATIONS</span
+          ><span class="mono">07 PROJETS / DU BESOIN À LA SOLUTION</span>
+        </div>
+        <div class="projects-heading reveal">
+          <h2 id="projects-title">
+            Moins de promesses.<br /><em>Plus de projets.</em>
+          </h2>
+          <p>
+            Applications métier, automatisations et projets personnels.<br />Explorez
+            l’interface, puis découvrez ce qu’il y a derrière.
+          </p>
+        </div>
+        <div class="project-toolbar">
+          <span class="mono">UNE SÉLECTION DE MON TRAVAIL ↓</span
+          ><span class="mono"
+            >SURVOLEZ POUR RÉVÉLER · CLIQUEZ POUR EXPLORER</span
           >
-            <div class="smart-contact-honeypot" aria-hidden="true">
-              <label for="website_check">Site web</label>
-              <input
-                id="website_check"
-                name="website_check"
-                type="text"
-                tabindex="-1"
-                autocomplete="off"
-              />
-            </div>
-            <div class="smart-contact-grid">
-              <label>
-                <span>Nom Prénom *</span>
-                <input name="name" type="text" autocomplete="name" required />
-              </label>
-              <label>
-                <span>Email *</span>
-                <input
-                  name="email"
-                  type="email"
-                  autocomplete="email"
-                  required
-                />
-              </label>
-              <label>
-                <span>Entreprise / organisation</span>
-                <input name="company" type="text" autocomplete="organization" />
-              </label>
-              <label>
-                <span>Site web ou LinkedIn</span>
-                <input
-                  name="website_or_linkedin"
-                  type="url"
-                  autocomplete="url"
-                  placeholder="https://"
-                />
-              </label>
-              <label>
-                <span>Type de demande *</span>
-                <select name="request_type" required>
-                  <option value="">Sélectionner</option>
-                  <option value="automation_ai">Automatisation n8n / IA</option>
-                  <option value="internal_tool_dashboard">Outil métier / dashboard</option>
-                  <option value="web_app_fullstack">Application web / fullstack</option>
-                  <option value="document_generation">Génération de documents</option>
-                  <option value="process_optimization">Optimisation de process</option>
-                  <option value="job_opportunity">Opportunité CDI</option>
-                  <option value="freelance_mission">Mission freelance</option>
-                  <option value="partnership">Collaboration / partenariat</option>
-                  <option value="other">Autre</option>
-                </select>
-              </label>
-              <label>
-                <span>Budget / contexte</span>
-                <select name="budget_context">
-                  <option value="">Sélectionner</option>
-                  <option value="less_than_1000">Moins de 1 000 €</option>
-                  <option value="1000_3000">1 000 – 3 000 €</option>
-                  <option value="3000_5000">3 000 – 5 000 €</option>
-                  <option value="5000_plus">5 000 €+</option>
-                  <option value="job_recruitment">CDI / recrutement</option>
-                  <option value="unknown">Je ne sais pas encore</option>
-                </select>
-              </label>
-              <label>
-                <span>Urgence</span>
-                <select name="urgency">
-                  <option value="">Sélectionner</option>
-                  <option value="not_urgent">Pas urgent</option>
-                  <option value="within_month">Dans le mois</option>
-                  <option value="asap">Dès que possible</option>
-                  <option value="urgent">Urgent</option>
-                </select>
-              </label>
-              <label class="smart-contact-message">
-                <span>Message</span>
-                <textarea
-                  name="message"
-                  rows="5"
-                  maxlength="2000"
-                  placeholder="Décrivez votre besoin si vous souhaitez ajouter des précisions."
-                ></textarea>
-              </label>
-            </div>
-            <p
-              class="smart-contact-status"
-              data-smart-contact-status
-              role="status"
-              aria-live="polite"
-            ></p>
+        </div>
+        <div class="work-grid">
+          <!-- project-cards:start -->
+          <article class="work-card reveal">
             <button
-              class="smart-contact-submit btn btn-danger btn-round"
-              type="submit"
+              class="work-open"
+              type="button"
+              data-project="webmarket"
+              aria-haspopup="dialog"
+              aria-label="Découvrir Webmarket"
             >
-              <span data-smart-contact-submit-text>Envoyer la demande</span>
+              <span class="work-visual"
+                ><img
+                  src="./assets/img/realisations/cards/webmarket-card.png"
+                  alt="Aperçu de Webmarket"
+                  width="1200"
+                  height="750"
+                  loading="lazy"
+                  decoding="async"
+                /><canvas class="ascii-preview" aria-hidden="true"></canvas
+                ><span class="work-view" aria-hidden="true"
+                  >EXPLORER ↗</span
+                ></span
+              >
+              <span class="work-meta"
+                ><span>01 / Outils internes</span
+                ><span>ÉTUDE DE CAS ↗</span></span
+              >
+              <span class="work-title">Webmarket</span>
+              <span class="work-stack"
+                >Application interne · Dashboard admin · Tracking · Excel</span
+              >
             </button>
-          </form>
+          </article>
+          <article class="work-card reveal">
+            <button
+              class="work-open"
+              type="button"
+              data-project="datahouse"
+              aria-haspopup="dialog"
+              aria-label="Découvrir DataHouse"
+            >
+              <span class="work-visual"
+                ><img
+                  src="./assets/img/realisations/cards/datahouse-card.png"
+                  alt="Aperçu de DataHouse"
+                  width="1200"
+                  height="750"
+                  loading="lazy"
+                  decoding="async"
+                /><canvas class="ascii-preview" aria-hidden="true"></canvas
+                ><span class="work-view" aria-hidden="true"
+                  >EXPLORER ↗</span
+                ></span
+              >
+              <span class="work-meta"
+                ><span>02 / Outil SaaS</span><span>ÉTUDE DE CAS ↗</span></span
+              >
+              <span class="work-title">DataHouse</span>
+              <span class="work-stack"
+                >SaaS · Fullstack · MongoDB · Next.js</span
+              >
+            </button>
+          </article>
+          <article class="work-card reveal">
+            <button
+              class="work-open"
+              type="button"
+              data-project="assistant-mail-n8n"
+              aria-haspopup="dialog"
+              aria-label="Découvrir Assistant Mail n8n"
+            >
+              <span class="work-visual"
+                ><img
+                  src="./assets/img/realisations/cards/assistant-email-card.png"
+                  alt="Aperçu de Assistant Mail n8n"
+                  width="1200"
+                  height="750"
+                  loading="lazy"
+                  decoding="async"
+                /><canvas class="ascii-preview" aria-hidden="true"></canvas
+                ><span class="work-view" aria-hidden="true"
+                  >EXPLORER ↗</span
+                ></span
+              >
+              <span class="work-meta"
+                ><span>03 / Automatisation IA</span
+                ><span>ÉTUDE DE CAS ↗</span></span
+              >
+              <span class="work-title">Assistant Mail n8n</span>
+              <span class="work-stack"
+                >n8n · Automatisation IA · Email · API</span
+              >
+            </button>
+          </article>
+          <article class="work-card reveal">
+            <button
+              class="work-open"
+              type="button"
+              data-project="crm-portfolio-ia"
+              aria-haspopup="dialog"
+              aria-label="Découvrir CRM intelligent du portfolio"
+            >
+              <span class="work-visual"
+                ><img
+                  src="./assets/img/realisations/cards/crm-portfolio-card.png"
+                  alt="Aperçu de CRM intelligent du portfolio"
+                  width="1200"
+                  height="750"
+                  loading="lazy"
+                  decoding="async"
+                /><canvas class="ascii-preview" aria-hidden="true"></canvas
+                ><span class="work-view" aria-hidden="true"
+                  >EXPLORER ↗</span
+                ></span
+              >
+              <span class="work-meta"
+                ><span>04 / Automatisation IA</span
+                ><span>ÉTUDE DE CAS ↗</span></span
+              >
+              <span class="work-title">CRM intelligent du portfolio</span>
+              <span class="work-stack">n8n · IA · CRM · Google Sheets</span>
+            </button>
+          </article>
+          <article class="work-card reveal">
+            <button
+              class="work-open"
+              type="button"
+              data-project="messagerie-dect"
+              aria-haspopup="dialog"
+              aria-label="Découvrir Messagerie DECT"
+            >
+              <span class="work-visual"
+                ><img
+                  src="./assets/img/realisations/cards/messagerie-dect-card.png"
+                  alt="Aperçu de Messagerie DECT"
+                  width="1200"
+                  height="750"
+                  loading="lazy"
+                  decoding="async"
+                /><canvas class="ascii-preview" aria-hidden="true"></canvas
+                ><span class="work-view" aria-hidden="true"
+                  >EXPLORER ↗</span
+                ></span
+              >
+              <span class="work-meta"
+                ><span>05 / Communication</span
+                ><span>ÉTUDE DE CAS ↗</span></span
+              >
+              <span class="work-title">Messagerie DECT</span>
+              <span class="work-stack"
+                >Communication · React · API interne · Gestion projet</span
+              >
+            </button>
+          </article>
+          <article class="work-card reveal">
+            <button
+              class="work-open"
+              type="button"
+              data-project="portail-point-fab"
+              aria-haspopup="dialog"
+              aria-label="Découvrir Portail Point Fabrication"
+            >
+              <span class="work-visual"
+                ><img
+                  src="./assets/img/realisations/cards/portail-point-fab-card.png"
+                  alt="Aperçu de Portail Point Fabrication"
+                  width="1200"
+                  height="750"
+                  loading="lazy"
+                  decoding="async"
+                /><canvas class="ascii-preview" aria-hidden="true"></canvas
+                ><span class="work-view" aria-hidden="true"
+                  >EXPLORER ↗</span
+                ></span
+              >
+              <span class="work-meta"
+                ><span>06 / Dashboard</span><span>ÉTUDE DE CAS ↗</span></span
+              >
+              <span class="work-title">Portail Point Fabrication</span>
+              <span class="work-stack"
+                >Dashboard · Production · Figma · Pilotage</span
+              >
+            </button>
+          </article>
+          <article class="work-card reveal">
+            <button
+              class="work-open"
+              type="button"
+              data-project="andre-bach"
+              aria-haspopup="dialog"
+              aria-label="Découvrir L&#x27;Histoire d&#x27;André Bach"
+            >
+              <span class="work-visual"
+                ><img
+                  src="./assets/img/realisations/cards/andre-bach-card.png"
+                  alt="Aperçu de L&#x27;Histoire d&#x27;André Bach"
+                  width="1200"
+                  height="750"
+                  loading="lazy"
+                  decoding="async"
+                /><canvas class="ascii-preview" aria-hidden="true"></canvas
+                ><span class="work-view" aria-hidden="true"
+                  >EXPLORER ↗</span
+                ></span
+              >
+              <span class="work-meta"
+                ><span>07 / Projet web</span><span>ÉTUDE DE CAS ↗</span></span
+              >
+              <span class="work-title">L&#x27;Histoire d&#x27;André Bach</span>
+              <span class="work-stack"
+                >Site public · Statique · Netlify · Transmission</span
+              >
+            </button>
+          </article>
+          <!-- project-cards:end -->
+        </div>
+        <noscript
+          ><p>
+            Les fiches détaillées nécessitent JavaScript. Vous pouvez consulter
+            mon CV et me contacter directement par email.
+          </p></noscript
+        >
+      </section>
+      <section
+        class="experience-section paper"
+        id="experience"
+        aria-labelledby="experience-title"
+      >
+        <div class="section-top">
+          <span class="label label-blue">04 / PARCOURS</span
+          ><span class="mono">LE TERRAIN, AVANT TOUT.</span>
+        </div>
+        <div class="experience-layout">
+          <div class="reveal">
+            <h2 id="experience-title">
+              Des besoins réels.<br /><em>Du concret.</em>
+            </h2>
+            <p>
+              Des applications industrielles aux outils SaaS : comprendre le
+              métier, développer la solution et accompagner son évolution.
+            </p>
+            <a
+              class="text-link"
+              href="./files/CV NIZAR TAJMOUTI.pdf"
+              download="CV Nizar TAJMOUTI.pdf"
+              >TÉLÉCHARGER MON CV ↗</a
+            >
+          </div>
+          <div class="experience-list">
+            <article class="experience-row reveal">
+              <span class="mono">2024 — 2026</span>
+              <div>
+                <h3>Dcrypte</h3>
+                <p>Ingénieur logiciel</p>
+                <small
+                  >Applications web, besoins clients, coordination technique et
+                  produit.</small
+                >
+              </div>
+              <span aria-hidden="true">↗</span>
+            </article>
+            <article class="experience-row reveal">
+              <span class="mono">2022 — 2023</span>
+              <div>
+                <h3>Renault Group</h3>
+                <p>Alternant ingénieur développeur fullstack</p>
+                <small
+                  >Outils industriels, dashboards, développement front et back,
+                  suivi projet.</small
+                >
+              </div>
+              <span aria-hidden="true">↗</span>
+            </article>
+            <article class="experience-row reveal">
+              <span class="mono">MARS — SEPT. 2021</span>
+              <div>
+                <h3>Stilog IST</h3>
+                <p>Développeur fullstack</p>
+                <small
+                  >Application interne, développement web et refonte
+                  UX/UI.</small
+                >
+              </div>
+              <span aria-hidden="true">↗</span>
+            </article>
+            <article class="experience-row personal reveal">
+              <span class="mono">2026 / PERSONNEL</span>
+              <div>
+                <h3>Le labo n8n</h3>
+                <p>Projets personnels & démonstrations</p>
+                <small
+                  >Assistant email et CRM intelligent connecté à ce
+                  portfolio.</small
+                >
+              </div>
+              <span aria-hidden="true">✳</span>
+            </article>
+          </div>
+        </div>
+      </section>
+      <section
+        class="contact-section paper"
+        id="contact"
+        aria-labelledby="contact-title"
+      >
+        <div class="section-top">
+          <span class="label label-blue">05 / ET SI ON EN PARLAIT ?</span
+          ><span class="mono"
+            ><span class="live-dot"></span> PROJETS · MISSIONS ·
+            OPPORTUNITÉS</span
+          >
+        </div>
+        <div class="contact-heading reveal">
+          <span class="handwritten">La prochaine idée commence ici.</span>
+          <h2 id="contact-title">
+            Faisons quelque<br />chose d’<em>utile.</em
+            ><span class="contact-star" aria-hidden="true">✳</span>
+          </h2>
+        </div>
+        <div class="contact-actions">
+          <div>
+            <p>
+              Un projet web, une automatisation ou une opportunité
+              professionnelle ? Donnons une suite à votre idée.
+            </p>
+            <a class="email-link" href="mailto:nizar.tajmouti@outlook.com"
+              >nizar.tajmouti@outlook.com <span>↗</span></a
+            >
+          </div>
+          <button
+            class="contact-launch"
+            type="button"
+            data-smart-contact-open
+            aria-haspopup="dialog"
+          >
+            <span class="mono">UNE IDÉE EN TÊTE ?</span
+            ><span>Parlons de<br />votre projet <b>↗</b></span
+            ><small>Formulaire connecté à mon workflow n8n</small>
+          </button>
+        </div>
+        <div class="social-links">
+          <a
+            href="https://github.com/TAJMOUTI?tab=repositories"
+            target="_blank"
+            rel="noopener noreferrer"
+            ><span>01</span> GitHub ↗</a
+          ><a
+            href="https://www.linkedin.com/in/nizar-tajmouti-881134158/"
+            target="_blank"
+            rel="noopener noreferrer"
+            ><span>02</span> LinkedIn ↗</a
+          ><a
+            href="./files/CV NIZAR TAJMOUTI.pdf"
+            download="CV Nizar TAJMOUTI.pdf"
+            ><span>03</span> Mon CV ↓</a
+          ><a href="#accueil"><span>04</span> Retour en haut ↑</a>
+        </div>
+        <footer>
+          <span class="footer-name"
+            >NIZAR TAJMOUTI<span>© <span data-year>2026</span></span></span
+          >
+          <div class="mono">
+            <span>FULLSTACK / PRODUIT / AUTOMATISATION</span
+            ><button class="motion-toggle" type="button" aria-pressed="false">
+              Mettre les animations en pause
+            </button>
+          </div>
+        </footer>
+      </section>
+    </main>
+    <div
+      class="smart-contact-modal"
+      data-smart-contact-modal
+      aria-hidden="true"
+    >
+      <div class="smart-contact-overlay" data-smart-contact-close></div>
+      <div
+        class="smart-contact-dialog"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="smart-contact-title"
+        tabindex="-1"
+      >
+        <button
+          class="smart-contact-close"
+          type="button"
+          data-smart-contact-close
+          aria-label="Fermer le formulaire"
+        >
+          <span aria-hidden="true">×</span>
+        </button>
+        <div class="smart-contact-header">
+          <span class="smart-contact-kicker">Formulaire automatisé</span>
+          <h3 id="smart-contact-title">Parlons de votre projet</h3>
+          <p>
+            Ce formulaire déclenche un workflow n8n : votre demande est
+            structurée, qualifiée par IA, enregistrée dans un CRM, puis
+            transmise automatiquement.
+          </p>
+        </div>
+        <form
+          class="smart-contact-form"
+          data-webhook-url-test="https://n8n.srv1532105.hstgr.cloud/webhook-test/portfolio-contact"
+          data-webhook-url-prod="https://n8n.srv1532105.hstgr.cloud/webhook/portfolio-contact"
+          novalidate
+        >
+          <div class="smart-contact-honeypot" aria-hidden="true">
+            <label for="website_check">Site web</label>
+            <input
+              id="website_check"
+              name="website_check"
+              type="text"
+              tabindex="-1"
+              autocomplete="off"
+            />
+          </div>
+          <div class="smart-contact-grid">
+            <label>
+              <span>Nom Prénom *</span>
+              <input name="name" type="text" autocomplete="name" required />
+            </label>
+            <label>
+              <span>Email *</span>
+              <input name="email" type="email" autocomplete="email" required />
+            </label>
+            <label>
+              <span>Entreprise / organisation</span>
+              <input name="company" type="text" autocomplete="organization" />
+            </label>
+            <label>
+              <span>Site web ou LinkedIn</span>
+              <input
+                name="website_or_linkedin"
+                type="url"
+                autocomplete="url"
+                placeholder="https://"
+              />
+            </label>
+            <label>
+              <span>Type de demande *</span>
+              <select name="request_type" required>
+                <option value="">Sélectionner</option>
+                <option value="automation_ai">Automatisation n8n / IA</option>
+                <option value="internal_tool_dashboard">
+                  Outil métier / dashboard
+                </option>
+                <option value="web_app_fullstack">
+                  Application web / fullstack
+                </option>
+                <option value="document_generation">
+                  Génération de documents
+                </option>
+                <option value="process_optimization">
+                  Optimisation de process
+                </option>
+                <option value="job_opportunity">Opportunité CDI</option>
+                <option value="freelance_mission">Mission freelance</option>
+                <option value="partnership">Collaboration / partenariat</option>
+                <option value="other">Autre</option>
+              </select>
+            </label>
+            <label>
+              <span>Budget / contexte</span>
+              <select name="budget_context">
+                <option value="">Sélectionner</option>
+                <option value="less_than_1000">Moins de 1 000 €</option>
+                <option value="1000_3000">1 000 – 3 000 €</option>
+                <option value="3000_5000">3 000 – 5 000 €</option>
+                <option value="5000_plus">5 000 €+</option>
+                <option value="job_recruitment">CDI / recrutement</option>
+                <option value="unknown">Je ne sais pas encore</option>
+              </select>
+            </label>
+            <label>
+              <span>Urgence</span>
+              <select name="urgency">
+                <option value="">Sélectionner</option>
+                <option value="not_urgent">Pas urgent</option>
+                <option value="within_month">Dans le mois</option>
+                <option value="asap">Dès que possible</option>
+                <option value="urgent">Urgent</option>
+              </select>
+            </label>
+            <label class="smart-contact-message">
+              <span>Message</span>
+              <textarea
+                name="message"
+                rows="5"
+                maxlength="2000"
+                placeholder="Décrivez votre besoin si vous souhaitez ajouter des précisions."
+              ></textarea>
+            </label>
+          </div>
+          <p
+            class="smart-contact-status"
+            data-smart-contact-status
+            role="status"
+            aria-live="polite"
+          ></p>
+          <button
+            class="smart-contact-submit btn btn-danger btn-round"
+            type="submit"
+          >
+            <span data-smart-contact-submit-text>Envoyer la demande</span>
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <dialog class="project-dialog" aria-labelledby="case-title">
+      <button class="case-close" type="button" aria-label="Fermer le projet">
+        ×
+      </button>
+      <div class="case-body">
+        <span class="label label-blue" id="case-category"></span>
+        <h2 id="case-title"></h2>
+        <p id="case-summary"></p>
+        <nav class="case-navigation" aria-label="Navigation entre les projets">
+          <button id="case-previous" type="button">← Précédent</button>
+          <output id="case-position" aria-live="polite"></output>
+          <button id="case-next" type="button">Suivant →</button>
+        </nav>
+        <a
+          id="case-image-link"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Ouvrir la capture en taille réelle"
+          ><img id="case-image" alt="" width="1200" height="750"
+        /></a>
+        <div id="case-sections"></div>
+        <div class="case-actions">
+          <a
+            id="case-link"
+            class="text-link"
+            target="_blank"
+            rel="noopener noreferrer"
+            >VOIR LE SITE ↗</a
+          ><button id="case-contact" class="text-link" type="button">
+            DÉCOUVRIR LE FORMULAIRE ↗
+          </button>
         </div>
       </div>
-    </main>
-
-    <!--   Core JS Files   -->
-    <script
-      src="./assets/js/core/jquery.min.js"
-      type="text/javascript"
-    ></script>
-    <script
-      src="./assets/js/core/popper.min.js"
-      type="text/javascript"
-    ></script>
-    <script
-      src="./assets/js/core/bootstrap.min.js"
-      type="text/javascript"
-    ></script>
-    <!-- Control Center for Paper Kit: parallax effects, scripts for the example pages etc -->
-    <script
-      src="./assets/js/paper-kit.js?v=2.2.0"
-      type="text/javascript"
-    ></script>
-    <script
-      src="./assets/js/realisations.js?v=2"
-      type="text/javascript"
-    ></script>
-    <script
-      src="./assets/js/contact-automation.js"
-      type="text/javascript"
-    ></script>
-    <!-- Experimental ideas kept inactive until they are stable:
-  <script src="./assets/js/experiments/apropos-game.js" type="text/javascript"></script>
-  <script src="./assets/js/experiments/formations-snake.js" type="text/javascript"></script> -->
+    </dialog>
+    <nav class="section-progress" aria-label="Accès rapide aux sections">
+      <a href="#accueil" aria-label="Accueil" aria-current="location"></a
+      ><a href="#propos" aria-label="À propos"></a
+      ><a href="#skills" aria-label="Compétences"></a
+      ><a href="#realisations" aria-label="Projets"></a
+      ><a href="#experience" aria-label="Parcours"></a
+      ><a href="#contact" aria-label="Contact"></a>
+    </nav>
+    <script src="./assets/js/projects-data.js" defer></script>
+    <script src="./assets/js/editorial.js" defer></script>
+    <script src="./assets/js/contact-automation.js" defer></script>
+    <script type="module" src="./assets/js/avatar.js"></script>
   </body>
 </html>

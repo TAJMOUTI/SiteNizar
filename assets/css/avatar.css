@@ -1,0 +1,30 @@
+/* Isolated avatar component. It can be removed without changing the page layout. */
+.avatar-card{width:100%;max-width:480px;justify-self:center;position:relative;--avatar-line:#10121030}
+.avatar-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}
+.avatar-top .label{font-size:9px}
+.avatar-hint{font-size:9px;color:#5a5a50;letter-spacing:.06em}
+/* A label pinned to the pointer, naming the section a garment leads to. */
+.avatar-tip{position:absolute;left:var(--tip-x);top:var(--tip-y);transform:translate(14px,-50%);pointer-events:none;z-index:2;display:flex;align-items:center;gap:6px;white-space:nowrap;background:#eee9def2;border:1px solid #1114;box-shadow:2px 2px 0 #3457cf70;color:var(--ink);font:700 9px var(--mono);padding:7px 9px}
+.avatar-tip::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--blue);flex:0 0 auto}
+.avatar-tip.is-left{transform:translate(calc(-100% - 14px),-50%)}
+.avatar-fallback{position:absolute;inset:auto 12% 50% 12%;transform:translateY(50%);text-align:center;font-size:13px;line-height:1.7;color:var(--ink)}
+.avatar-stage{width:100%;position:relative;aspect-ratio:2/3;max-height:660px;overflow:hidden;border:1px solid #1112;background:transparent}
+.avatar-stage [hidden],.avatar-card [hidden]{display:none!important}
+.avatar-canvas{position:absolute;inset:0;display:block;touch-action:pan-y;cursor:grab}
+.avatar-canvas:active{cursor:grabbing}
+.avatar-canvas:focus-visible{outline:3px solid var(--blue);outline-offset:-5px}
+.avatar-controls{display:flex;gap:6px;justify-content:center;padding:12px 0}
+.avatar-controls button{min-width:40px;min-height:35px;padding:7px 10px;background:transparent;border:1px solid var(--avatar-line);font:700 10px var(--mono)}
+.avatar-controls button[data-avatar-turn]{font-size:15px;padding:4px 10px}
+.avatar-controls button:hover{background:var(--ink);color:var(--paper)}
+.avatar-status{font:700 11px/1.6 var(--mono);padding:12px 4px;min-height:50px;text-align:center}
+.avatar-caption{font:700 24px/1.1 var(--hand);text-align:center;color:var(--blue);transform:rotate(-3deg);margin:8px 0 18px}
+.avatar-text-links{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 13px;font:700 9px/1.5 var(--mono)}
+.avatar-text-links a{border-bottom:1px solid #3457cf70;padding-bottom:3px}
+.avatar-text-links a:hover{color:var(--blue)}
+.avatar-render-label{position:absolute;bottom:14px;left:14px;pointer-events:none;background:#eee9ddb8;padding:5px 8px;font:700 8px var(--mono)}
+/* The avatar needs more room than the still portrait it replaces, so the
+   about spread rebalances its columns below the desktop breakpoint. */
+@media(min-width:761px) and (max-width:1100px){.about-spread{grid-template-columns:1fr 1.12fr;gap:4%}.portrait-composition{padding-left:0;padding-right:0}}
+@media(max-width:1100px){.avatar-top{flex-wrap:wrap}.avatar-status{min-height:44px}}
+@media(max-width:760px){.portrait-composition{width:100%;max-width:440px;padding:8px 0 36px}.avatar-card{max-width:440px}.avatar-top{flex-wrap:nowrap}.avatar-stage{max-height:560px}.avatar-status{font-size:10px}}
