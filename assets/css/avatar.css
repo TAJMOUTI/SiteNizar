@@ -28,3 +28,7 @@
 @media(min-width:761px) and (max-width:1100px){.about-spread{grid-template-columns:1fr 1.12fr;gap:4%}.portrait-composition{padding-left:0;padding-right:0}}
 @media(max-width:1100px){.avatar-top{flex-wrap:wrap}.avatar-status{min-height:44px}}
 @media(max-width:760px){.portrait-composition{width:100%;max-width:440px;padding:8px 0 36px}.avatar-card{max-width:440px}.avatar-top{flex-wrap:nowrap}.avatar-stage{max-height:560px}.avatar-status{font-size:10px}}
+/* WCAG 2.2, critere 2.5.8 : zone cliquable portee a 24 pixels de haut,
+   sans deplacer le soulignement ni changer la taille du texte. */
+.avatar-text-links a{position:relative}
+.avatar-text-links a::after{content:"";position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);height:24px}

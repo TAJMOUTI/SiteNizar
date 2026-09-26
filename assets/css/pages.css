@@ -1,0 +1,259 @@
+/* Pages secondaires : 404 et pages legales.
+   Reprend les variables, les polices et le fond definis par editorial.css,
+   sans reprendre la mise en page de la page d'accueil ni son JavaScript. */
+
+.page-shell {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 26px var(--gutter) 90px;
+}
+
+.page-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding-block: 14px;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 54px;
+}
+
+.page-bar .wordmark {
+  font: 800 15px/1 var(--display);
+  letter-spacing: -0.03em;
+  text-transform: lowercase;
+}
+
+.page-bar .wordmark span {
+  color: var(--muted);
+}
+
+.page-bar .red-dot {
+  color: var(--red);
+}
+
+.page-back {
+  font: 700 12px/1 var(--mono);
+  letter-spacing: 0.08em;
+  padding: 11px 2px;
+  border-bottom: 1px solid var(--line);
+}
+
+.page-back:hover {
+  color: var(--red);
+  border-bottom-color: currentColor;
+}
+
+.page-head {
+  margin-bottom: 44px;
+}
+
+.page-head h1 {
+  font: 800 clamp(32px, 6vw, 58px) / 1.02 var(--display);
+  letter-spacing: -0.035em;
+  margin: 16px 0 0;
+}
+
+.page-head h1 em {
+  color: var(--red);
+  font-style: normal;
+}
+
+.page-date {
+  display: block;
+  margin-top: 18px;
+  font: 700 12px/1.6 var(--mono);
+  color: var(--muted);
+}
+
+.page-draft {
+  /* Encadre rouge et fond teinte plutot qu'un gros filet lateral : le bloc
+     reste impossible a manquer sans reprendre un motif d'interface generique. */
+  border: 1px solid var(--red);
+  background: rgba(207, 89, 69, 0.08);
+  padding: 18px 20px;
+  margin-bottom: 44px;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.page-draft strong {
+  display: block;
+  font: 700 12px/1.6 var(--mono);
+  letter-spacing: 0.09em;
+  color: var(--red);
+  margin-bottom: 8px;
+}
+
+.page-shell section {
+  margin-bottom: 40px;
+}
+
+.page-shell h2 {
+  font: 700 13px/1.5 var(--mono);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--paper);
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--line);
+  margin: 0 0 18px;
+}
+
+.page-shell h3 {
+  font: 700 15px/1.5 Arial, sans-serif;
+  margin: 26px 0 8px;
+}
+
+.page-shell p,
+.page-shell li {
+  font-size: 15px;
+  line-height: 1.8;
+  color: #d8d4c7;
+}
+
+.page-shell p {
+  margin: 0 0 14px;
+}
+
+.page-shell ul {
+  margin: 0 0 14px;
+  padding-left: 20px;
+}
+
+.page-shell li {
+  margin-bottom: 8px;
+}
+
+.page-shell a:not(.page-back):not(.wordmark) {
+  border-bottom: 1px solid rgba(207, 89, 69, 0.5);
+  padding-bottom: 1px;
+}
+
+.page-shell a:not(.page-back):not(.wordmark):hover {
+  color: var(--red);
+}
+
+/* Information encore manquante : visible, et facile a retrouver. */
+.todo {
+  background: rgba(207, 89, 69, 0.14);
+  border-bottom: 1px dashed var(--red);
+  padding: 1px 6px;
+  font: 700 12px/1.6 var(--mono);
+  color: #f0b3a7;
+}
+
+.page-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 0 14px;
+  font-size: 14px;
+}
+
+.page-table th,
+.page-table td {
+  text-align: left;
+  vertical-align: top;
+  padding: 11px 12px 11px 0;
+  border-bottom: 1px solid var(--line);
+  line-height: 1.65;
+}
+
+.page-table th {
+  font: 700 12px/1.6 var(--mono);
+  letter-spacing: 0.06em;
+  color: var(--paper);
+  width: 34%;
+}
+
+.page-table td {
+  color: #d8d4c7;
+}
+
+.page-foot {
+  margin-top: 60px;
+  padding-top: 22px;
+  border-top: 1px solid var(--line);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 22px;
+  font: 700 12px/1.6 var(--mono);
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
+
+.page-foot a {
+  padding-block: 7px;
+  border-bottom: 1px solid var(--line);
+}
+
+.page-foot a:hover {
+  color: var(--red);
+}
+
+/* Page 404 */
+.page-404 {
+  min-height: 62vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.page-404 .code {
+  font: 800 clamp(84px, 22vw, 190px) / 0.82 var(--display);
+  letter-spacing: -0.05em;
+  color: var(--red);
+  margin: 0;
+}
+
+.page-404 p {
+  max-width: 44ch;
+  font-size: 16px;
+}
+
+.page-404 nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 26px;
+  margin-top: 26px;
+  font: 700 12px/1.6 var(--mono);
+  letter-spacing: 0.08em;
+}
+
+.page-404 nav a {
+  padding-block: 8px;
+  border-bottom: 1px solid var(--red);
+}
+
+.page-404 nav a:hover {
+  color: var(--red);
+}
+
+@media (max-width: 600px) {
+  .page-shell {
+    padding-bottom: 60px;
+  }
+  .page-head {
+    margin-bottom: 32px;
+  }
+  .page-table th,
+  .page-table td {
+    display: block;
+    width: auto;
+    border-bottom: 0;
+    padding: 0;
+  }
+  .page-table th {
+    padding-top: 14px;
+  }
+  .page-table td {
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--line);
+  }
+}
+
+/* Ces pages sont faites pour etre lues : le plus petit texte y est plus grand
+   que sur la page d'accueil, ou les micro-etiquettes sont un parti pris. */
+.page-shell .label {
+  font-size: 11px;
+}

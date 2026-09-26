@@ -16,7 +16,30 @@ const mime = {
   ".ttf": "font/ttf",
   ".woff2": "font/woff2",
   ".pdf": "application/pdf",
+  ".ico": "image/x-icon",
+  ".xml": "application/xml; charset=utf-8",
+  ".txt": "text/plain; charset=utf-8",
+  ".webmanifest": "application/manifest+json",
 };
+// Comme en production, une adresse inconnue renvoie la page 404 du site
+// avec le bon statut HTTP.
+function servirIntrouvable(res, req, root) {
+  const page = path.join(root, "404.html");
+  if (fs.existsSync(page)) {
+    const corps = fs.readFileSync(page);
+    res.writeHead(404, {
+      "Content-Type": "text/html; charset=utf-8",
+      "Content-Length": corps.length,
+      "Cache-Control": "no-store",
+      "X-Content-Type-Options": "nosniff",
+    });
+    res.end(req.method === "HEAD" ? undefined : corps);
+    return;
+  }
+  res.writeHead(404);
+  res.end("Not found");
+}
+
 function createPreviewServer(root = path.resolve(__dirname, "..")) {
   const store = createStore(root);
   const token = crypto.randomBytes(32).toString("hex");
@@ -126,15 +149,33 @@ function createPreviewServer(root = path.resolve(__dirname, "..")) {
       res.end();
       return;
     }
+    // Memes adresses qu'en production : Netlify sert « /page » depuis
+    // « page.html » et redirige la racine vers /home.
     if (["/", "/home", "/home.html"].includes(requested))
       requested = "/home.html";
+    const PAGES = ["mentions-legales", "confidentialite", "404"];
+    for (const page of PAGES) {
+      if (requested === "/" + page) requested = "/" + page + ".html";
+    }
+    // Fichiers autorises : la page, les pages secondaires, les ressources,
+    // et les fichiers de racine attendus par les navigateurs et les robots.
+    const RACINE = [
+      "/favicon.svg",
+      "/favicon.ico",
+      "/apple-touch-icon.png",
+      "/robots.txt",
+      "/sitemap.xml",
+    ];
+    const autorise =
+      /^\/(?:home\.html$|assets\/|files\/)/.test(requested) ||
+      PAGES.some((page) => requested === "/" + page + ".html") ||
+      RACINE.includes(requested);
     if (
-      !/^\/(?:home\.html$|assets\/|files\/)/.test(requested) ||
+      !autorise ||
       requested.includes("..") ||
       requested.includes("\\")
     ) {
-      res.writeHead(404);
-      res.end("Not found");
+      servirIntrouvable(res, req, root);
       return;
     }
     const file = path.resolve(root, "." + requested);
@@ -145,8 +186,7 @@ function createPreviewServer(root = path.resolve(__dirname, "..")) {
     }
     fs.stat(file, (error, stats) => {
       if (error || !stats.isFile()) {
-        res.writeHead(404);
-        res.end("Not found");
+        servirIntrouvable(res, req, root);
         return;
       }
       res.writeHead(200, {

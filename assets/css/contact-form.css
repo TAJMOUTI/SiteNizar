@@ -403,3 +403,19 @@ body.smart-contact-no-scroll {
     transition: none;
   }
 }
+
+/* Information sur le traitement des donnees, au point de collecte. */
+.smart-contact-privacy {
+  margin: 0 0 18px;
+  font-size: 12px;
+  line-height: 1.65;
+  color: #5d6154;
+}
+.smart-contact-privacy a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.smart-contact-privacy a:hover {
+  color: var(--red, #cf5945);
+}

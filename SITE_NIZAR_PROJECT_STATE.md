@@ -1,6 +1,9 @@
 # SiteNizar — Project State
 
-Dernière mise à jour : 2026-05-18
+Dernière mise à jour : 2026-09-15
+
+> Point d'entrée pour toute nouvelle modification : `NOTE-PROJET.md`.
+> Ce fichier garde les objectifs et un historique court.
 
 ## 1. Objectif du portfolio
 
@@ -26,31 +29,35 @@ Le portfolio est un site statique :
 - HTML ;
 - CSS ;
 - JavaScript vanilla ;
-- Bootstrap legacy partiellement utilisé ;
-- Paper Kit utilisé historiquement ;
+- Three.js r180 minifié, pour l'avatar 3D uniquement ;
 - aucun React ;
 - aucun Next.js ;
 - aucun bundler ;
-- XAMPP en local.
+- déploiement automatique par Netlify depuis `main`.
 
-URL locale :
+Bootstrap, jQuery et Paper Kit sont encore présents dans le dépôt mais ne sont
+plus chargés par la page.
+
+En ligne : https://nizart.netlify.app/home
+
+En local :
 
 ```text
-localhost/sitenizar/home.html
+npm run dev                         → http://127.0.0.1:4173/home
+XAMPP                               → localhost/sitenizar/home.html
 ```
 
-## 3. Refonte en cours — 15 septembre 2026
+## 3. Refonte éditoriale — publiée le 15 septembre 2026
 
-Branche : `redesign/portfolio-editorial-motion`.
+Branche : `redesign/portfolio-editorial-motion`, fusionnée dans `main` au commit `db73e8c`.
 Direction inspirée de https://www.aashishthakuri.com/ : composition éditoriale, fond sombre et papier crème, animations, compétences en orbite et projets avec révélation ASCII.
 
 La nouvelle page reste statique, avec CSS et JavaScript sans dépendances de runtime. Bootstrap, jQuery et Paper Kit sont conservés sur disque mais ne sont plus chargés. Le formulaire n8n et les informations des projets sont préservés.
 
-Aperçu : `npm run dev`, puis `http://127.0.0.1:4173/home`.
-Sauvegarde locale de la version précédente : `.cache/redesign-baseline`.
-Guide de prévisualisation, fichiers et retour arrière : `docs/REFONTE-EDITORIALE.md`.
+Version précédente dans Git : commit `28c0cda`.
+Détail de la refonte : `docs/REFONTE-EDITORIALE.md`.
 
-Les modifications ne sont pas commitées. Tout commit ou push nécessite l'autorisation de l'utilisateur.
+Tout commit, push ou fusion nécessite l'autorisation de l'utilisateur.
 
 ### Avatar interactif — 15 septembre 2026
 
@@ -63,7 +70,11 @@ personnage.
 Les onze logos des technologies sont installés en SVG local dans
 `assets/img/skills/`.
 
-Three.js est vendu en version minifiée et chargé uniquement à l'approche de la
-section.
+Three.js est vendu en version minifiée et chargé à l'approche de la section.
+Sur un grand écran, il est en pratique téléchargé dès le premier écran.
 
 Détail : `docs/IMAGES-ET-AVATAR.md`.
+
+## 4. Prochaines étapes
+
+Liste priorisée dans `NOTE-PROJET.md`.

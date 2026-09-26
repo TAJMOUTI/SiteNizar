@@ -16,8 +16,8 @@ window.portfolioProjects = {
     impact:
       "Meilleure visibilité sur l'usage des applications, aide à la prise de décision pour trier les outils et gain de temps pour les utilisateurs.",
     tags: ["Application interne", "Dashboard admin", "Tracking", "Excel"],
-    image: "./assets/img/realisations/cards/webmarket-card.png",
-    fullImage: "./assets/img/realisations/full/webmarket-full.png",
+    image: "./assets/img/realisations/cards/webmarket-card-1200.webp",
+    fullImage: "./assets/img/realisations/full/webmarket-full.webp",
   },
   datahouse: {
     title: "DataHouse",
@@ -36,8 +36,8 @@ window.portfolioProjects = {
     impact:
       "Accélération du développement d’applications métier, réduction des erreurs humaines, meilleure fiabilité des données et automatisation de processus complexes comme la génération de documents, les calculs métier et les dashboards.",
     tags: ["SaaS", "Fullstack", "MongoDB", "Next.js", "TypeScript", "IaC"],
-    image: "./assets/img/realisations/cards/datahouse-card.png",
-    fullImage: "./assets/img/realisations/full/datahouse-full.png",
+    image: "./assets/img/realisations/cards/datahouse-card-1200.webp",
+    fullImage: "./assets/img/realisations/full/datahouse-full.webp",
   },
   "assistant-mail-n8n": {
     title: "Assistant Mail n8n",
@@ -55,8 +55,8 @@ window.portfolioProjects = {
     impact:
       "Réduction des tâches répétitives, gain de temps et fiabilisation du traitement des emails.",
     tags: ["n8n", "Automatisation IA", "Email", "API"],
-    image: "./assets/img/realisations/cards/assistant-email-card.png",
-    fullImage: "./assets/img/realisations/full/assistant-email-full.png",
+    image: "./assets/img/realisations/cards/assistant-email-card-1200.webp",
+    fullImage: "./assets/img/realisations/full/assistant-email-full.webp",
   },
   "crm-portfolio-ia": {
     title: "CRM intelligent du portfolio",
@@ -77,8 +77,8 @@ window.portfolioProjects = {
     tags: ["n8n", "IA", "CRM", "Google Sheets", "Telegram", "Gmail"],
     action: "smart-contact",
     actionLabel: "Tester le formulaire",
-    image: "./assets/img/realisations/cards/crm-portfolio-card.png",
-    fullImage: "./assets/img/realisations/full/crm-portfolio-full.png",
+    image: "./assets/img/realisations/cards/crm-portfolio-card-1200.webp",
+    fullImage: "./assets/img/realisations/full/crm-portfolio-full.webp",
   },
   "messagerie-dect": {
     title: "Messagerie DECT",
@@ -97,8 +97,8 @@ window.portfolioProjects = {
     impact:
       "Communication plus rapide entre équipes, outil validé en phase de test et potentiel de déploiement sur plusieurs sites Renault.",
     tags: ["Communication", "React", "API interne", "Gestion projet"],
-    image: "./assets/img/realisations/cards/messagerie-dect-card.png",
-    fullImage: "./assets/img/realisations/full/messagerie-dect-full.png",
+    image: "./assets/img/realisations/cards/messagerie-dect-card-1200.webp",
+    fullImage: "./assets/img/realisations/full/messagerie-dect-full.webp",
   },
   "portail-point-fab": {
     title: "Portail Point Fabrication",
@@ -116,8 +116,8 @@ window.portfolioProjects = {
     impact:
       "Outil utilisé par le comité de direction, meilleure visibilité décisionnelle et amélioration du pilotage opérationnel.",
     tags: ["Dashboard", "Production", "Figma", "Pilotage"],
-    image: "./assets/img/realisations/cards/portail-point-fab-card.png",
-    fullImage: "./assets/img/realisations/full/portail-point-fab-full.png",
+    image: "./assets/img/realisations/cards/portail-point-fab-card-1200.webp",
+    fullImage: "./assets/img/realisations/full/portail-point-fab-full.webp",
   },
   "andre-bach": {
     title: "L'Histoire d'André Bach",
@@ -135,7 +135,7 @@ window.portfolioProjects = {
       "Transmission numérique d'un témoignage historique et accessibilité publique du contenu.",
     tags: ["Site public", "Statique", "Netlify", "Transmission"],
     link: "https://andrebachbiographie1888-1945.netlify.app/",
-    image: "./assets/img/realisations/cards/andre-bach-card.png",
-    fullImage: "./assets/img/realisations/full/andre-bach-full.png",
+    image: "./assets/img/realisations/cards/andre-bach-card-1200.webp",
+    fullImage: "./assets/img/realisations/full/andre-bach-full.webp",
   },
 };
