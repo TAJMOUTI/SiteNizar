@@ -1,19 +1,31 @@
 # Netlify publie la racine du depot. Les fichiers de travail ne doivent pas
 # etre servis : ils sont renvoyes en 404 avec la page d'erreur du site.
-/scripts/*                     /404.html   404
-/docs/*                        /404.html   404
-/AGENTS.md                     /404.html   404
-/NOTE-PROJET.md                /404.html   404
-/SITE_NIZAR_PROJECT_STATE.md   /404.html   404
-/package.json                  /404.html   404
-/gulpfile.js                   /404.html   404
+#
+# Le point d'exclamation apres le code est indispensable : sans lui, une regle
+# dont le chemin correspond a un fichier reellement present est ignoree. Verifie
+# sur un apercu de deploiement, ou les regles sans « ! » restaient sans effet.
+/scripts/*                     /404.html   404!
+/docs/*                        /404.html   404!
+/AGENTS.md                     /404.html   404!
+/NOTE-PROJET.md                /404.html   404!
+/SITE_NIZAR_PROJECT_STATE.md   /404.html   404!
+/package.json                  /404.html   404!
+/gulpfile.js                   /404.html   404!
 
 # Anciennes librairies conservees sur disque mais plus chargees par la page.
-/assets/js/core/*         /404.html   404
-/assets/js/plugins/*      /404.html   404
-/assets/js/paper-kit.js   /404.html   404
-/assets/js/experiments/*  /404.html   404
+/assets/js/core/*         /404.html   404!
+/assets/js/plugins/*      /404.html   404!
+/assets/js/paper-kit.js   /404.html   404!
+/assets/js/experiments/*  /404.html   404!
+
+# Anciennes feuilles de style, egalement conservees mais plus chargees.
+/assets/css/portfoliostyle.css   /404.html   404!
+/assets/css/paper-kit.css        /404.html   404!
+/assets/css/bootstrap.min.css    /404.html   404!
+/assets/css/apropos.css          /404.html   404!
+/assets/css/competences.css      /404.html   404!
+/assets/css/formations.css       /404.html   404!
+/assets/css/formation-style.css  /404.html   404!
 
 # La racine servait exactement la meme page que /home : une seule URL indexable.
-# Netlify redirige deja /home.html vers /home, inutile de le repeter ici.
-/   /home   301
+/   /home   301!
