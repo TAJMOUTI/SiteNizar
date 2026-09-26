@@ -1,0 +1,10 @@
+# https://nizart.netlify.app
+User-agent: *
+Allow: /
+
+# Fichiers de travail publies par l'hebergeur mais sans interet pour l'index.
+# Cette directive n'est pas une protection : le blocage reel est dans _redirects.
+Disallow: /scripts/
+Disallow: /docs/
+
+Sitemap: https://nizart.netlify.app/sitemap.xml

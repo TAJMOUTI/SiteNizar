@@ -1,0 +1,32 @@
+# En-tetes servis par Netlify. Netlify ajoute deja Strict-Transport-Security
+# sur netlify.app ; il n'est pas redefini ici. A revoir lors du branchement
+# d'un domaine personnalise, pour verifier la portee includeSubDomains.
+
+/*
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: geolocation=(), microphone=(), camera=(), payment=(), usb=(), interest-cohort=()
+  Cross-Origin-Opener-Policy: same-origin
+  Content-Security-Policy: default-src 'self'; base-uri 'none'; object-src 'none'; frame-ancestors 'none'; form-action 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://n8n.srv1532105.hstgr.cloud; manifest-src 'self'; worker-src 'self'; upgrade-insecure-requests
+
+# Les styles inline sont autorises parce que la page pose des variables CSS
+# directement sur des elements ; aucun script inline n'est present.
+
+# Ressources versionnees par leur contenu : cache long.
+/assets/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/assets/img/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/assets/js/vendor/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Feuilles de style et scripts du site : revalidation, ils changent a chaque
+# mise en ligne sans changer de nom.
+/assets/css/*
+  Cache-Control: public, max-age=0, must-revalidate
+
+/assets/js/*
+  Cache-Control: public, max-age=0, must-revalidate

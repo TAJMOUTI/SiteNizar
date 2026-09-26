@@ -51,10 +51,15 @@
       hostname === "127.0.0.1" ||
       hostname === "" ||
       /\.local$/i.test(hostname);
+    var prod = form.dataset.webhookUrlProd;
 
-    return isLocal
-      ? form.dataset.webhookUrlTest
-      : form.dataset.webhookUrlProd;
+    if (!isLocal) {
+      return prod;
+    }
+
+    // En local, l'envoi vise le webhook de test. Son adresse est deduite de
+    // celle de production : elle n'a plus a figurer dans la page publiee.
+    return prod ? prod.replace('/webhook/', '/webhook-test/') : prod;
   }
 
   function getDebugContext(extra) {

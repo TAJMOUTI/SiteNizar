@@ -1,12 +1,16 @@
 @font-face {
   font-family: Portfolio;
-  src: url("../fonts/montserrat-extra-bold.ttf") format("truetype");
+  src:
+    url("../fonts/montserrat-extra-bold.woff2") format("woff2"),
+    url("../fonts/montserrat-extra-bold.ttf") format("truetype");
   font-weight: 800;
   font-display: swap;
 }
 @font-face {
   font-family: Notebook;
-  src: url("../fonts/caveat-bold.ttf") format("truetype");
+  src:
+    url("../fonts/caveat-bold.woff2") format("woff2"),
+    url("../fonts/caveat-bold.ttf") format("truetype");
   font-weight: 700;
   font-display: swap;
 }
@@ -2106,5 +2110,84 @@ body.project-is-open {
   }
   .ascii-preview {
     display: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Accessibilite. Ajoute en fin de fichier pour ne pas deplacer les regles
+   existantes. Les tailles visuelles restent inchangees : seules les zones
+   cliquables sont agrandies, au moyen d'une surface invisible.
+   -------------------------------------------------------------------------- */
+
+/* WCAG 2.2, critere 2.5.8 : une cible tactile fait au moins 24 x 24 pixels. */
+.section-progress a {
+  width: 24px;
+  height: 24px;
+}
+.section-progress a:after {
+  left: 50%;
+  transform: translateX(-50%);
+}
+.section-progress a[aria-current]:after {
+  transform: translateX(-50%) scaleY(1.4);
+}
+
+.hero-bottom > a,
+.motion-toggle,
+.footer-legal a {
+  position: relative;
+}
+.hero-bottom > a::after,
+.motion-toggle::after,
+.footer-legal a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 24px;
+}
+
+.footer-legal {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0 18px;
+  /* Le pied de page descend a huit pixels sur telephone : ces liens sont
+     consultes, pas decoratifs, ils gardent une taille lisible. */
+  font-size: 11px;
+}
+.footer-legal a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.footer-legal a:hover {
+  color: var(--red);
+}
+
+@media (max-width: 760px) {
+  .section-progress a {
+    width: 24px;
+    height: 24px;
+  }
+
+  /* Ces textes portent une information : le titre du poste, le nom des
+     technologies, le rappel du positionnement. Ils restaient sous huit pixels
+     sur telephone. Les motifs purement decoratifs ne sont pas touches. */
+  .name-sticker {
+    font-size: 10px;
+  }
+  .orbit-slot button > span {
+    font-size: 9px;
+  }
+  .orbit-core small {
+    font-size: 8px;
+  }
+  .contact-section .section-top > .mono {
+    font-size: 10px;
+    max-width: 150px;
+  }
+  .footer-name > span {
+    font-size: 10px;
   }
 }
