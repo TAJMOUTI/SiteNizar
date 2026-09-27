@@ -205,13 +205,21 @@ function createPreviewServer(root = path.resolve(__dirname, "..")) {
   return server;
 }
 if (require.main === module) {
+  // Port par defaut 4173. Surchargeable, par exemple :
+  //   npm run dev -- 3000        ou        PORT=3000 npm run dev
+  const demande = Number(process.argv[2] || process.env.PORT || 4173);
+  const port = Number.isInteger(demande) && demande > 0 && demande < 65536 ? demande : 4173;
   const server = createPreviewServer();
-  server.listen(4173, "127.0.0.1", () => {
-    console.log("Portfolio: http://127.0.0.1:4173/home");
-    console.log("Mes projets (local uniquement): http://127.0.0.1:4173/admin");
+  server.listen(port, "127.0.0.1", () => {
+    console.log(`Portfolio              : http://127.0.0.1:${port}/home`);
+    console.log(`Mes projets (local)    : http://127.0.0.1:${port}/admin`);
   });
   server.on("error", (error) => {
-    console.error(error.message);
+    if (error.code === "EADDRINUSE") {
+      console.error(`Le port ${port} est deja utilise. Essayez : npm run dev -- 3001`);
+    } else {
+      console.error(error.message);
+    }
     process.exitCode = 1;
   });
 }
