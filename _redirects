@@ -27,5 +27,10 @@
 /assets/css/formations.css       /404.html   404!
 /assets/css/formation-style.css  /404.html   404!
 
-# La racine servait exactement la meme page que /home : une seule URL indexable.
-/   /home   301!
+# Une seule URL indexable par page. Les liens internes pointent vers les
+# fichiers .html, pour fonctionner aussi sous XAMPP ou dans un sous-dossier ;
+# en production ces adresses renvoient vers la forme courte.
+/                        /home                301!
+/home.html               /home                301!
+/mentions-legales.html   /mentions-legales    301!
+/confidentialite.html    /confidentialite     301!
