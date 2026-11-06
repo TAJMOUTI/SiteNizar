@@ -145,13 +145,14 @@ function createStore(root) {
       throw Error(
         "Repères de galerie introuvables : aucune modification effectuée.",
       );
+    // Seule la nouvelle carte est ecrite : les cartes existantes ont des images
+    // responsives et des textes propres que ce modele ne reproduit pas.
+    const eol = html.includes("\r\n") ? "\r\n" : "\n";
     const nextHtml = (
-      html.slice(0, html.indexOf(start) + start.length) +
-      "\n" +
-      Object.entries(projects)
-        .map(([key, p], i) => card(key, p, i))
-        .join("\n") +
-      "\n" +
+      html.slice(0, html.indexOf(end)) +
+      card(id, project, Object.keys(projects).length - 1) +
+      eol +
+      "          " +
       html.slice(html.indexOf(end))
     ).replace(
       /\d+ PROJETS \/ DU BESOIN À LA SOLUTION/,

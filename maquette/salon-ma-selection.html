@@ -1,0 +1,971 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style><style>html.expo,html.expo body{height:100%;background:#101210}html.expo .head,html.expo .cols{display:none}html.expo .page{max-width:none;height:100%;box-sizing:border-box;padding:4px 0 0;display:flex;flex-direction:column;gap:12px}html.expo .toolbar{padding-inline:3px}html.expo .stage{flex:1 1 auto;height:auto;min-height:320px;border-radius:0;border-inline:0}</style><script>if(/[?&]expo\b/.test(location.search)){document.documentElement.classList.add('expo');document.documentElement.dataset.theme='dark';}</script></head><body>
+<title>Salon ma sélection</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,650&family=Hanken+Grotesk:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout : la maquette d'abord (scène pleine largeur), puis deux colonnes : liste d'achats | réglages et points d'attention */
+:root{
+  --bg:#EEEDE9; --surface:#FAFAF7; --ink:#22231F; --muted:#64635C; --line:#D8D5CC;
+  --oak:#8E6438; --clay:#A9502B; --stage:#DCDFDE; --chip:#E6E2D9; --ok:#3D7350;
+  --f-display:"Bricolage Grotesque","Hanken Grotesk",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-body:"Hanken Grotesk",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#141412;--surface:#1C1C19;--ink:#ECEAE3;--muted:#A29F95;--line:#34332E;--oak:#D3A774;--clay:#E2805A;--stage:#0D0E0F;--chip:#2A2925;--ok:#86C096;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#141412;--surface:#1C1C19;--ink:#ECEAE3;--muted:#A29F95;--line:#34332E;--oak:#D3A774;--clay:#E2805A;--stage:#0D0E0F;--chip:#2A2925;--ok:#86C096;color-scheme:dark}
+[hidden]{display:none!important}
+html,body{background:var(--bg);color:var(--ink)}
+body{font-family:var(--f-body);font-size:15px;line-height:1.55}
+.page{max-width:1240px;margin:0 auto;padding-block:20px 56px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:grid;gap:16px}
+.head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px 24px}
+.head-main{display:grid;gap:2px;min-width:0}
+.eyebrow{margin:0;font:500 11px/1.4 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--oak)}
+h1{margin:0;font-family:var(--f-display);font-weight:650;font-size:clamp(28px,4.4vw,44px);line-height:1.05;letter-spacing:-.01em;text-wrap:balance}
+.sub{margin:0;color:var(--muted)}
+.mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+.budget{display:grid;gap:2px;justify-items:end;text-align:right}
+.budget .big{font:500 26px/1 var(--f-mono);font-variant-numeric:tabular-nums}
+.budget .small{font-size:13px;color:var(--muted)}
+.toolbar{display:flex;flex-wrap:wrap;gap:10px 20px;align-items:flex-end}
+.tgroup{display:grid;gap:5px;min-width:0}
+.tlabel{font:500 10.5px/1 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.seg{display:flex;flex-wrap:wrap;gap:4px}
+.seg button,.chk{font:500 13.5px/1 var(--f-body);color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:8px 11px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.seg button:hover{border-color:var(--muted)}
+.seg button:disabled{opacity:.38;cursor:not-allowed}
+.seg button:disabled:hover{border-color:var(--line)}
+.chk{display:inline-flex;align-items:center;gap:7px}
+.chk input{accent-color:var(--oak);margin:0}
+button:focus-visible,.chk:focus-within,a:focus-visible{outline:2px solid var(--oak);outline-offset:2px}
+.stage{position:relative;height:clamp(380px,66vh,720px);border-radius:14px;overflow:hidden;background:var(--stage);border:1px solid var(--line);touch-action:none}
+.stage canvas{display:block;width:100%;height:100%}
+.labels{position:absolute;inset:0;pointer-events:none}
+.lbl{font:500 11px/1.3 var(--f-mono);padding:3px 7px;border-radius:6px;background:rgba(22,22,20,.78);color:#F3F1EA;max-width:240px;text-align:center}
+.hint{position:absolute;top:10px;left:10px;margin:0;padding:6px 10px;border-radius:999px;background:var(--surface);color:var(--muted);font-size:12.5px;border:1px solid var(--line);pointer-events:none;max-width:calc(100% - 20px)}
+.info{position:absolute;left:10px;bottom:10px;width:min(340px,calc(100% - 20px));background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px 13px;display:grid;gap:6px;box-shadow:0 6px 24px rgba(0,0,0,.18)}
+.info-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.info h3{margin:0;font:600 16px/1.25 var(--f-body)}
+.info .pill{justify-self:start}
+.info .meta{margin:0;font:400 12.5px/1.4 var(--f-mono);color:var(--muted)}
+.info .note{margin:0;font-size:13.5px}
+.info .row{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.info .price{font:500 14px/1 var(--f-mono)}
+.info a{color:var(--oak);font-weight:600;font-size:13.5px}
+.close{background:none;border:0;color:var(--muted);font-size:20px;line-height:1;cursor:pointer;padding:0 2px}
+.pill{display:inline-block;font:500 10.5px/1 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;padding:4px 7px;border-radius:999px;background:var(--chip);color:var(--muted);white-space:nowrap}
+.pill.buy{color:var(--oak)}
+.pill.opt{color:var(--clay)}
+.pill.keep{color:var(--ok)}
+.fallback{position:absolute;inset:0;display:grid;place-items:center;padding:24px;text-align:center;color:var(--muted)}
+.cols{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:16px;align-items:start}
+@media (max-width:880px){.cols{grid-template-columns:minmax(0,1fr)}.budget{justify-items:start;text-align:left}}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 18px 20px;display:grid;gap:12px;min-width:0}
+h2{margin:0;font-family:var(--f-display);font-weight:650;font-size:20px;line-height:1.2;text-wrap:balance}
+h3.sec{margin:6px 0 0;font:600 15px/1.3 var(--f-body)}
+.tablewrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th{text-align:left;font:500 10.5px/1.2 var(--f-mono);letter-spacing:.07em;text-transform:uppercase;color:var(--muted);padding:0 8px 8px 0;border-bottom:1px solid var(--line)}
+td{padding:9px 8px 9px 0;border-bottom:1px solid var(--line);vertical-align:top}
+td.num,th.num{text-align:right;font-family:var(--f-mono);font-variant-numeric:tabular-nums;white-space:nowrap;padding-right:0}
+td .dim{display:block;color:var(--muted);font:400 12.5px/1.4 var(--f-mono)}
+td .dim.warn{color:var(--clay)}
+td.num .dim{white-space:normal}
+td a{color:var(--ink);text-decoration-color:var(--oak);text-underline-offset:3px;font-weight:600}
+tr.total td{border-bottom:0;font-weight:600}
+tr.total td.num{font-size:15px}
+.over{color:var(--clay)}
+.note{margin:0;color:var(--muted);font-size:13.5px}
+dl.specs{margin:0;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:0}
+dl.specs dt,dl.specs dd{margin:0;padding:8px 0;border-bottom:1px solid var(--line)}
+dl.specs dd{text-align:right;font-family:var(--f-mono);font-variant-numeric:tabular-nums;padding-left:12px}
+ul.points{margin:0;padding:0;list-style:none;display:grid;gap:10px}
+ul.points li{display:grid;grid-template-columns:76px minmax(0,1fr);gap:10px;align-items:start;font-size:14px}
+ul.points li .pill{justify-self:start;margin-top:2px}
+ul.points li b{font-weight:600}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+</style>
+
+<div class="page">
+  <header class="head">
+    <div class="head-main">
+      <p class="eyebrow">Maquette à l'échelle · les meubles de tes photos</p>
+      <h1>Salon cocon · ma sélection</h1>
+      <p class="sub mono">3,91 × 2,85 m · 2,60 m sous plafond · Paris 12e</p>
+    </div>
+    <div class="budget">
+      <span class="big" id="bud-big">≤ 623,98 €</span>
+      <span class="small" id="bud-small">sur 650 € · scénario 1, projecteur compris</span>
+    </div>
+  </header>
+
+  <div class="toolbar" role="toolbar" aria-label="Choix des meubles">
+    <div class="tgroup">
+      <span class="tlabel" id="lab-tv">Meuble télé</span>
+      <div class="seg" data-group="tvsel" aria-labelledby="lab-tv">
+        <button type="button" id="tv-noyer" data-v="az_tv_s3" aria-pressed="true">1 · Noyer rainuré</button>
+        <button type="button" id="tv-besta" data-v="vt_besta_s2" aria-pressed="false">2 · BESTÅ blanc et bois foncé</button>
+      </div>
+    </div>
+    <div class="tgroup">
+      <span class="tlabel" id="lab-rug">Tapis</span>
+      <div class="seg" data-group="rugsel" aria-labelledby="lab-rug">
+        <button type="button" id="rug-shaggy" data-v="tp_shaggy" aria-pressed="true">1 · Shaggy champagne</button>
+        <button type="button" id="rug-vintage" data-v="lbc_tapis_17" aria-pressed="false">2 · Vintage années 70</button>
+        <button type="button" id="rug-none" data-v="none" aria-pressed="false">Sans tapis</button>
+      </div>
+    </div>
+    <div class="tgroup">
+      <span class="tlabel">Table basse</span>
+      <div class="seg"><button type="button" id="table-lm" aria-pressed="true" disabled style="opacity:1;cursor:default">3 niveaux, bois rustique</button></div>
+    </div>
+  </div>
+
+  <div class="toolbar" role="toolbar" aria-label="Réglages de la maquette">
+    <div class="tgroup">
+      <span class="tlabel" id="lab-mode">Ambiance</span>
+      <div class="seg" data-group="mode" aria-labelledby="lab-mode">
+        <button type="button" id="mode-jour" data-v="jour" aria-pressed="false">Jour</button>
+        <button type="button" id="mode-soiree" data-v="soiree" aria-pressed="true">Soirée</button>
+        <button type="button" id="mode-cine" data-v="cine" aria-pressed="false">Ciné</button>
+      </div>
+    </div>
+    <div class="tgroup">
+      <span class="tlabel" id="lab-view">Vue</span>
+      <div class="seg" data-group="view" aria-labelledby="lab-view">
+        <button type="button" id="view-maquette" data-v="maquette" aria-pressed="true">Maquette</button>
+        <button type="button" id="view-dessus" data-v="dessus" aria-pressed="false">Plan</button>
+        <button type="button" id="view-entree" data-v="entree" aria-pressed="false">Entrée</button>
+        <button type="button" id="view-canape" data-v="canape" aria-pressed="false">Canapé</button>
+        <button type="button" id="view-bureau" data-v="bureau" aria-pressed="false">Bureau</button>
+        <button type="button" id="view-fenetre" data-v="fenetre" aria-pressed="false">Fenêtre</button>
+        <button type="button" id="view-salon" data-v="salon" aria-pressed="false">Salon</button>
+      </div>
+    </div>
+    <div class="tgroup">
+      <span class="tlabel" id="lab-sofa">Canapé</span>
+      <div class="seg" data-group="sofa" aria-labelledby="lab-sofa">
+        <button type="button" id="sofa-ensemble" data-v="ensemble" aria-pressed="false">DYLANE</button>
+        <button type="button" id="sofa-deplie" data-v="deplie" aria-pressed="false">DYLANE déplié</button>
+        <button type="button" id="sofa-actuel" data-v="actuel" aria-pressed="true">Mon canapé actuel</button>
+      </div>
+    </div>
+    <div class="tgroup">
+      <span class="tlabel">Afficher</span>
+      <div class="seg">
+        <label class="chk" for="opt-shelves"><input type="checkbox" id="opt-shelves" checked> Étagères (option)</label>
+        <label class="chk" for="opt-cotes"><input type="checkbox" id="opt-cotes"> Cotes</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="stage" id="stage">
+    <p class="hint" id="hint">Glisse pour tourner · molette ou pincement pour zoomer · touche un meuble</p>
+    <div class="info" id="info" hidden aria-live="polite">
+      <div class="info-top">
+        <div style="display:grid;gap:4px;min-width:0">
+          <span class="pill" id="info-status"></span>
+          <h3 id="info-title"></h3>
+        </div>
+        <button type="button" class="close" id="info-close" aria-label="Fermer la fiche">×</button>
+      </div>
+      <p class="meta" id="info-meta"></p>
+      <p class="note" id="info-note"></p>
+      <div class="row"><span class="price" id="info-price"></span><a id="info-link" href="#" target="_blank" rel="noopener">Voir le produit</a></div>
+    </div>
+    <div class="fallback" id="fallback" hidden>La 3D n'a pas pu démarrer sur cet appareil (WebGL indisponible). La liste et les réglages ci-dessous restent valables.</div>
+  </div>
+
+  <section class="cols">
+    <div class="card">
+      <h2>Ma sélection · liste d'achats</h2>
+      <p class="note" id="set-desc"></p>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Produit</th><th>Rôle</th><th class="num">Prix livré</th></tr></thead>
+          <tbody id="list-body"></tbody>
+        </table>
+      </div>
+      <p class="note">Prix relevés puis revérifiés le 5 novembre 2026 : les 41 annonces étaient encore en ligne, mais une annonce d'occasion peut partir à tout moment. Chez IKEA, confirme la livraison au moment de commander. Les étagères murales et le coussin terracotta visibles dans la maquette ne sont pas comptés.</p>
+
+      <h3 class="sec">Scénario 2 · avec le canapé de l'ensemble</h3>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Canapé</th><th class="num">Meubles</th><th class="num">Total</th><th class="num">Marge</th></tr></thead>
+          <tbody id="s2-body"></tbody>
+        </table>
+      </div>
+      <p class="note">Plafonds, projecteur compris : 650 € au scénario 1 et 850 € au scénario 2, soit 450 € et 650 € pour les meubles seuls.</p>
+    </div>
+
+    <div class="card">
+      <h2>Réglage du projecteur</h2>
+      <dl class="specs">
+        <dt>Taille d'image</dt><dd>80″ · 177 × 100 cm</dd>
+        <dt>Bas / haut de l'image</dt><dd>50 / 150 cm du sol</dd>
+        <dt>Centre de l'image</dt><dd>2,23 m du coin fenêtre</dd>
+        <dt>Recul objectif → mur</dt><dd>2,25 m</dd>
+        <dt>Support du projecteur</dt><dd id="spec-sup">KRONÖREN table de chevet · 55 cm</dd>
+        <dt>Objectif du TCL C1</dt><dd id="spec-lens">60 cm du mur · ~70 cm de haut</dd>
+        <dt>Inclinaison vers le haut</dt><dd id="spec-tilt">~7°, corrigée par le C1</dd>
+        <dt>Angle de vue depuis le canapé</dt><dd>40°</dd>
+        <dt>Luminosité sur 80″</dt><dd>~37 cd/m² (≈ ¾ d'un cinéma)</dd>
+      </dl>
+      <p class="note">L'inclinaison dépend du décalage optique du C1, que TCL ne publie pas : on la vérifiera à réception. Pour la luminosité, regarde dans le noir, rideau fermé.</p>
+
+      <h2>Points d'attention</h2>
+      <ul class="points" id="points"></ul>
+    </div>
+  </section>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/three@0.147.0/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.147.0/examples/js/controls/OrbitControls.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.147.0/examples/js/renderers/CSS2DRenderer.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.147.0/examples/js/geometries/RoundedBoxGeometry.js"></script>
+<script>
+(function(){
+"use strict";
+var stage=document.getElementById('stage');
+function fail(){document.getElementById('fallback').hidden=false;document.getElementById('hint').hidden=true;}
+if(!window.THREE||!THREE.OrbitControls){fail();return;}
+var renderer;
+try{renderer=new THREE.WebGLRenderer({antialias:true});}catch(e){fail();return;}
+
+/* ---------- Dimensions réelles (mètres) ---------- */
+var W=2.85, L=3.91, H=2.60, T=0.08;          // x : mur fenêtre (0 = mur canapé), z : mur canapé (0 = mur fenêtre)
+var IMG={w:1.771,h:0.996,cz:2.225,y0:0.50};  // 80 pouces 16:9
+var LENS={x:0.60,y:0.705,z:2.225};
+
+renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2));
+renderer.shadowMap.enabled=true; renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+renderer.outputEncoding=THREE.sRGBEncoding;
+renderer.toneMapping=THREE.ACESFilmicToneMapping; renderer.toneMappingExposure=1.0;
+stage.insertBefore(renderer.domElement,stage.firstChild);
+var labelRenderer=new THREE.CSS2DRenderer(); labelRenderer.domElement.className='labels'; stage.appendChild(labelRenderer.domElement);
+
+var scene=new THREE.Scene();
+var camera=new THREE.PerspectiveCamera(42,1,0.04,60);
+var controls=new THREE.OrbitControls(camera,renderer.domElement);
+controls.enableDamping=true; controls.dampingFactor=0.08; controls.maxPolarAngle=Math.PI*0.82; controls.minDistance=0.2; controls.maxDistance=16;
+
+/* ---------- Aléatoire reproductible ---------- */
+var seed=7; function rnd(){seed|=0;seed=seed+0x6D2B79F5|0;var t=Math.imul(seed^seed>>>15,1|seed);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;}
+
+/* ---------- Matériaux ---------- */
+function M(c,o){return new THREE.MeshStandardMaterial(Object.assign({color:c,roughness:0.85,metalness:0},o||{}));}
+var mat={
+  wall:M('#F1EFEA',{roughness:0.96}), trim:M('#F7F6F2',{roughness:0.7}), slab:M('#BDB6A9'),
+  oak:M('#C39466',{roughness:0.62}), oakDark:M('#A87B50',{roughness:0.6}), washed:M('#DCCDB6',{roughness:0.7}), washedDoor:M('#E2D5C0',{roughness:0.66}),
+  pine:M('#DDBB86',{roughness:0.7}), white:M('#EDEDEA',{roughness:0.5}), black:M('#202124',{roughness:0.55}), metal:M('#2B2C2F',{roughness:0.4,metalness:0.6}),
+  anth:M('#3A3D43',{roughness:0.95}), anth2:M('#45484F',{roughness:0.95}), knisa:M('#B6AFA3',{roughness:0.95}), knisa2:M('#C2BBAF',{roughness:0.95}),
+  sand:M('#D7C4A3',{roughness:1}), clay:M('#BE6640',{roughness:0.95}), grey:M('#8F9296',{roughness:0.45,metalness:0.1}), lens:M('#0D0E10',{roughness:0.12,metalness:0.4}),
+  door:M('#3B4046',{roughness:0.6}), navy:M('#1F2A44',{roughness:1}), brass:M('#B89A5E',{roughness:0.35,metalness:0.8}),
+  sage:M('#8E9C83'), linen:M('#E6DCC9'), paperBox:M('#CDBFA6'),
+  glass:new THREE.MeshStandardMaterial({color:'#cfe2ee',transparent:true,opacity:0.18,roughness:0.05,depthWrite:false}),
+  screen:new THREE.MeshStandardMaterial({color:'#0f1115',emissive:'#30425a',emissiveIntensity:0.6,roughness:0.3}),
+  shade:new THREE.MeshStandardMaterial({color:'#F6F2EA',emissive:'#ffc78f',emissiveIntensity:0,roughness:1,side:THREE.DoubleSide,flatShading:true})
+};
+
+function tag(o,k){o.userData.key=k;return o;}
+function box(x0,x1,y0,y1,z0,z1,m,parent,opt){
+  opt=opt||{};var g=new THREE.BoxGeometry(x1-x0,y1-y0,z1-z0);var o=new THREE.Mesh(g,m);
+  o.position.set((x0+x1)/2,(y0+y1)/2,(z0+z1)/2);o.castShadow=opt.cast!==false;o.receiveShadow=opt.receive!==false;(parent||scene).add(o);return o;}
+function rbox(x0,x1,y0,y1,z0,z1,m,parent,r){
+  var w=x1-x0,h=y1-y0,d=z1-z0;r=Math.min(r||0.03,Math.min(w,h,d)/2-0.001);
+  var o=new THREE.Mesh(new THREE.RoundedBoxGeometry(w,h,d,3,r),m);o.position.set((x0+x1)/2,(y0+y1)/2,(z0+z1)/2);o.castShadow=true;o.receiveShadow=true;(parent||scene).add(o);return o;}
+function cyl(rt,rb,h,m,x,y,z,parent,seg){var o=new THREE.Mesh(new THREE.CylinderGeometry(rt,rb,h,seg||24),m);o.position.set(x,y,z);o.castShadow=true;o.receiveShadow=true;(parent||scene).add(o);return o;}
+function grp(parent,key){var g=new THREE.Group();if(key)g.userData.key=key;(parent||scene).add(g);return g;}
+
+/* ---------- Textures générées ---------- */
+function canvasTex(w,h,draw){var c=document.createElement('canvas');c.width=w;c.height=h;draw(c.getContext('2d'),w,h);var t=new THREE.CanvasTexture(c);t.encoding=THREE.sRGBEncoding;return t;}
+var tileTex=canvasTex(256,256,function(g){
+  g.fillStyle='#D8CBB3';g.fillRect(0,0,256,256);
+  for(var i=0;i<700;i++){var r=2+rnd()*12;g.fillStyle='rgba('+(140+rnd()*70|0)+','+(120+rnd()*60|0)+','+(95+rnd()*45|0)+',0.06)';g.beginPath();g.arc(rnd()*256,rnd()*256,r,0,6.3);g.fill();}
+  g.fillStyle='#7C7262';g.fillRect(0,0,256,4);g.fillRect(0,0,4,256);
+});
+tileTex.wrapS=tileTex.wrapT=THREE.RepeatWrapping;tileTex.anisotropy=renderer.capabilities.getMaxAnisotropy();
+var filmTex=canvasTex(1024,576,function(g){
+  var gr=g.createLinearGradient(0,0,0,576);gr.addColorStop(0,'#18243f');gr.addColorStop(0.42,'#5d4466');gr.addColorStop(0.66,'#d9845a');gr.addColorStop(0.76,'#f4c07e');gr.addColorStop(1,'#2a2333');
+  g.fillStyle=gr;g.fillRect(0,0,1024,576);
+  var sg=g.createRadialGradient(640,400,8,640,400,190);sg.addColorStop(0,'rgba(255,240,200,1)');sg.addColorStop(0.16,'rgba(255,214,150,0.9)');sg.addColorStop(1,'rgba(255,170,110,0)');g.fillStyle=sg;g.fillRect(0,0,1024,576);
+  function ridge(base,amp,col,s){g.fillStyle=col;g.beginPath();g.moveTo(0,576);for(var x=0;x<=1024;x+=8){var y=base-amp*(0.5+0.5*Math.sin(x*0.006+s))*(0.6+0.4*Math.sin(x*0.019+s*2));g.lineTo(x,y);}g.lineTo(1024,576);g.closePath();g.fill();}
+  ridge(430,95,'#7b5b74',1.3);ridge(455,70,'#4c3a57',2.7);
+  g.fillStyle='#2b2438';g.fillRect(0,462,1024,114);
+  for(var i=0;i<14;i++){g.fillStyle='rgba(255,205,145,'+(0.4-i*0.026)+')';var w=170-i*9;g.fillRect(640-w/2,468+i*7,w,3);}
+  ridge(520,38,'#1b1625',4.1);
+  var vg=g.createRadialGradient(512,288,200,512,288,620);vg.addColorStop(0,'rgba(0,0,0,0)');vg.addColorStop(1,'rgba(0,0,0,0.45)');g.fillStyle=vg;g.fillRect(0,0,1024,576);
+});
+function facade(night){return canvasTex(512,512,function(g){
+  g.fillStyle=night?'#0e1220':'#cbd9e4';g.fillRect(0,0,512,512);
+  g.fillStyle=night?'#24242a':'#dcd2bf';g.fillRect(0,96,512,416);
+  g.fillStyle=night?'#1a1a1f':'#cfc4b0';g.fillRect(0,96,512,10);
+  for(var r=0;r<4;r++)for(var c=0;c<6;c++){var x=22+c*82,y=126+r*96,lit=night&&rnd()<0.35;
+    g.fillStyle=night?(lit?'#e8b56d':'#14171e'):'#7b8891';g.fillRect(x,y,42,66);
+    g.fillStyle=night?'#050505':'#2c2c2c';g.fillRect(x-5,y+50,52,3);}
+  if(!night){g.fillStyle='rgba(70,105,60,0.85)';for(var k=0;k<5;k++){g.beginPath();g.arc(60+k*100,500,70+rnd()*30,0,6.3);g.fill();}}
+});}
+var facadeDay=facade(false),facadeNight=facade(true);
+
+/* ---------- Sol, dalle, plafond ---------- */
+box(-T,W+T,-0.06,0,-T,L+T,mat.slab,scene,{cast:false});
+tileTex.repeat.set(W/0.40,L/0.40);
+var floor=new THREE.Mesh(new THREE.PlaneGeometry(W,L),new THREE.MeshStandardMaterial({map:tileTex,roughness:0.55}));
+floor.rotation.x=-Math.PI/2;floor.position.set(W/2,0.001,L/2);floor.receiveShadow=true;scene.add(floor);
+var ceiling=new THREE.Mesh(new THREE.PlaneGeometry(W,L),M('#F4F3EF',{roughness:1}));
+ceiling.rotation.x=Math.PI/2;ceiling.position.set(W/2,H,L/2);ceiling.receiveShadow=true;scene.add(ceiling);
+var rosette=cyl(0.17,0.17,0.02,mat.trim,1.425,H-0.01,1.955,ceiling.parent);rosette.castShadow=false;
+
+/* ---------- Murs (masqués côté caméra pour l'effet maison de poupée) ---------- */
+var A=grp(),B=grp(),C=grp(),D=grp();
+// Mur A, fenêtre : 58 cm de mur, porte-fenêtre 120 cm, 107 cm de mur
+box(-T,0.58,0,H,-T,0,mat.wall,A);box(1.78,W+T,0,H,-T,0,mat.wall,A);box(0.58,1.78,2.15,H,-T,0,mat.wall,A);
+// Mur B, projection : plein
+box(W,W+T,0,H,-T,L+T,mat.wall,B);
+// Mur C, entrée : passage cuisine [0,10 ; 0,90], porte d'entrée [1,80 ; 2,75], interphone
+box(-T,0.10,0,H,L,L+T,mat.wall,C);box(0.90,1.80,0,H,L,L+T,mat.wall,C);box(2.75,W+T,0,H,L,L+T,mat.wall,C);
+box(0.10,0.90,2.05,H,L,L+T,mat.wall,C);box(1.80,2.75,2.05,H,L,L+T,mat.wall,C);
+// Mur D, canapé : porte de chambre [2,45 ; 3,29]
+box(-T,0,0,H,-T,2.45,mat.wall,D);box(-T,0,0,H,3.29,L+T,mat.wall,D);box(-T,0,2.05,H,2.45,3.29,mat.wall,D);
+// Corniches
+box(0,W,H-0.06,H,0,0.05,mat.trim,A,{cast:false});box(W-0.05,W,H-0.06,H,0,L,mat.trim,B,{cast:false});
+box(0,W,H-0.06,H,L-0.05,L,mat.trim,C,{cast:false});box(0,0.05,H-0.06,H,0,L,mat.trim,D,{cast:false});
+
+// Porte-fenêtre
+(function(){var f=mat.trim;
+  box(0.58,0.64,0,2.15,-0.06,-0.01,f,A);box(1.72,1.78,0,2.15,-0.06,-0.01,f,A);box(1.15,1.21,0,2.15,-0.06,-0.01,f,A);
+  box(0.58,1.78,2.09,2.15,-0.06,-0.01,f,A);box(0.58,1.78,0,0.12,-0.06,-0.01,f,A);
+  var gl=new THREE.Mesh(new THREE.PlaneGeometry(1.08,1.97),mat.glass);gl.position.set(1.18,1.105,-0.035);gl.raycast=function(){};A.add(gl);
+  // garde-corps
+  box(0.50,1.86,0.98,1.0,-0.32,-0.30,mat.metal,A);
+  for(var x=0.56;x<1.84;x+=0.12)box(x,x+0.012,0,0.98,-0.315,-0.305,mat.metal,A);
+  var bd=new THREE.Mesh(new THREE.PlaneGeometry(4.2,3.4),new THREE.MeshBasicMaterial({map:facadeDay}));bd.position.set(1.18,1.45,-1.7);A.add(bd);window.__bd=bd;
+  // rideau occultant conservé + tringle
+  var cur=grp(A,'curtain');for(var i=0;i<5;i++){var c=cyl(0.03,0.032,2.28,mat.navy,1.73+i*0.055,1.16,0.085+((i%2)?0.02:-0.01),cur,10);}
+  var rod=cyl(0.012,0.012,1.6,mat.brass,1.22,2.33,0.085,A,12);rod.rotation.z=Math.PI/2;
+})();
+// Porte d'entrée, interphone
+(function(){
+  box(1.82,2.73,0,2.03,L+0.005,L+0.045,mat.door,C);
+  box(1.86,1.96,1.0,1.02,L-0.03,L+0.005,mat.metal,C);
+  box(1.76,1.80,0,2.09,L-0.015,L+0.01,mat.trim,C);box(2.75,2.79,0,2.09,L-0.015,L+0.01,mat.trim,C);box(1.76,2.79,2.05,2.09,L-0.015,L+0.01,mat.trim,C);
+  box(2.78,2.84,1.38,1.56,L-0.035,L,mat.white,C);
+  // passage cuisine (au-delà)
+  box(0.05,0.95,0,2.3,L+0.9,L+0.95,M('#B9B3A7'),C);
+  var pf=new THREE.Mesh(new THREE.PlaneGeometry(0.8,0.9),new THREE.MeshStandardMaterial({map:tileTex,roughness:0.6}));pf.rotation.x=-Math.PI/2;pf.position.set(0.5,0.001,L+0.45);C.add(pf);
+  box(0.06,0.10,0,2.09,L-0.015,L+0.01,mat.trim,C);box(0.90,0.94,0,2.09,L-0.015,L+0.01,mat.trim,C);
+})();
+// Porte de chambre (s'ouvre vers la chambre)
+(function(){
+  box(-0.045,-0.005,0,2.03,2.47,3.27,mat.trim,D);
+  box(0.0,0.035,0.98,1.0,3.16,3.24,mat.metal,D);
+  box(-0.01,0.015,0,2.09,2.41,2.45,mat.trim,D);box(-0.01,0.015,0,2.09,3.29,3.33,mat.trim,D);box(-0.01,0.015,2.05,2.09,2.41,3.33,mat.trim,D);
+})();
+
+/* ---------- Annonces relevées le 05/11/2026 (les mêmes que dans la Google Sheet) ---------- */
+var DATA={"items":{"ik_besta_s1":{"id":"ik_besta_s1","site":"IKEA","style":"S1","cat":"tv","title":"BESTÅ banc TV avec portes, effet chêne blanchi","price":170,"ship":null,"shipnote":"livraison IKEA","dims":"180 × 42 × 38","mat":"Effet chêne blanchi","cond":"Neuf","loc":"Livré","url":"https://www.ikea.com/fr/fr/p/besta-banc-tv-avec-portes-effet-chene-blanchi-lappviken-effet-chene-blanchi-s89330709/","note":"3 portes, niche gauche sans porte pour la box ; prix promo (barré 185 €)","closed":"fermé","pickup":false,"color":"#DCCDB5","accent":"#E2D5C0","legs":"socle","drawers":0,"bed":null},"ik_besta_s2":{"id":"ik_besta_s2","site":"IKEA","style":"S2","cat":"tv","title":"BESTÅ banc TV avec portes, blanc / Fänrik frêne","price":185,"ship":null,"shipnote":"livraison IKEA","dims":"180 × 42 × 38","mat":"Caisson blanc, portes placage frêne","cond":"Neuf","loc":"Livré","url":"https://www.ikea.com/fr/fr/p/besta-banc-tv-avec-portes-blanc-faenrik-frene-s99569333/","note":"3 portes ; prix promo (barré 200 €)","closed":"fermé","pickup":false,"color":"#F0EFEA","accent":"#D8C2A0","legs":"socle","drawers":0,"bed":null},"ik_tonstad":{"id":"ik_tonstad","site":"IKEA","style":"S1","cat":"desk","title":"TONSTAD bureau, plaqué chêne","price":179,"ship":null,"shipnote":"livraison IKEA","dims":"75 × 60 × 75","mat":"Plaqué chêne","cond":"Neuf","loc":"Livré","url":"https://www.ikea.com/fr/fr/p/tonstad-bureau-plaque-chene-40538206/","note":"1 tiroir","closed":null,"pickup":false,"color":"#C39466","accent":"#C39466","legs":"droit","drawers":1,"bed":null},"ik_micke":{"id":"ik_micke","site":"IKEA","style":"S2","cat":"desk","title":"MICKE bureau, effet chêne blanchi","price":59.99,"ship":null,"shipnote":"livraison IKEA","dims":"73 × 50 × 75","mat":"Effet chêne blanchi","cond":"Neuf","loc":"Livré","url":"https://www.ikea.com/fr/fr/p/micke-bureau-effet-chene-blanchi-60484764/","note":"1 tiroir","closed":null,"pickup":false,"color":"#E3D8C6","accent":"#E3D8C6","legs":"panneau","drawers":1,"bed":null},"ik_kronoren":{"id":"ik_kronoren","site":"IKEA","style":"S1","cat":"support","title":"KRONÖREN table de chevet, pin massif","price":19.99,"ship":null,"shipnote":"livraison IKEA","dims":"39 × 32 × 55","mat":"Pin massif","cond":"Neuf","loc":"Livré","url":"https://www.ikea.com/fr/fr/p/kronoeren-table-de-chevet-pin-00610807/","note":"1 tiroir + tablette","closed":null,"pickup":false,"color":"#DDBB86","accent":null,"legs":"droit","drawers":1,"bed":null},"ik_gillersberg":{"id":"ik_gillersberg","site":"IKEA","style":"S2","cat":"support","title":"GILLERSBERG table de chevet, bambou / blanc","price":29.99,"ship":null,"shipnote":"livraison IKEA","dims":"38,5 × 38,5 × 56","mat":"Plateau acier blanc, bambou","cond":"Neuf","loc":"Livré","url":"https://www.ikea.com/fr/fr/p/gillersberg-table-de-chevet-bambou-blanc-30608983/","note":"Étagère basse","closed":null,"pickup":false,"color":"#F2F2EF","accent":"#D9B98A","legs":"droit","drawers":0,"bed":null},"ik_gladom":{"id":"ik_gladom","site":"IKEA","style":"S1","cat":"table","title":"GLADOM table/plateau, blanc","price":14.99,"ship":null,"shipnote":"livraison IKEA","dims":"Ø 45 × 53","mat":"Acier blanc","cond":"Neuf","loc":"Livré","url":"https://www.ikea.com/fr/fr/p/gladom-table-plateau-blanc-70337819/","note":"Plateau amovible","closed":null,"pickup":false,"color":"#EDEDEA","accent":null,"legs":"droit","drawers":0,"bed":null},"ik_nyhamn":{"id":"ik_nyhamn","site":"IKEA","style":"S1","cat":"sofa","title":"NYHAMN canapé 3 places convertible, matelas mousse","price":379,"ship":null,"shipnote":"livraison IKEA","dims":"200 × 97 × 90","mat":"Tissu Knisa gris/beige","cond":"Neuf","loc":"Livré","url":"https://www.ikea.com/fr/fr/p/nyhamn-canape-3-places-convertible-avec-matelas-en-mousse-knisa-gris-beige-s39306368/","note":"Couchage 140 × 200, clic-clac","closed":null,"pickup":false,"color":"#B6AFA3","accent":null,"legs":"droit","drawers":0,"bed":[140,200]},"lbc_besta_s1":{"id":"lbc_besta_s1","site":"Leboncoin","style":"S1","cat":"tv","title":"Meuble TV IKEA BESTÅ – 180 cm – Chêne blanchi","price":70,"ship":null,"shipnote":"main propre","dims":"180 × 42 × 39","mat":"Effet chêne blanchi, façades Lappviken","cond":"Bon état","loc":"Paris 15e","url":"https://www.leboncoin.fr/ad/ameublement/3295311074","note":"Même modèle que le BESTÅ neuf","closed":"fermé","pickup":true,"color":"#DCCDB5","accent":"#E2D5C0","legs":"socle","drawers":0,"bed":null},"lbc_copenhague_s2":{"id":"lbc_copenhague_s2","site":"Leboncoin","style":"S2","cat":"tv","title":"Meuble TV Copenhague 160 cm – Blanc et bois – Maisons du Monde","price":90,"ship":null,"shipnote":"main propre","dims":"160 × 40 × 50","mat":"Blanc et bois clair, pieds bois","cond":"Très bon état","loc":"Paris 14e","url":"https://www.leboncoin.fr/ad/ameublement/3297785413","note":"2 portes + 2 niches ouvertes","closed":"en partie","pickup":true,"color":"#F1F0EC","accent":"#D9BE93","legs":"fuseaux","drawers":0,"bed":null},"lbc_jimi_s2":{"id":"lbc_jimi_s2","site":"Leboncoin","style":"S2","cat":"desk","title":"Bureau blanc pieds compas (La Redoute Jimi)","price":42,"ship":null,"shipnote":"main propre","dims":"90 × 53 × 75","mat":"MDF laqué blanc, pieds compas pin","cond":"Bon état","loc":"Paris 11e","url":"https://www.leboncoin.fr/ad/ameublement/3297106377","note":"1 tiroir, petits éclats","closed":null,"pickup":true,"color":"#F1F0EC","accent":"#D9BE93","legs":"compas","drawers":1,"bed":null},"lbc_bureau_s3":{"id":"lbc_bureau_s3","site":"Leboncoin","style":"S3","cat":"desk","title":"Bureau bois vintage années 50/60","price":120,"ship":null,"shipnote":"main propre","dims":"90 × 50 × 75,5","mat":"Bois brun moyen","cond":"Bon état","loc":"Paris 19e","url":"https://www.leboncoin.fr/ad/ameublement/3298902486","note":"4 tiroirs + tablette coulissante","closed":null,"pickup":true,"color":"#8A5A36","accent":"#8A5A36","legs":"droit","drawers":4,"bed":null},"lbc_chevet_s2":{"id":"lbc_chevet_s2","site":"Leboncoin","style":"S2","cat":"support","title":"Table de chevet design en bois","price":40,"ship":null,"shipnote":"main propre","dims":"42 × 32 × 50","mat":"Pin, blanc et noir, pieds bois clair","cond":"Très bon état","loc":"Paris 17e","url":"https://www.leboncoin.fr/ad/ameublement/3299456664","note":"2 tiroirs, 40 € l’unité (2 disponibles)","closed":null,"pickup":true,"color":"#F1F0EC","accent":"#D9BE93","legs":"fuseaux","drawers":2,"bed":null},"lbc_chevet_s3":{"id":"lbc_chevet_s3","site":"Leboncoin","style":"S3","cat":"support","title":"Table de chevet / d’appoint vintage 70 bicolore teck et blanc","price":20,"ship":null,"shipnote":"main propre","dims":"40 × 40 × 46","mat":"Placage style teck et blanc","cond":"Bon état","loc":"Paris 13e","url":"https://www.leboncoin.fr/ad/ameublement/3301556138","note":"Traces d’usure, espèces","closed":null,"pickup":true,"color":"#9A6236","accent":"#F1F0EC","legs":"droit","drawers":0,"bed":null},"lbc_lace_s1":{"id":"lbc_lace_s1","site":"Leboncoin","style":"S1","cat":"table","title":"Table d’appoint ronde Miliboo LACE chêne clair et métal noir Ø 42","price":25,"ship":null,"shipnote":"main propre","dims":"Ø 42 × 40","mat":"Placage chêne clair, métal noir","cond":"Très bon état","loc":"Paris 15e","url":"https://www.leboncoin.fr/ad/ameublement/3294466606","note":"4,2 kg","closed":null,"pickup":true,"color":"#CFAE82","accent":"#222222","legs":"métal","drawers":0,"bed":null},"lbc_table_s2":{"id":"lbc_table_s2","site":"Leboncoin","style":"S2","cat":"table","title":"Table basse scandinave ronde blanche","price":20,"ship":null,"shipnote":"main propre","dims":"Ø 48 × 46","mat":"Bois blanc","cond":"Bon état","loc":"Paris 20e","url":"https://www.leboncoin.fr/ad/ameublement/3258583222","note":"Démontable","closed":null,"pickup":true,"color":"#F1F0EC","accent":"#EDEDEA","legs":"fuseaux","drawers":0,"bed":null},"lbc_sofa_s1":{"id":"lbc_sofa_s1","site":"Leboncoin","style":"S1","cat":"sofa","title":"Canapé convertible 2 places Maisons du Monde + surmatelas","price":120,"ship":null,"shipnote":"main propre","dims":"150 × 90 × 82","mat":"Tissu gris, pieds bois clair","cond":"Très bon état","loc":"Paris 15e","url":"https://www.leboncoin.fr/ad/ameublement/3281892884","note":"Couchage ~140 × 190, surmatelas inclus","closed":null,"pickup":true,"color":"#9EA0A3","accent":null,"legs":"droit","drawers":0,"bed":[140,190]},"lbc_sofa_s2":{"id":"lbc_sofa_s2","site":"Leboncoin","style":"S2","cat":"sofa","title":"Clic-clac NIO 2 places gris clair – Maisons du Monde","price":155,"ship":null,"shipnote":"main propre","dims":"150 × 82 × 91","mat":"Tissu gris clair, pieds bois clair","cond":"Très bon état","loc":"Paris 11e","url":"https://www.leboncoin.fr/ad/ameublement/3249597517","note":"Couchage 140 × 190 ; la description indique 150 €","closed":null,"pickup":true,"color":"#C3C4C2","accent":null,"legs":"droit","drawers":0,"bed":[140,190]},"lbc_sofa_s3":{"id":"lbc_sofa_s3","site":"Leboncoin","style":"S3","cat":"sofa","title":"Canapé-lit convertible vintage années 70","price":150,"ship":null,"shipnote":"main propre","dims":"180 × 85 × 90","mat":"Cuir beige crème, accoudoirs bois","cond":"Très bon état","loc":"Paris 4e","url":"https://www.leboncoin.fr/ad/ameublement/3272547640","note":"Matelas 140 × 190, 3 places","closed":null,"pickup":true,"color":"#D9CBB0","accent":"#8A5A36","legs":"droit","drawers":0,"bed":[140,190]},"vt_tv_s1":{"id":"vt_tv_s1","site":"Vinted","style":"S1","cat":"tv","title":"Meuble télé (BUT) décor chêne clair","price":26.95,"ship":22.3,"shipnote":"envoi dès 22,30 €","dims":"140 × 40 × 43","mat":"Décor chêne clair, tasseaux, pieds fuselés","cond":"Bon état","loc":"Envoi","url":"https://www.vinted.fr/items/10557876196","note":"1 tiroir + 1 grande niche ouverte","closed":"en partie","pickup":false,"color":"#D3B68C","accent":"#D3B68C","legs":"fuseaux","drawers":0,"bed":null},"vt_besta_s2":{"id":"vt_besta_s2","site":"Vinted","style":"S2","cat":"tv","title":"Meuble banc TV IKEA BESTÅ blanc","price":53.2,"ship":null,"shipnote":"main propre","dims":"180 × 42 × 38","mat":"Blanc, portes effet bois foncé","cond":"Très bon état","loc":"Paris 18e","url":"https://www.vinted.fr/items/10167102120","note":"Fermé, déjà monté, portes foncées ; retrait sur place uniquement","closed":"fermé","pickup":true,"color":"#F0EFEA","accent":"#5A4535","legs":"socle","drawers":0,"bed":null},"vt_jimi_s2":{"id":"vt_jimi_s2","site":"Vinted","style":"S2","cat":"desk","title":"Bureau Jimi La Redoute gris clair","price":37.45,"ship":null,"shipnote":"main propre","dims":"90 × 53 × 75","mat":"MDF laqué gris clair, pieds pin","cond":"Bon état","loc":"Saint-Maur (94)","url":"https://www.vinted.fr/items/9845505755","note":"1 tiroir ; envoi possible dès 22,30 €","closed":null,"pickup":true,"color":"#D9DAD7","accent":"#D9BE93","legs":"compas","drawers":1,"bed":null},"vt_bureau50_s3":{"id":"vt_bureau50_s3","site":"Vinted","style":"S3","cat":"desk","title":"Bureau années 50 pieds compas","price":53.2,"ship":null,"shipnote":"main propre","dims":"90 × 50 × 74","mat":"Repeint rose, pieds compas","cond":"Très bon état","loc":"Paris 13e","url":"https://www.vinted.fr/items/6724346457","note":"Annonce de 15 mois, toujours en ligne ; retrait sur place uniquement","closed":null,"pickup":true,"color":"#D99AA8","accent":"#9A6236","legs":"compas","drawers":0,"bed":null},"vt_chevet_s1":{"id":"vt_chevet_s1","site":"Vinted","style":"S1","cat":"support","title":"Table de chevet effet bois clair (5five), neuve","price":21.7,"ship":2.83,"shipnote":"envoi dès 2,83 €","dims":"40 × 40 × 56","mat":"Effet bois clair (photos), tiroir","cond":"Neuf","loc":"Envoi","url":"https://www.vinted.fr/items/10632417366","note":"Matériau d’après les photos","closed":null,"pickup":false,"color":"#D3B68C","accent":null,"legs":"droit","drawers":1,"bed":null},"vt_ronde_s1":{"id":"vt_ronde_s1","site":"Vinted","style":"S1","cat":"support","title":"Table d’appoint ronde en bois neuve, pieds compas","price":32.2,"ship":2.88,"shipnote":"envoi dès 2,88 €","dims":"Ø 40 × 48","mat":"Bois naturel clair, étagère basse","cond":"Neuf avec étiquette","loc":"Envoi","url":"https://www.vinted.fr/items/10057924199","note":"Vaut aussi comme table basse","closed":null,"pickup":false,"color":"#D9BE93","accent":null,"legs":"compas","drawers":0,"bed":null},"vt_chevet_s2":{"id":"vt_chevet_s2","site":"Vinted","style":"S2","cat":"support","title":"Table de chevet blanche et rotin","price":26.95,"ship":null,"shipnote":"main propre","dims":"29 × 40 × 47","mat":"Blanc + rotin","cond":"Très bon état","loc":"Drancy (93)","url":"https://www.vinted.fr/items/10547107767","note":"Vendue par paire : 26,95 € les deux (12 € l’une seule, à négocier) ; pas d’envoi","closed":null,"pickup":true,"color":"#F1F0EC","accent":"#C8A878","legs":"droit","drawers":0,"bed":null},"vt_chevet_s3":{"id":"vt_chevet_s3","site":"Vinted","style":"S3","cat":"support","title":"Table d’appoint ou de chevet bois teinté","price":13.3,"ship":3.28,"shipnote":"envoi dès 3,28 €","dims":"40 × 25 × 53","mat":"Bois teinté chaud","cond":"Bon état","loc":"Envoi","url":"https://www.vinted.fr/items/10611126563","note":"Pas un teck confirmé","closed":null,"pickup":false,"color":"#8E5B3A","accent":null,"legs":"droit","drawers":0,"bed":null},"vt_table_s1":{"id":"vt_table_s1","site":"Vinted","style":"S1","cat":"table","title":"Table basse ronde chêne clair et métal noir, neuve","price":21.7,"ship":3.78,"shipnote":"envoi dès 3,78 €","dims":"Ø 40 × 40","mat":"Effet chêne clair, métal noir","cond":"Neuf avec étiquette","loc":"Envoi","url":"https://www.vinted.fr/items/10586278244","note":"","closed":null,"pickup":false,"color":"#CFAE82","accent":"#222222","legs":"métal","drawers":0,"bed":null},"vt_table_s2":{"id":"vt_table_s2","site":"Vinted","style":"S2","cat":"table","title":"Table d’appoint ronde blanche 2 plateaux","price":13.29,"ship":null,"shipnote":"main propre (à privilégier)","dims":"Ø 45 × 50","mat":"Laqué blanc, métal blanc","cond":"Bon état","loc":"Lieu non indiqué","url":"https://www.vinted.fr/items/10575643697","note":"Blanc un peu jauni","closed":null,"pickup":true,"color":"#F1F0EC","accent":"#EDEDEA","legs":"métal","drawers":0,"bed":null},"az_tv_s1":{"id":"az_tv_s1","site":"Amazon","style":"S1","cat":"tv","title":"HOMN LIVING meuble TV Lluvia 4 portes, coloris chêne","price":143.99,"ship":0,"shipnote":"gratuite (1re commande)","dims":"160 × 40 × 45","mat":"Mélamine coloris chêne","cond":"Neuf","loc":"Livré","url":"https://www.amazon.fr/dp/B0C9QHZFG9","note":"Entièrement fermé, vendeur noté 3,5/5","closed":"fermé","pickup":false,"color":"#C9A57A","accent":"#C9A57A","legs":"métal","drawers":0,"bed":null},"az_tv_s2":{"id":"az_tv_s2","site":"Amazon","style":"S2","cat":"tv","title":"VASAGLE meuble TV MIRANTA 2 portes 140 cm","price":79.99,"ship":0,"shipnote":"gratuite","dims":"140 × 40 × 50","mat":"Bois d’ingénierie blanc crème / jaune paille","cond":"Neuf","loc":"Livré","url":"https://www.amazon.fr/dp/B0D2VKWCRX","note":"2 portes + 2 casiers ouverts, vendu par Amazon, 4,6/5 (4 067)","closed":"en partie","pickup":false,"color":"#F2EEE4","accent":"#D9BE93","legs":"fuseaux","drawers":0,"bed":null},"az_tv_s3":{"id":"az_tv_s3","site":"Amazon","style":"S3","cat":"tv","title":"[en.casa] meuble TV Lukkodso 150 cm effet noyer","price":140.99,"ship":0,"shipnote":"gratuite (1re commande)","dims":"150 × 40 × 40","mat":"MDF effet noyer, façades rainurées","cond":"Neuf","loc":"Livré","url":"https://www.amazon.fr/dp/B0F9FSWZ5T","note":"Niche centrale ouverte, 4,4/5 (84)","closed":"en partie","pickup":false,"color":"#7A4E2E","accent":"#6B4327","legs":"courts","drawers":0,"bed":null},"az_desk_s1":{"id":"az_desk_s1","site":"Amazon","style":"S1","cat":"desk","title":"ML-Design bureau 3 tiroirs 90 cm, chêne Sonoma","price":111.49,"ship":0,"shipnote":"gratuite (1re commande)","dims":"90 × 50 × 76","mat":"Mélamine chêne Sonoma","cond":"Neuf","loc":"Livré","url":"https://www.amazon.fr/dp/B0B5F3TC17","note":"Caisson 3 tiroirs, teinte plutôt jaune","closed":null,"pickup":false,"color":"#C9A06A","accent":"#C9A06A","legs":"panneau","drawers":3,"bed":null},"az_desk_s2":{"id":"az_desk_s2","site":"Amazon","style":"S2","cat":"desk","title":"ML-Design bureau 3 tiroirs 90 cm, blanc mat","price":113.53,"ship":0,"shipnote":"gratuite (1re commande)","dims":"90 × 50 × 76","mat":"Stratifié blanc mat","cond":"Neuf","loc":"Livré","url":"https://www.amazon.fr/dp/B0B5F539TW","note":"Caisson 3 tiroirs","closed":null,"pickup":false,"color":"#F2F2EF","accent":"#F2F2EF","legs":"panneau","drawers":3,"bed":null},"az_desk_s3":{"id":"az_desk_s3","site":"Amazon","style":"S3","cat":"desk","title":"IOTXY petit bureau bois avec tiroir, noyer 80 cm","price":157.25,"ship":0,"shipnote":"gratuite (30 nov.–6 janv.)","dims":"80 × 50 × 75","mat":"Bois massif, MDF plaqué noyer","cond":"Neuf","loc":"Livré","url":"https://www.amazon.fr/dp/B0CPSRPD3Z","note":"1 tiroir, livraison longue, 4,5/5 (144)","closed":null,"pickup":false,"color":"#7A4E2E","accent":"#C9A06A","legs":"droit","drawers":1,"bed":null},"az_sup_s1":{"id":"az_sup_s1","site":"Amazon","style":"S1","cat":"support","title":"[en.casa] table d’appoint ronde à roulettes effet bois","price":37.99,"ship":0,"shipnote":"gratuite (1re commande)","dims":"Ø 38 × 56","mat":"Particules effet bois","cond":"Neuf","loc":"Livré","url":"https://www.amazon.fr/dp/B0BLCWHFQF","note":"Roulettes, 4,2/5 (1 801)","closed":null,"pickup":false,"color":"#C9A57A","accent":null,"legs":"roulettes","drawers":0,"bed":null},"az_sup_s2":{"id":"az_sup_s2","site":"Amazon","style":"S2","cat":"support","title":"BAÏTA table de chevet Capucine blanc et effet chêne","price":39.99,"ship":0,"shipnote":"gratuite (1re commande)","dims":"33 × 33 × 49","mat":"Caisson blanc, plateau effet chêne, pieds bois","cond":"Neuf","loc":"Livré","url":"https://www.amazon.fr/dp/B083XNN3TN","note":"1 tiroir, livraison 24-25 nov., 4,1/5 (467)","closed":null,"pickup":false,"color":"#F1F0EC","accent":"#D2B07F","legs":"fuseaux","drawers":1,"bed":null},"az_sup_s3":{"id":"az_sup_s3","site":"Amazon","style":"S3","cat":"support","title":"VASAGLE table d’appoint ronde MARIEL, pied bois massif","price":30.99,"ship":0,"shipnote":"gratuite (1re commande)","dims":"Ø 30 × 55","mat":"Bois marron châtaigne","cond":"Neuf","loc":"Livré","url":"https://www.amazon.fr/dp/B0FPLPXHP4","note":"Plateau de 30 cm : juste pour le projecteur","closed":null,"pickup":false,"color":"#7A4E2E","accent":null,"legs":"pied central","drawers":0,"bed":null},"az_table_s2":{"id":"az_table_s2","site":"Amazon","style":"S2","cat":"table","title":"VASAGLE tables basses rondes, lot de 2, pieds pin","price":34.99,"ship":0,"shipnote":"gratuite (1re commande)","dims":"Ø 45 × 50 (+ Ø 34,5)","mat":"Plateau blanc, pieds pin","cond":"Neuf","loc":"Livré","url":"https://www.amazon.fr/dp/B077XGF7YL","note":"Seule la grande table compte, 4,5/5 (2 942)","closed":null,"pickup":false,"color":"#F2F2EF","accent":"#D9BE93","legs":"fuseaux","drawers":0,"bed":null},"az_sofa_s1":{"id":"az_sofa_s1","site":"Amazon","style":"S1","cat":"sofa","title":"EUGAD canapé convertible 2 places chauffeuse, beige","price":206.14,"ship":0,"shipnote":"gratuite (1re commande)","dims":"140 × 86 × 62","mat":"Velours côtelé beige","cond":"Neuf","loc":"Livré","url":"https://www.amazon.fr/dp/B0FXM6BBQR","note":"Lit 211 × 140, posé au sol","closed":null,"pickup":false,"color":"#D8C7A8","accent":null,"legs":"droit","drawers":0,"bed":[140,211]},"az_sofa_x":{"id":"az_sofa_x","site":"Amazon","style":"S2","cat":"sofa","title":"Xbro canapé-lit 2 places velours beige","price":299.99,"ship":0,"shipnote":"gratuite (1re commande)","dims":"147 × 82 × 87","mat":"Velours beige, cadre métal","cond":"Neuf","loc":"Livré","url":"https://www.amazon.fr/dp/B0FWKB1CMW","note":"Lit 147 × 196, 4,3/5 (570)","closed":null,"pickup":false,"color":"#D3C3A6","accent":null,"legs":"droit","drawers":0,"bed":[147,196]},"md_dylane":{"ship":0,"shipnote":"livraison à vérifier","cond":"Neuf","loc":"","closed":null,"pickup":false,"accent":null,"legs":"droit","drawers":0,"bed":[140,190],"note":"Assise 51 cm ; couchage 140 × 190 (matelas 22 cm) qui se tire vers la pièce : environ 2,18 m depuis le mur une fois ouvert (estimé) ; prix promo (barré 1 599 €)","id":"md_dylane","site":"Mobilier-deco","style":"S4","cat":"sofa","title":"DYLANE canapé 3 places convertible, tissu capitonné gris clair, matelas 22 cm","price":1099,"dims":"200 × 102 × 95","mat":"Tissu texturé gris clair (existe en beige), pieds noirs","color":"#BDBAB4","url":"https://mobilier-deco.com/products/dylane-canape-3-places-convertible-tissu-capitonne-gris-clair-matelas-22-cm"},"lm_table3":{"ship":0,"shipnote":"livraison à vérifier","cond":"Neuf","loc":"","closed":null,"pickup":false,"accent":null,"legs":"rect3","drawers":0,"bed":null,"note":"Étagères 60 × 48 et 60 × 50 cm sous le plateau","id":"lm_table3","site":"Leroy Merlin","style":"S4","cat":"table","title":"Table basse rectangulaire 3 niveaux, rangement central en L","price":80.99,"dims":"90 × 50 × 42","mat":"Bois d’ingénierie, marron rustique","color":"#7A5538","url":"https://www.leroymerlin.fr/produits/table-basse-design-rectangulaire-table-de-salon-a-3-niveaux-avec-etageres-ouvertes-rangement-central-en-l-style-moderne-76990034.html"},"tp_shaggy":{"ship":0,"shipnote":"prix à vérifier","cond":"Neuf","loc":"","closed":null,"pickup":false,"accent":null,"legs":"shaggy","drawers":0,"bed":null,"note":"Page non lisible depuis ici : taille 160 × 230 supposée, prix à vérifier","id":"tp_shaggy","site":"Tapeso","style":"S4","cat":"rug","title":"Tapis poils longs Shaggy Trend, champagne","price":0,"dims":"160 × 230","mat":"Poils longs (shaggy), champagne","color":"#D3C4A4","url":"https://www.tapeso.fr/produit/tapis-poils-longs-shaggy-trend-champagne/"},"lbc_tapis_17":{"ship":0,"shipnote":"","cond":"Occasion","loc":"Paris 17e","closed":null,"pickup":true,"accent":null,"legs":"plat","drawers":0,"bed":null,"note":"Main propre ; motif reproduit approximativement dans la maquette","id":"lbc_tapis_17","site":"Leboncoin","style":"S4","cat":"rug","title":"Tapis vintage années 70, 160 × 230","price":50,"dims":"160 × 230","mat":"Laine bouclée, crème, moutarde, marron et gris (d’après les photos)","color":"#B5953A","url":"https://www.leboncoin.fr/ad/ameublement/3114724937"}},"sets":{"S1":{"IKEA":["ik_besta_s1","ik_tonstad","ik_kronoren","ik_gladom","ik_nyhamn"],"Leboncoin":["lbc_besta_s1","ik_tonstad","ik_kronoren","lbc_lace_s1","lbc_sofa_s1"],"Vinted":["vt_tv_s1","ik_tonstad","vt_chevet_s1","vt_table_s1","ik_nyhamn"],"Amazon":["az_tv_s1","az_desk_s1","az_sup_s1","ik_gladom","az_sofa_s1"],"Mix":["lbc_besta_s1","ik_tonstad","vt_chevet_s1","lbc_lace_s1","lbc_sofa_s1"]},"S2":{"IKEA":["ik_besta_s2","ik_micke","ik_gillersberg","ik_gladom","ik_nyhamn"],"Leboncoin":["lbc_copenhague_s2","lbc_jimi_s2","lbc_chevet_s2","lbc_table_s2","lbc_sofa_s2"],"Vinted":["vt_besta_s2","vt_jimi_s2","vt_chevet_s2","vt_table_s2","ik_nyhamn"],"Amazon":["az_tv_s2","az_desk_s2","az_sup_s2","az_table_s2","az_sofa_x"],"Mix":["ik_besta_s2","lbc_jimi_s2","ik_gillersberg","ik_gladom","lbc_sofa_s2"]},"S3":{"Leboncoin":["lbc_besta_s1","lbc_bureau_s3","lbc_chevet_s3","lbc_lace_s1","lbc_sofa_s3"],"Vinted":["vt_besta_s2","vt_bureau50_s3","vt_chevet_s3","vt_table_s1",null],"Amazon":["az_tv_s3","az_desk_s3","az_sup_s3","az_table_s2","az_sofa_s1"],"Mix":["az_tv_s3","lbc_bureau_s3","lbc_chevet_s3","vt_ronde_s1","lbc_sofa_s3"]},"S4":{"Vinted":["vt_besta_s2","ik_tonstad","ik_kronoren","lm_table3","md_dylane","tp_shaggy"],"Amazon":["az_tv_s3","ik_tonstad","ik_kronoren","lm_table3","md_dylane","lbc_tapis_17"]}}};
+var IT=DATA.items,SETS=DATA.sets;
+var STY={S1:'Japandi chêne',S2:'Scandinave blanc',S3:'Vintage teck',S4:'Ma sélection'};
+var SITE_NAME={'Mobilier-deco':'Mobilier-deco','Leroy Merlin':'Leroy Merlin',Tapeso:'Tapeso',IKEA:'IKEA neuf',Leboncoin:'Leboncoin',Vinted:'Vinted',Amazon:'Amazon',Mix:'Mélange conseillé'};
+var ROLE={tv:'Meuble télé',desk:'Bureau',support:'Support du projecteur',table:'Table basse',sofa:'Canapé convertible'};
+var SLOTS=['tv','desk','support','table','sofa'];
+// Façades schématiques des meubles télé : N niche ouverte, D porte, T tiroir (largeur relative)
+var FRONT={ik_besta_s1:[['N',1],['D',1],['D',1]],lbc_besta_s1:[['N',1],['D',1],['D',1]],ik_besta_s2:[['N',1],['D',1],['D',1]],vt_besta_s2:[['N',1],['D',1],['D',1]],
+  lbc_copenhague_s2:[['D',1],['N',1],['N',1],['D',1]],az_tv_s2:[['D',1],['N',1],['N',1],['D',1]],vt_tv_s1:[['T',1],['N',2]],
+  az_tv_s1:[['D',1],['D',1],['D',1],['D',1]],az_tv_s3:[['D',1.6],['N',1],['D',1.6]]};
+var ARMS={lbc_sofa_s1:1,lbc_sofa_s3:1,az_sofa_x:1},FLOOR_SOFA={az_sofa_s1:1};
+function dimsOf(it){var s=it.dims.replace(/,/g,'.'),n=(s.match(/\d+(?:\.\d+)?/g)||[]).map(function(v){return +v/100;});
+  return /^\s*Ø/.test(s)?{round:true,w:n[0],d:n[0],h:n[1]}:{round:false,w:n[0],d:n[1],h:n[2]};}
+var mcache={};
+function MC(c,r,mt){var k=c+'|'+(r||0.7)+'|'+(mt||0);if(!mcache[k])mcache[k]=M(c,{roughness:r||0.7,metalness:mt||0});return mcache[k];}
+function tint(c,k){var col=new THREE.Color(c);col.offsetHSL(0,0,k);return '#'+col.getHexString();}
+function clearGroup(g){while(g.children.length){var o=g.children[0];g.remove(o);o.traverse(function(n){if(n.geometry)n.geometry.dispose();if(n.element&&n.element.parentNode)n.element.parentNode.removeChild(n.element);});}}
+// Pieds : droit, compas (évasés), fuseaux (bois fuselé), métal (fins), roulettes
+function legs4(x0,x1,z0,z1,h,type,m,parent,inset){
+  inset=inset==null?0.04:inset;var cx=(x0+x1)/2,cz=(z0+z1)/2;
+  [[x0+inset,z0+inset],[x1-inset,z0+inset],[x0+inset,z1-inset],[x1-inset,z1-inset]].forEach(function(p){
+    var dx=p[0]-cx,dz=p[1]-cz,dl=Math.hypot(dx,dz)||1,ux=dx/dl,uz=dz/dl;
+    if(type==='compas'||type==='fuseaux'||type==='métal'){
+      var sp=type==='compas'?0.17:type==='fuseaux'?0.10:0.05,rt=type==='métal'?0.007:0.017,rb=type==='métal'?0.007:0.010,o=h/2*Math.tan(sp);
+      var l=cyl(rt,rb,h/Math.cos(sp),m,p[0]+ux*o,h/2,p[1]+uz*o,parent,10);l.rotation.set(-uz*sp,0,ux*sp);
+    }else if(type==='roulettes'){
+      box(p[0]-0.015,p[0]+0.015,0.05,h,p[1]-0.015,p[1]+0.015,m,parent);var wh=cyl(0.022,0.022,0.035,mat.black,p[0],0.024,p[1],parent,12);wh.rotation.x=Math.PI/2;
+    }else box(p[0]-0.017,p[0]+0.017,0,h,p[1]-0.017,p[1]+0.017,m,parent);
+  });
+}
+var tvG=grp(scene,'set_tv'),deskG=grp(scene,'set_desk'),supG=grp(scene,'set_support'),tableG=grp(scene,'set_table'),sofaSetG=grp(scene,'set_sofa'),bedSetG=grp(scene,'set_sofa');
+sofaSetG.visible=bedSetG.visible=false;
+var GEO={};var rugG=grp(scene,'set_rug');
+function buildRug(it){clearGroup(rugG);if(!it)return;if(it.id==='tp_shaggy'||it.id==='lbc_tapis_17'){rugCustom(it,rugG);return;}var d=dimsOf(it),m=MC(it.color,1);var hh=it.legs==='shaggy'?0.035:0.008;rbox(-d.w/2,d.w/2,0.0,hh,-d.d/2,d.d/2,m,rugG,Math.min(0.015,hh/2));if(false){}}
+
+/* ---------- Meubles conservés ---------- */
+// Canapé actuel 200 × 85
+var sofaCur=grp(scene,'sofa');
+box(0.05,0.82,0,0.07,0.04,1.96,mat.black,sofaCur);
+rbox(0.02,0.85,0.07,0.31,0,2.0,mat.anth,sofaCur,0.03);
+rbox(0.20,0.85,0.30,0.43,0.02,1.98,mat.anth2,sofaCur,0.045);
+rbox(0,0.22,0.30,0.80,0,2.0,mat.anth,sofaCur,0.05);
+var cg=rbox(0.22,0.36,0.40,0.84,0.30,0.76,mat.anth2,sofaCur,0.06);cg.rotation.z=0.18;
+var plaid=rbox(0.26,0.84,0.43,0.47,1.05,1.55,mat.sand,sofaCur,0.02);plaid.rotation.y=0.08;
+var cush=grp(sofaCur,'cushion');var cc=rbox(0.22,0.36,0.40,0.84,1.38,1.84,mat.clay,cush,0.06);cc.rotation.z=0.18;
+
+// Écran 27″ et clavier (suivent le bureau)
+var mon=grp(scene,'monitor');
+box(2.40,2.55,0.75,0.76,0.06,0.22,mat.black,mon);box(2.465,2.485,0.76,0.93,0.10,0.12,mat.black,mon);
+box(2.168,2.782,0.88,1.25,0.12,0.14,mat.black,mon);
+var scr=new THREE.Mesh(new THREE.PlaneGeometry(0.596,0.336),mat.screen);scr.position.set(2.475,1.065,0.1405);mon.add(scr);
+box(2.30,2.65,0.75,0.765,0.30,0.42,M('#C9C9C6',{roughness:0.5}),mon);
+
+// Chaise de bureau conservée
+var chair=grp(scene,'chair');var cx=2.475,cz=0.95;
+for(var i=0;i<5;i++){var arm=new THREE.Group();arm.position.set(cx,0.05,cz);arm.rotation.y=i*Math.PI*2/5;chair.add(arm);box(0,0.31,-0.015,0.015,-0.02,0.02,mat.black,arm);}
+cyl(0.025,0.025,0.36,mat.metal,cx,0.24,cz,chair,12);
+rbox(cx-0.24,cx+0.24,0.43,0.50,cz-0.23,cz+0.23,mat.black,chair,0.03);
+var back=rbox(cx-0.23,cx+0.23,0.56,1.08,cz+0.19,cz+0.24,mat.black,chair,0.025);back.rotation.x=0.12;
+
+// Étagères au-dessus du bureau (option)
+var shelves=grp(scene,'shelves');
+[1.30,1.66].forEach(function(y){box(2.12,2.84,y,y+0.025,0,0.24,mat.oak,shelves);box(2.18,2.20,y-0.08,y,0,0.2,mat.metal,shelves);box(2.76,2.78,y-0.08,y,0,0.2,mat.metal,shelves);});
+['#D7C4A3','#EDEDEA','#BE6640','#8E9C83','#D7C4A3'].forEach(function(c,i){box(2.15+i*0.072,2.215+i*0.072,1.325,1.625,0.01,0.25,M(c),shelves);});
+box(2.55,2.80,1.685,1.83,0.02,0.22,mat.paperBox,shelves);
+cyl(0.05,0.04,0.1,mat.clay,2.30,1.735,0.12,shelves,16);
+var leaf=new THREE.Mesh(new THREE.IcosahedronGeometry(0.08,0),mat.sage);leaf.position.set(2.30,1.86,0.12);leaf.castShadow=true;shelves.add(leaf);
+
+/* ---------- Meubles de « Ma sélection », dessinés d'après tes photos ---------- */
+var PRNG=(function(s){return function(){s|=0;s=s+0x6D2B79F5|0;var t=Math.imul(s^s>>>15,1|s);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};})(1977);
+function rr(a,b){return a+PRNG()*(b-a);}
+function mkTex(w,h,draw,rx,ry){var c=document.createElement('canvas');c.width=w;c.height=h;draw(c.getContext('2d'),w,h);var t=new THREE.CanvasTexture(c);t.encoding=THREE.sRGBEncoding;t.wrapS=t.wrapT=THREE.RepeatWrapping;t.repeat.set(rx||1,ry||1);t.anisotropy=8;return t;}
+// veinage du bois : lignes horizontales (vertical=false) ou verticales
+function woodDraw(x,w,h,base,dark,light,n,vertical,knots){
+  x.fillStyle=base;x.fillRect(0,0,w,h);
+  for(var i=0;i<n;i++){var p=PRNG()*(vertical?w:h),amp=rr(1,5),per=rr(50,150);x.strokeStyle=PRNG()<0.55?dark:light;x.globalAlpha=rr(0.08,0.32);x.lineWidth=rr(0.6,2.8);x.beginPath();
+    for(var s=0;s<=(vertical?h:w);s+=16){var o=p+Math.sin(s/per+i)*amp;if(vertical){if(s===0)x.moveTo(o,s);else x.lineTo(o,s);}else{if(s===0)x.moveTo(s,o);else x.lineTo(s,o);}}x.stroke();}
+  x.globalAlpha=1;
+  for(var k=0;k<(knots||0);k++){var cx=PRNG()*w,cy=PRNG()*h;x.fillStyle=dark;x.globalAlpha=0.35;x.beginPath();x.ellipse(cx,cy,vertical?4:9,vertical?9:4,0,0,Math.PI*2);x.fill();x.globalAlpha=0.15;x.beginPath();x.ellipse(cx,cy,vertical?9:20,vertical?20:9,0,0,Math.PI*2);x.fill();}
+  x.globalAlpha=1;
+}
+function fabricDraw(x,w,h,base){x.fillStyle=base;x.fillRect(0,0,w,h);for(var i=0;i<9000;i++){x.fillStyle=PRNG()<0.5?'rgba(120,116,110,0.22)':'rgba(255,255,255,0.22)';x.fillRect(PRNG()*w,PRNG()*h,rr(1,2.2),rr(1,2.2));}}
+function shagDraw(x,w,h,cols,n,alpha){for(var i=0;i<n;i++){var px=PRNG()*w,py=PRNG()*h,a=PRNG()*Math.PI*2,l=rr(3,9);x.strokeStyle=cols[(PRNG()*cols.length)|0];x.globalAlpha=alpha;x.lineWidth=rr(1,2.2);x.beginPath();x.moveTo(px,py);x.quadraticCurveTo(px+Math.cos(a+0.6)*l*0.6,py+Math.sin(a+0.6)*l*0.6,px+Math.cos(a)*l,py+Math.sin(a)*l);x.stroke();}x.globalAlpha=1;}
+var TEX={},MTC={};
+function getTex(k){
+  if(TEX[k])return TEX[k];var t;
+  if(k==='walnutV')t=mkTex(512,512,function(x,w,h){woodDraw(x,w,h,'#5C4333','#3A291E','#7D5D46',90,true,0);});
+  else if(k==='flute')t=mkTex(512,512,function(x,w,h){woodDraw(x,w,h,'#5A4232','#3A291E','#7A5A44',60,true,0);
+      for(var i=0;i<8;i++){var g=x.createLinearGradient(i*64,0,i*64+64,0);g.addColorStop(0,'rgba(20,12,6,0.55)');g.addColorStop(0.18,'rgba(255,230,200,0.10)');g.addColorStop(0.5,'rgba(255,230,200,0.16)');g.addColorStop(0.85,'rgba(20,12,6,0.18)');g.addColorStop(1,'rgba(20,12,6,0.55)');x.fillStyle=g;x.fillRect(i*64,0,64,h);}},3.3,1);
+  else if(k==='darkH')t=mkTex(512,512,function(x,w,h){woodDraw(x,w,h,'#4C3B31','#2E231C','#6A5446',110,false,0);});
+  else if(k==='rusticV')t=mkTex(512,512,function(x,w,h){woodDraw(x,w,h,'#7A4E31','#45291A','#A8774F',120,true,5);for(var i=0;i<40;i++){x.fillStyle='rgba(30,16,8,0.12)';x.fillRect(PRNG()*w,PRNG()*h,rr(2,14),rr(1,3));}});
+  else if(k==='fabric')t=mkTex(256,256,function(x,w,h){fabricDraw(x,w,h,'#BDBAB4');},5,5);
+  else if(k==='fabric2')t=mkTex(256,256,function(x,w,h){fabricDraw(x,w,h,'#C6C3BD');},4,4);
+  else if(k==='shaggy')t=mkTex(512,736,function(x,w,h){x.fillStyle='#D9CCB0';x.fillRect(0,0,w,h);shagDraw(x,w,h,['#E6DCC6','#CFC1A2','#DED2B9','#C8B996','#EFE7D6'],22000,0.32);});
+  else if(k==='vintage')t=mkTex(512,736,function(x,w,h){var s=w/160;
+      function R(c,a,b,cw,ch,r){x.fillStyle=c;x.beginPath();if(x.roundRect)x.roundRect(a*s,b*s,cw*s,ch*s,(r||0)*s);else x.rect(a*s,b*s,cw*s,ch*s);x.fill();}
+      var CR='#E6DECF',MU='#B5953A',BR='#5B3A24',GR='#A69F93';
+      R(MU,0,0,160,230);
+      [[0,25,CR],[25,20,GR],[45,23,BR],[68,24,CR],[92,26,GR],[118,22,BR],[140,20,CR]].forEach(function(b){R(b[2],b[0],0,b[1],20);});
+      R(CR,0,20,24,46,0);R(CR,10,34,40,84,18);R(BR,52,20,8,120,0);R(BR,62,74,9,128,0);
+      R(CR,74,92,28,138,14);R(GR,110,56,40,62,14);R(CR,124,118,36,56,0);R(GR,112,176,48,54,0);
+      R(GR,0,128,30,60,12);R(BR,0,190,40,40,0);R(CR,40,206,34,24,0);R(MU,102,206,10,24,0);
+      shagDraw(x,w,h,['rgba(255,250,240,1)','rgba(40,25,10,1)'],16000,0.07);});
+  TEX[k]=t;return t;
+}
+function MT(k){if(MTC[k])return MTC[k];var sp={walnutTop:['walnutV',0.55],walnutFlute:['flute',0.5],darkDoor:['darkH',0.45],rustic:['rusticV',0.72],fabric:['fabric',1],fabric2:['fabric2',1]}[k];
+  MTC[k]=new THREE.MeshStandardMaterial({map:getTex(sp[0]),roughness:sp[1],metalness:0});return MTC[k];}
+
+// Meuble télé 1 : Lukkodso en.casa, noyer, portes rainurées, niche centrale
+function tvLukkodso(it,g){
+  var L=1.50,D=0.40,H=0.40,leg=0.075,z0=IMG.cz-L/2,z1=IMG.cz+L/2,xf=W-D,x0=xf+0.012,t=0.02;
+  var wood=MT('walnutTop'),flute=MT('walnutFlute'),dark=MC('#2B2019',0.6);
+  [[x0+0.05,z0+0.06],[W-0.05,z0+0.06],[x0+0.05,z1-0.06],[W-0.05,z1-0.06]].forEach(function(p){box(p[0]-0.02,p[0]+0.02,0,leg,p[1]-0.02,p[1]+0.02,wood,g);});
+  box(xf-0.006,W,H-t,H,z0-0.006,z1+0.006,wood,g);
+  box(x0,W,leg,leg+t,z0,z1,wood,g);box(x0,W,leg,H-t,z0,z0+t,wood,g);box(x0,W,leg,H-t,z1-t,z1,wood,g);box(W-0.012,W,leg+t,H-t,z0,z1,wood,g);
+  var dw=(L-2*t-0.40)/2,za=z0+t,zb=za+dw,zc=zb+0.40,zd=z1-t;
+  box(xf,x0,leg+0.004,H-t-0.003,za+0.002,zb-0.002,flute,g);box(xf,x0,leg+0.004,H-t-0.003,zc+0.002,zd-0.002,flute,g);
+  box(x0,W-0.012,leg+t,H-t,zb,zb+t,wood,g);box(x0,W-0.012,leg+t,H-t,zc-t,zc,wood,g);
+  var sh=leg+t+(H-leg-2*t)/2;box(x0+0.004,W-0.012,sh-0.008,sh+0.008,zb+t,zc-t,wood,g);
+  box(xf-0.009,xf,0.17,0.31,zb-0.035,zb-0.026,dark,g);box(xf-0.009,xf,0.17,0.31,zc+0.026,zc+0.035,dark,g);
+  var bb=grp(g,'box');box(W-0.23,W-0.06,leg+t,leg+t+0.13,zb+t+0.03,zb+t+0.08,mat.white,bb);
+  ['#E8E0CF','#C9B79A','#8E7B63','#D8CCB8','#B9A88C'].forEach(function(c,i){box(W-0.29,W-0.07,sh+0.008,sh+0.008+0.12-i*0.008,zb+t+0.10+i*0.032,zb+t+0.128+i*0.032,MC(c,0.8),g);});
+  cyl(0.035,0.05,0.10,mat.clay,W-0.19,H+0.05,z0+0.10,g,20);accent.position.set(W-0.19,H+0.24,z0+0.10);
+  return {z0:z0,z1:z1,x0:x0,front:xf-0.006,h:H,niches:1};
+}
+// Meuble télé 2 : BESTÅ de l'annonce Vinted, plateau et caisson blancs, portes bois foncé
+function tvBestaVinted(it,g){
+  var L=1.80,D=0.42,H=0.38,z0=IMG.cz-L/2,z1=IMG.cz+L/2,xf=W-D,x0=xf+0.018,t=0.016;
+  var white=MC('#F2F0EB',0.5),door=MT('darkDoor');
+  box(x0-0.002,W,H-0.02,H,z0,z1,white,g);box(x0,W,0,0.02,z0,z1,white,g);box(x0,W,0.02,H-0.02,z0,z0+t,white,g);box(x0,W,0.02,H-0.02,z1-t,z1,white,g);box(W-0.01,W,0.02,H-0.02,z0,z1,white,g);
+  for(var k=0;k<3;k++){var a=z0+k*0.60,b=a+0.60;if(k)box(x0,W-0.01,0.02,H-0.02,a-0.008,a+0.008,white,g);box(xf,x0,0.006,H-0.022,a+0.002,b-0.002,door,g);}
+  var bb=grp(g,'box');box(W-0.25,W-0.07,H,H+0.158,z1-0.20,z1-0.15,mat.white,bb);
+  cyl(0.035,0.05,0.10,mat.clay,W-0.19,H+0.05,z0+0.10,g,20);accent.position.set(W-0.19,H+0.24,z0+0.10);
+  return {z0:z0,z1:z1,x0:x0,front:xf,h:H,niches:0};
+}
+// Table basse Leroy Merlin : 3 niveaux, rangement central en L, bois rustique
+function tableLM(it,g){
+  var hw=0.45,hd=0.25,H=0.42,t=0.022,ft=0.03,w=MT('rustic'),blk=MC('#1E1B18',0.6);
+  [[-hd+0.04,-hw+0.05],[hd-0.04,-hw+0.05],[-hd+0.04,hw-0.05],[hd-0.04,hw-0.05]].forEach(function(p){box(p[0]-0.022,p[0]+0.022,0,ft,p[1]-0.035,p[1]+0.035,blk,g);});
+  box(-hd,hd,ft,ft+t,-hw,hw,w,g);box(-hd,hd,H-t,H,-hw,hw,w,g);
+  box(-hd,hd,ft+t,H-t,-hw,-hw+t,w,g);
+  var ym=ft+t+0.165;box(-hd,hd,ym,ym+t,-0.12,hw,w,g);
+  box(-hd,hd,ft+t,ym,-0.12,-0.12+t,w,g);box(-hd,hd,ym+t,H-t,0.14,0.14+t,w,g);box(-hd,hd,ft+t,ym,hw-t,hw,w,g);
+  rbox(-0.17,0.17,ft+t,ft+t+0.14,-hw+t+0.025,-0.15,MC('#B48C58',0.95),g,0.015);
+  box(-0.15,0.15,ft+t,ft+t+0.10,0.12,0.40,MC('#D8D3CA',0.7),g);
+  box(-0.10,0.12,ym+t,ym+t+0.05,0.20,0.40,MC('#E6DECE',0.8),g);
+  box(-0.12,0.10,H,H+0.03,-0.32,-0.10,MC('#E8E0CF',0.8),g);cyl(0.035,0.035,0.07,MC('#EFE9DF',0.6),0.04,H+0.035,0.26,g,20);
+}
+// Canapé DYLANE : accoudoirs carrés, assises surpiquées en bandes, pieds noirs
+function sofaDylane(it,g,open){
+  var D=1.02,z0=0,z1=2.0,aw=0.25,ah=0.64,f=MT('fabric'),f2=MT('fabric2'),blk=MC('#2A2522',0.6),seam=MC('#8E8B85',0.95);
+  [[0.06,z0+0.06],[D-0.06,z0+0.06],[0.06,z1-0.06],[D-0.06,z1-0.06]].forEach(function(p){box(p[0]-0.035,p[0]+0.035,0,0.05,p[1]-0.035,p[1]+0.035,blk,g);});
+  rbox(0.0,open?0.30:D,0.05,0.41,z0+aw,z1-aw,f,g,0.02);
+  rbox(0.0,D,0.05,ah,z0,z0+aw,f,g,0.04);rbox(0.0,D,0.05,ah,z1-aw,z1,f,g,0.04);
+  for(var q=1;q<4;q++){var yq=0.05+q*(ah-0.05)/4;[z0,z1-aw].forEach(function(za){box(D-0.004,D+0.002,yq-0.003,yq+0.003,za+0.03,za+aw-0.03,seam,g);});}
+  rbox(0.0,0.20,0.41,0.86,z0+aw,z1-aw,f,g,0.04);
+  var cw=(z1-z0-2*aw)/2;
+  for(var k=0;k<2;k++){var a=z0+aw+k*cw,b=a+cw;
+    var bk=rbox(0.05,0.29,0.48,0.95,a+0.01,b-0.01,f2,g,0.06);bk.rotation.z=0.10;
+    if(!open){rbox(0.24,D-0.01,0.41,0.52,a+0.006,b-0.006,f2,g,0.035);
+      for(var s=1;s<4;s++){var zq=a+s*cw/4;box(0.26,D-0.03,0.519,0.523,zq-0.004,zq+0.004,seam,g);box(D-0.014,D-0.004,0.43,0.51,zq-0.004,zq+0.004,seam,g);}}}
+  if(!open){var cu=grp(g,'cushion');var c=rbox(0.27,0.40,0.50,0.88,z1-aw-0.50,z1-aw-0.08,mat.clay,cu,0.06);c.rotation.z=0.12;
+    var pl=rbox(0.30,D-0.05,0.52,0.555,z0+aw+0.15,z0+aw+0.60,mat.sand,g,0.02);pl.rotation.y=0.06;}
+}
+function bedDylane(it,g){
+  sofaDylane(it,g,true);
+  var b=bedBox(it),mx0=0.30,mx1=b.fwd,mb=0.36,mt=0.56,metal=MC('#1B1B1B',0.45,0.5);
+  rbox(mx0,mx1,mb,mt,b.z0,b.z1,MC('#F4F2ED',0.9),g,0.03);
+  for(var i=1;i<10;i++){var xq=mx0+i*(mx1-mx0)/10;box(xq-0.003,xq+0.003,mt-0.001,mt+0.002,b.z0+0.03,b.z1-0.03,MC('#DCD8D0',0.9),g);}
+  for(var j=1;j<7;j++){var zq=b.z0+j*b.along/7;box(mx0+0.03,mx1-0.03,mt-0.001,mt+0.002,zq-0.003,zq+0.003,MC('#DCD8D0',0.9),g);}
+  [b.z0-0.012,b.z1].forEach(function(zz){box(mx0+0.05,mx1-0.01,mb-0.05,mb-0.02,zz,zz+0.012,metal,g);});
+  box(mx1-0.03,mx1,mb-0.05,mb-0.02,b.z0,b.z1,metal,g);
+  [[mx1-0.07,b.z0+0.02],[mx1-0.07,b.z1-0.02],[1.35,b.z0+0.02],[1.35,b.z1-0.02]].forEach(function(p){box(p[0]-0.012,p[0]+0.012,0,mb-0.05,p[1]-0.012,p[1]+0.012,metal,g);});
+  rbox(0.90,1.12,0.07,0.31,b.z0+0.06,b.z1-0.06,MT('fabric2'),g,0.05);
+  [0.27,0.73].forEach(function(f){var zq=b.z0+b.along*f;rbox(0.34,0.66,mt,mt+0.11,zq-0.30,zq+0.30,mat.linen,g,0.05);});
+  rbox(1.05,mx1-0.03,mt,mt+0.035,b.z0+0.04,b.z1-0.04,mat.sand,g,0.015);
+}
+// Tapis : plateau texturé + épaisseur
+function rugCustom(it,g){
+  var d=dimsOf(it),shag=it.id==='tp_shaggy',th=shag?0.035:0.022,k=shag?'shaggy':'vintage';
+  box(-d.w/2,d.w/2,0,th,-d.d/2,d.d/2,MC(shag?'#CDBD9B':'#B5953A',1),g);
+  var m=new THREE.MeshStandardMaterial({map:getTex(k),bumpMap:getTex(k),bumpScale:shag?0.25:0.12,roughness:1});
+  var pl=new THREE.Mesh(new THREE.PlaneGeometry(d.w,d.d),m);pl.rotation.x=-Math.PI/2;pl.position.y=th+0.0015;pl.receiveShadow=true;g.add(pl);
+}
+
+/* ---------- Meubles de l'ensemble choisi (volumes d'après les annonces) ---------- */
+// Meuble télé : contre le mur de projection, centré sous l'image
+function buildTV(it){
+  var g=tvG;clearGroup(g);
+  if(it.id==='az_tv_s3')return tvLukkodso(it,g);if(it.id==='vt_besta_s2')return tvBestaVinted(it,g);
+  var d=dimsOf(it),z0=IMG.cz-d.w/2,z1=IMG.cz+d.w/2,xf=W-d.d,x0=xf+0.018,y1=d.h,t=0.016; // xf : devant des portes, x0 : devant du caisson
+  var legH={socle:0,fuseaux:0.13,'métal':0.15,courts:0.075}[it.legs]||0,y0=legH;
+  var body=MC(it.color,0.7),door=MC(it.accent||it.color,0.66);
+  box(x0,W,y1-t,y1,z0,z1,body,g);box(x0,W,y0,y0+t,z0,z1,body,g);box(W-0.012,W,y0+t,y1-t,z0,z1,body,g);
+  box(x0,W,y0+t,y1-t,z0,z0+t,body,g);box(x0,W,y0+t,y1-t,z1-t,z1,body,g);
+  var lay=FRONT[it.id]||[['D',1],['D',1]],tot=lay.reduce(function(s,c){return s+c[1];},0),inner=y1-y0-2*t;
+  var za=z0+t,span=d.w-2*t,niches=[];
+  lay.forEach(function(c,i){var zb=za+span*c[1]/tot;
+    if(i>0)box(x0,W-0.012,y0+t,y1-t,za-0.008,za+0.008,body,g);
+    if(c[0]==='D')box(xf,x0,y0+0.006,y1-0.004,za+0.003,zb-0.003,door,g);
+    else if(c[0]==='T'){var ym=y1-t-inner*0.4;box(x0+0.01,W-0.012,ym-t,ym,za,zb,body,g);box(xf,x0,ym-0.004,y1-0.004,za+0.003,zb-0.003,door,g);}
+    else niches.push([za,zb]);
+    za=zb;});
+  var shelfY=null;
+  if(inner>=0.33){shelfY=y0+t+inner/2;niches.forEach(function(n){box(x0+0.01,W-0.012,shelfY-0.008,shelfY+0.008,n[0],n[1],body,g);});}
+  if(legH>0)legs4(x0,W,z0,z1,legH,it.legs==='courts'?'droit':it.legs,it.legs==='métal'?mat.metal:door,g,0.05);
+  var bb=grp(g,'box'),base=shelfY?shelfY+0.008:y0+t,bh=Math.min(0.158,(shelfY?y1-t-base:inner)-0.012);
+  if(niches.length){var mz=(niches[0][0]+niches[0][1])/2;box(W-0.23,W-0.05,base,base+bh,mz-0.025,mz+0.025,mat.white,bb);}
+  else box(W-0.23,W-0.05,y1,y1+0.158,z1-0.20,z1-0.15,mat.white,bb);
+  if(niches.length>1){var n2=niches[1];box(W-0.30,W-0.04,y0+t,y0+t+0.07,n2[0]+0.03,Math.min(n2[1]-0.03,n2[0]+0.27),mat.sage,g);}
+  cyl(0.035,0.05,0.10,mat.clay,W-0.19,y1+0.05,z0+0.08,g,20);
+  accent.position.set(W-0.19,y1+0.24,z0+0.08);
+  return {z0:z0,z1:z1,x0:x0,front:xf,h:y1,niches:niches.length};
+}
+// Bureau : dans le coin fenêtre / mur de projection
+function buildDesk(it){
+  var g=deskG;clearGroup(g);
+  var d=dimsOf(it),x0=W-d.w,x1=W,D=d.d,h=d.h,top=MC(it.color,0.62),acc=MC(it.accent||it.color,0.6);
+  box(x0,x1,h-0.025,h,0,D,top,g);
+  if(it.legs==='panneau'){box(x0,x0+0.02,0,h-0.025,0.01,D-0.01,top,g);box(x1-0.02,x1,0,h-0.025,0.01,D-0.01,top,g);box(x0+0.02,x1-0.02,h-0.30,h-0.025,0.01,0.03,top,g);}
+  else legs4(x0,x1,0,D,h-0.025,it.legs==='compas'?'compas':'droit',it.legs==='compas'?acc:top,g,0.035);
+  if(it.drawers>=3){var c0=x1-0.42,c1=x1-(it.legs==='panneau'?0.02:0.055),n=it.drawers,hh=(h-0.075)/n;
+    box(c0,c1,0.03,h-0.025,0.03,D-0.02,top,g);
+    for(var k=0;k<n;k++){var yb=0.035+k*hh;box(c0+0.006,c1-0.006,yb+0.004,yb+hh-0.004,D-0.02,D-0.008,acc,g);}}
+  else if(it.drawers>=1){var w=Math.min(0.5,d.w-0.25),mx=(x0+x1)/2;
+    box(mx-w/2-0.01,mx+w/2+0.01,h-0.11,h-0.025,0.03,D-0.02,top,g);
+    box(mx-w/2,mx+w/2,h-0.105,h-0.03,D-0.02,D-0.008,it.accent&&it.accent!==it.color?acc:MC(tint(it.color,-0.06),0.6),g);}
+  return {x0:x0,x1:x1,cx:(x0+x1)/2,depth:D,h:h};
+}
+// Support du projecteur : au bout du canapé, sous l'objectif
+function buildSupport(it){
+  var g=supG;clearGroup(g);
+  var d=dimsOf(it),sx=0.61,sz=IMG.cz,h=d.h,m=MC(it.color,0.7),legM=it.accent?MC(it.accent,0.7):m;
+  if(d.round){var r=d.w/2;cyl(r,r,0.025,m,sx,h-0.0125,sz,g,40);
+    if(it.legs==='pied central'){cyl(0.028,0.034,h-0.025,m,sx,(h-0.025)/2,sz,g,16);cyl(r*0.62,r*0.66,0.02,m,sx,0.01,sz,g,32);}
+    else{var s=r*0.62;legs4(sx-s,sx+s,sz-s,sz+s,h-0.025,it.legs,legM,g,0);cyl(r*0.72,r*0.72,0.018,m,sx,0.16,sz,g,32);}
+  }else{var x0=sx-d.d/2,x1=sx+d.d/2,z0=sz-d.w/2,z1=sz+d.w/2;
+    box(x0,x1,h-0.022,h,z0,z1,m,g);
+    legs4(x0,x1,z0,z1,h-0.022,it.legs==='fuseaux'?'fuseaux':'droit',legM,g,0.022);
+    if(it.drawers>=1){var dh=Math.min(0.11*it.drawers,0.22),one=dh/it.drawers;box(x0+0.01,x1-0.01,h-0.022-dh,h-0.022,z0+0.01,z1-0.01,m,g);
+      for(var k=0;k<it.drawers;k++){var yt=h-0.022-k*one;box(x1-0.002,x1+0.008,yt-one+0.008,yt-0.008,z0+0.03,z1-0.03,MC(tint(it.accent||it.color,0.04),0.7),g);}}
+    box(x0+0.01,x1-0.01,0.16,0.18,z0+0.01,z1-0.01,m,g);}
+  return {h:h};
+}
+// Table basse (centrée devant le canapé par setSofa)
+function buildTable(it){
+  var g=tableG;clearGroup(g);if(it.id==='lm_table3'){tableLM(it,g);return;}var d=dimsOf(it),r=d.w/2,h=d.h,m=MC(it.color,0.5),a=MC(it.accent||it.color,0.55);
+  if(it.legs==='rect3'){var hw=d.w/2,hd=d.d/2,t=0.02;box(-hd,hd,h-t,h,-hw,hw,m,g);box(-hd,hd,0,0.02,-hw,hw,m,g);box(-hd,hd,0.02,h-t,-hw,-hw+0.018,m,g);box(-hd,hd,0.02,h-t,hw-0.018,hw,m,g);box(-hd,hd,0.185,0.2,-0.30,0.30,m,g);box(-0.01,0.01,0.02,h-t,-0.30,0.30,MC(tint(it.color,-0.06),0.6),g);return;}
+  if(it.id==='ik_gladom'){cyl(r,r,0.03,m,0,h-0.015,0,g,40);
+    var rim=new THREE.Mesh(new THREE.TorusGeometry(r-0.01,0.01,8,40),m);rim.rotation.x=Math.PI/2;rim.position.y=h;g.add(rim);
+    for(var k=0;k<4;k++){var an=k*Math.PI/2+Math.PI/4;var lg=cyl(0.009,0.009,h-0.01,m,Math.cos(an)*r*0.66,(h-0.01)/2,Math.sin(an)*r*0.66,g,8);lg.rotation.set(Math.sin(an)*0.12,0,-Math.cos(an)*0.12);}
+    var ring=new THREE.Mesh(new THREE.TorusGeometry(r*0.7,0.008,8,32),m);ring.rotation.x=Math.PI/2;ring.position.y=h*0.42;g.add(ring);}
+  else{cyl(r,r,0.025,m,0,h-0.0125,0,g,40);var s=r*0.6;legs4(-s,s,-s,s,h-0.025,it.legs,it.accent?a:m,g,0);}
+}
+// Canapé de l'ensemble : contre le mur de la chambre, il finit au support du projecteur (z = 2,00)
+function sofaBox(it){var d=dimsOf(it);return {L:d.w,D:d.d,H:d.h,z0:2.0-d.w,z1:2.0};}
+function buildSofa(it){
+  var g=sofaSetG;clearGroup(g);if(it.id==='md_dylane'){sofaDylane(it,g,false);return;}var s=sofaBox(it),m=MC(it.color,0.95),m2=MC(tint(it.color,0.04),0.95);
+  var fl=FLOOR_SOFA[it.id],legH=fl?0:0.08,seat=fl?Math.min(0.32,s.H*0.5):0.44,aw=ARMS[it.id]?0.11:0,am=it.accent?MC(it.accent,0.6):m;
+  var legM=/bois/.test(it.mat)?MC('#C9A27A',0.6):mat.black;
+  if(!fl)legs4(0.02,s.D,s.z0+aw,s.z1-aw,legH,'droit',legM,g,0.05);
+  rbox(0.02,s.D,legH,seat-0.12,s.z0+aw,s.z1-aw,m,g,0.03);
+  rbox(0.20,s.D,seat-0.13,seat,s.z0+aw+0.015,s.z1-aw-0.015,m2,g,0.045);
+  rbox(0.0,0.22,seat-0.13,s.H,s.z0+aw,s.z1-aw,m,g,0.05);
+  if(aw){var ah=Math.min(s.H-0.12,0.64);rbox(0,s.D,legH,ah,s.z0,s.z0+aw,am,g,0.03);rbox(0,s.D,legH,ah,s.z1-aw,s.z1,am,g,0.03);}
+  var cu=grp(g,'cushion');var c=rbox(0.22,0.36,seat-0.03,Math.min(seat+0.40,s.H+0.05),s.z1-aw-0.52,s.z1-aw-0.06,mat.clay,cu,0.06);c.rotation.z=0.18;
+  var pl=rbox(0.26,s.D-0.02,seat,seat+0.04,s.z0+aw+0.2,s.z0+aw+0.66,mat.sand,g,0.02);pl.rotation.y=0.08;
+}
+// Couchage : le long du mur si le canapé est assez long, sinon il se déplie vers la pièce
+function bedBox(it){if(it.id==='md_dylane')return {along:1.40,fwd:2.18,z0:0.30,z1:1.70};var s=sofaBox(it),b=it.bed.map(function(v){return v/100;}),a=Math.min(b[0],b[1]),c=Math.max(b[0],b[1]),along,fwd;
+  if(s.L>=c-0.02){along=c;fwd=a;}else{along=a;fwd=c;}
+  var zc=(s.z0+s.z1)/2,z0=zc-along/2,z1=zc+along/2;if(z1>2.0){z0-=z1-2.0;z1=2.0;}if(z0<0){z1-=z0;z0=0;}
+  return {along:along,fwd:fwd,z0:z0,z1:z1};}
+function buildBed(it){
+  var g=bedSetG;clearGroup(g);if(it.id==='md_dylane'){bedDylane(it,g);return;}var b=bedBox(it),m=MC(it.color,0.95),fl=FLOOR_SOFA[it.id],legH=fl?0:0.08;
+  if(!fl)legs4(0.02,b.fwd,b.z0,b.z1,legH,'droit',mat.black,g,0.06);
+  rbox(0.0,b.fwd,legH,0.33,b.z0,b.z1,m,g,0.05);
+  var pw=Math.min(0.76,b.along*0.42);[0.27,0.73].forEach(function(f){var zq=b.z0+b.along*f;rbox(0.05,0.40,0.33,0.43,zq-pw/2,zq+pw/2,mat.linen,g,0.05);});
+  rbox(b.fwd*0.38,b.fwd-0.02,0.33,0.36,b.z0+0.05,b.z1-0.05,mat.sand,g,0.015);
+}
+// TCL C1 posé sur le support : l'objectif monte avec la hauteur du support
+var tcl=grp(scene,'tcl'),head=new THREE.Group();
+function placeTCL(h){
+  clearGroup(tcl);
+  cyl(0.062,0.066,0.025,mat.grey,0.53,h+0.0125,IMG.cz,tcl,32);
+  box(0.515,0.545,h+0.025,h+0.15,IMG.cz-0.075,IMG.cz-0.063,mat.grey,tcl);box(0.515,0.545,h+0.025,h+0.15,IMG.cz+0.063,IMG.cz+0.075,mat.grey,tcl);
+  head=new THREE.Group();head.position.set(0.532,h+0.15,IMG.cz);tcl.add(head);
+  var hc=cyl(0.066,0.066,0.135,mat.grey,0,0,0,head,32);hc.rotation.z=Math.PI/2;
+  var ln=cyl(0.03,0.03,0.008,mat.lens,0.0675,0,0,head,24);ln.rotation.z=Math.PI/2;
+  LENS.y=h+0.15;GEO.tilt=Math.atan((IMG.y0+IMG.h/2-LENS.y)/(W-LENS.x));head.rotation.z=GEO.tilt;
+  updateBeam();
+}
+
+// Suspension conservée (papier plié)
+var pend=grp(scene,'pendant');
+cyl(0.004,0.004,0.48,mat.black,1.425,H-0.24,1.955,pend,6);
+var sh=new THREE.Mesh(new THREE.CylinderGeometry(0.11,0.20,0.34,9,1,true),mat.shade);sh.position.set(1.425,2.02,1.955);sh.castShadow=false;pend.add(sh);
+var bulb=new THREE.Mesh(new THREE.SphereGeometry(0.035,12,10),new THREE.MeshBasicMaterial({color:'#fff1d6'}));bulb.position.set(1.425,2.0,1.955);pend.add(bulb);
+
+/* ---------- Image et faisceau ---------- */
+var imgMat=new THREE.MeshBasicMaterial({map:filmTex,toneMapped:false});
+var image=tag(new THREE.Mesh(new THREE.PlaneGeometry(IMG.w,IMG.h),imgMat),'image');
+image.rotation.y=-Math.PI/2;image.position.set(W-0.003,IMG.y0+IMG.h/2,IMG.cz);scene.add(image);
+var corners=[[IMG.cz-IMG.w/2,IMG.y0],[IMG.cz+IMG.w/2,IMG.y0],[IMG.cz+IMG.w/2,IMG.y0+IMG.h],[IMG.cz-IMG.w/2,IMG.y0+IMG.h]].map(function(p){return new THREE.Vector3(W-0.004,p[1],p[0]);});
+var outlineGeo=new THREE.BufferGeometry().setFromPoints(corners.concat([corners[0]]));
+var outlineMat=new THREE.LineDashedMaterial({color:'#6b675e',dashSize:0.06,gapSize:0.04});
+var outline=new THREE.Line(outlineGeo,outlineMat);outline.computeLineDistances();scene.add(outline);
+var beamGeo=new THREE.BufferGeometry();
+var beam=new THREE.Mesh(beamGeo,new THREE.MeshBasicMaterial({color:'#cfdcff',transparent:true,opacity:0.05,blending:THREE.AdditiveBlending,depthWrite:false,side:THREE.DoubleSide}));
+beam.raycast=function(){};scene.add(beam);
+function updateBeam(){
+  head.updateMatrixWorld(true);var lw=new THREE.Vector3(0.0675,0,0);head.localToWorld(lw);
+  var bv=[];for(var q=0;q<4;q++){var c1=corners[q],c2=corners[(q+1)%4];bv.push(lw.x,lw.y,lw.z,c1.x,c1.y,c1.z,c2.x,c2.y,c2.z);}
+  beamGeo.setAttribute('position',new THREE.Float32BufferAttribute(bv,3));beamGeo.computeBoundingSphere();
+}
+
+
+/* ---------- Cotes (recalculées pour chaque ensemble) ---------- */
+var cotes=grp();cotes.visible=false;
+var cotesLineMat=new THREE.LineBasicMaterial({color:'#5b5a54'}),cotesDash=new THREE.LineDashedMaterial({color:'#5b5a54',dashSize:0.05,gapSize:0.035});
+function line(pts,m,parent){var g=new THREE.BufferGeometry().setFromPoints(pts.map(function(p){return new THREE.Vector3(p[0],p[1],p[2]);}));var l=new THREE.Line(g,m);if(m.isLineDashedMaterial)l.computeLineDistances();(parent||cotes).add(l);return l;}
+function label(text,x,y,z,ext){var d=document.createElement('div');d.className='lbl';d.textContent=text;var o=new THREE.CSS2DObject(d);o.position.set(x,y,z);o.userData.ext=!!ext;cotes.add(o);return o;}
+var y0=0.006;
+function arc(cx,cz,r,a0,a1){var pts=[];for(var i=0;i<=40;i++){var a=a0+(a1-a0)*i/40;pts.push([cx+r*Math.cos(a),y0,cz+r*Math.sin(a)]);}return pts;}
+function buildCotes(){
+  var g=GEO;clearGroup(cotes);
+  line([[0,y0,-0.35],[W,y0,-0.35]],cotesLineMat);line([[0,y0,-0.42],[0,y0,-0.28]],cotesLineMat);line([[W,y0,-0.42],[W,y0,-0.28]],cotesLineMat);
+  line([[W+0.35,y0,0],[W+0.35,y0,L]],cotesLineMat);line([[W+0.28,y0,0],[W+0.42,y0,0]],cotesLineMat);line([[W+0.28,y0,L],[W+0.42,y0,L]],cotesLineMat);
+  label('2,85 m',W/2,y0,-0.35,true);label('3,91 m',W+0.35,y0,3.45,true);
+  line(arc(1.80,L,0.95,0,-Math.PI),cotesDash);line([[1.80,y0,L],[1.80,y0,L-0.95]],cotesDash);
+  label("Porte d'entrée : "+cmF(g.doorMargin)+' de marge',2.05,y0,3.0);
+  var a=g.leafHit;line(arc(1.78,0,0.6,Math.PI,a),cotesDash);line([[1.78,y0,0],[1.78+0.6*Math.cos(a),y0,0.6*Math.sin(a)]],cotesDash);
+  label('Battant ≈ '+Math.round(180-a*180/Math.PI)+'°',1.62,y0,0.62);
+  line([[LENS.x,y0,LENS.z],[W,y0,LENS.z]],cotesDash);label('Recul 2,25 m',1.72,y0,LENS.z-0.13);
+  label('Image 80″ · 177 × 100 cm · bas à 50 cm',W-0.5,IMG.y0+IMG.h+0.08,IMG.cz);
+  label('Objectif : 60 cm du mur · '+cmR(LENS.y)+' de haut',0.75,LENS.y+0.28,2.66);
+  label('Canapé → meuble télé : '+fr(g.passage)+' m'+(state.sofa==='deplie'?' (table rangée)':''),1.64,y0,1.72);
+  line([[g.sofa.front,y0,1.62],[g.tv.front,y0,1.62]],cotesDash);
+  var dzm=(g.desk.depth+g.tv.z0)/2;
+  line([[2.64,0.40,g.desk.depth],[2.64,0.40,g.tv.z0]],cotesDash);label('Bureau → meuble télé : '+cmF(g.deskGap),2.35,0.42,dzm);
+}
+
+/* ---------- Lumières ---------- */
+var hemi=new THREE.HemisphereLight('#f4f6f8','#cdbfa6',0.55);scene.add(hemi);
+var sun=new THREE.DirectionalLight('#fff4e2',2.3);sun.position.set(1.0,3.3,-2.9);sun.target.position.set(1.4,0,1.4);scene.add(sun);scene.add(sun.target);
+sun.castShadow=true;sun.shadow.mapSize.set(2048,2048);var sc=sun.shadow.camera;sc.left=-3.5;sc.right=3.5;sc.top=3.5;sc.bottom=-3.5;sc.near=0.5;sc.far=12;sun.shadow.bias=-0.0004;sun.shadow.normalBias=0.02;
+var winFill=new THREE.PointLight('#dfeaf5',0.5,6,1.6);winFill.position.set(1.2,1.6,0.6);scene.add(winFill);
+var lamp=new THREE.PointLight('#ffc48a',0,8,1.4);lamp.position.set(1.425,1.92,1.955);lamp.castShadow=true;lamp.shadow.mapSize.set(1024,1024);lamp.shadow.bias=-0.002;lamp.shadow.radius=4;scene.add(lamp);
+var glow=new THREE.PointLight('#c9d4ff',0,5.5,1.5);glow.position.set(2.15,1.0,IMG.cz);scene.add(glow);
+var accent=new THREE.PointLight('#ffb36b',0,2.2,2);accent.position.set(2.66,0.62,1.4);scene.add(accent);
+
+/* ---------- Modes ---------- */
+var state={mode:'soiree',view:'maquette',sofa:'actuel',style:'S1',site:'IKEA'};
+function setMode(m){
+  state.mode=m;
+  var day=m==='jour',eve=m==='soiree',cin=m==='cine';
+  scene.background=new THREE.Color(day?'#dfe4e5':eve?'#1a1d24':'#08090b');
+  hemi.intensity=day?0.6:eve?0.16:0.05;hemi.color.set(day?'#f4f6f8':'#8a96b4');hemi.groundColor.set(day?'#cdbfa6':'#3a3128');
+  sun.visible=day;winFill.intensity=day?0.5:0;
+  lamp.intensity=eve?1.7:0;mat.shade.emissiveIntensity=eve?0.85:0;bulb.visible=eve;
+  image.visible=cin;beam.visible=cin;glow.intensity=cin?0.9:0;accent.intensity=cin?0.25:0;outline.visible=!cin;
+  outlineMat.color.set(day?'#6b675e':'#b9b4a8');
+  var lc=day?'#55544e':'#d8d3c6';cotesLineMat.color.set(lc);cotesDash.color.set(lc);
+  mat.screen.emissiveIntensity=cin?0.05:0.6;
+  window.__bd.material.map=day?facadeDay:facadeNight;window.__bd.material.needsUpdate=true;
+  renderer.toneMappingExposure=day?1.0:eve?1.15:1.1;
+  press('mode',m);
+}
+var EUR=new Intl.NumberFormat('fr-FR',{style:'currency',currency:'EUR'});
+function eur(v){return EUR.format(v);}
+function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+function r2(v){return Math.round(v*100)/100;}
+function fr(v,d){return v.toFixed(d==null?2:d).replace('.',',');}
+function cmF(v){return Math.floor(v*100+1e-6)+' cm';}
+function cmR(v){return Math.round(v*100)+' cm';}
+function delivered(it){return r2(it.price+(it.ship||0));}
+function curIds(){return SETS[state.style][state.site];}
+function curIt(cat){var id=curIds()[SLOTS.indexOf(cat)];return id?IT[id]:null;}
+// Frais IKEA (carte IKEA Family, barème ikea.com/fr du 05/11/2026)
+function ikeaFee(ids){var ik=ids.filter(function(i){return i&&IT[i].site==='IKEA';}).map(function(i){return IT[i];});
+  if(!ik.length)return 0;
+  if(ik.some(function(x){return x.cat==='tv'||x.cat==='sofa';}))return ik.reduce(function(s,x){return s+x.price;},0)<=500?40:60;
+  return ik.length===1?2:9;}
+function setTotals(st,si){var ids=SETS[st][si],b=ids.slice(0,4),sum=function(a){return a.reduce(function(s,i){return s+delivered(IT[i]);},0);};
+  var fb=ikeaFee(b),fs=ids[4]?ikeaFee(ids.slice(0,5)):null;
+  return {base:r2(sum(b)+fb),feeBase:fb,withsofa:ids[4]?r2(sum(ids.slice(0,5))+fs):null,feeSofa:fs};}
+var PROJ=200,CAP1=650,CAP2=850;
+
+function setSofa(s){
+  var sf=curIt('sofa');if(s!=='actuel'&&!sf)s='actuel';
+  state.sofa=s;sofaCur.visible=s==='actuel';sofaSetG.visible=s==='ensemble';bedSetG.visible=s==='deplie';
+  var o;
+  if(s==='actuel')o={front:0.85,z0:0,z1:2.0};
+  else if(s==='ensemble'){var sb=sofaBox(sf);o={front:sb.D,z0:sb.z0,z1:sb.z1};}
+  else{var bb=bedBox(sf);o={front:bb.fwd,z0:bb.z0,z1:bb.z1};}
+  GEO.sofa=o;tableG.visible=s!=='deplie';tableG.position.set(o.front+0.60,0,(o.z0+o.z1)/2-0.05);var rid=curIds()[5],S4=state.style==='S4';if(S4)tableG.position.z=1.30;buildRug(rid?IT[rid]:null);GEO.rug=null;if(rid){var rd=dimsOf(IT[rid]),rx1=GEO.tv.front-0.03,rx0=rx1-rd.w,rz0=Math.max(GEO.desk.depth+0.02,(S4?1.30:(o.z0+o.z1)/2)-rd.d/2),rz1=rz0+rd.d;if(rz1>2.92){rz0-=rz1-2.92;rz1=2.92;}rugG.position.set((rx0+rx1)/2,0,(rz0+rz1)/2);GEO.rug={x0:rx0,x1:rx1,z0:rz0,z1:rz1};}rugG.visible=!!rid;press('sofa',s);refreshDerived();
+}
+// Battant gauche (gond x = 0,58, 60 cm) contre le canapé
+function leftLeafDeg(z0,D){if(z0>=0.6)return 165;var xm=Math.min(D,0.58+Math.sqrt(Math.max(0,0.36-z0*z0)));return xm<=0.58?90:Math.atan2(z0,xm-0.58)*180/Math.PI;}
+function refreshDerived(){
+  var g=GEO;g.passage=g.tv.front-g.sofa.front;g.deskGap=g.tv.z0-g.desk.depth;
+  // porte d'entrée : gond (1,80 ; 3,91), 95 cm, contre le coin du meuble télé
+  g.doorMargin=Math.hypot(g.tv.front-1.80,L-g.tv.z1)-0.95;
+  // battant droit (gond x = 1,78, 60 cm) contre le flanc du bureau
+  var dxh=g.desk.x0-1.78;g.leafHit=dxh>=0.6?0:Math.atan2(Math.min(g.desk.depth,Math.sqrt(0.36-dxh*dxh)),dxh);
+  g.leftLeaf=leftLeafDeg(g.sofa.z0,g.sofa.front);
+  g.chairClash=state.sofa==='deplie'&&g.sofa.front>g.desk.cx-0.31&&g.sofa.z0<g.desk.depth+0.66;
+  buildCotes();renderPoints();renderSpecs();
+}
+var infoKey=null;
+function applySet(st,si){
+  if(!SETS[st])st='S1';if(!SETS[st][si])si=SETS[st].Mix?'Mix':Object.keys(SETS[st])[0];
+  state.style=st;state.site=si;
+  var sf=curIt('sofa');
+  GEO.tv=buildTV(curIt('tv'));GEO.desk=buildDesk(curIt('desk'));GEO.sup=buildSupport(curIt('support'));buildTable(curIt('table'));
+  if(sf){buildSofa(sf);buildBed(sf);}else{clearGroup(sofaSetG);clearGroup(bedSetG);}
+  mon.position.set(GEO.desk.cx-2.475,GEO.desk.h-0.75,0);chair.position.set(GEO.desk.cx-2.475,0,GEO.desk.depth-0.60);shelves.position.x=GEO.desk.cx-2.48;
+  placeTCL(GEO.sup.h);
+  press('style',st);press('site',si);
+  document.querySelectorAll('[data-group="site"] button').forEach(function(b){b.disabled=!SETS[st][b.dataset.v];});
+  document.querySelectorAll('[data-group="sofa"] button').forEach(function(b){if(b.dataset.v!=='actuel')b.disabled=!sf;});
+  try{localStorage.setItem('salon-japandi-set',JSON.stringify({style:st,site:si}));}catch(e){}
+  renderLists();setSofa(st==='S4'&&state.sofa==='actuel'?'ensemble':state.sofa);
+  if(infoKey&&!info.hidden)showInfo(infoKey);
+}
+function feeLabel(f){return f===2?'point relais, carte IKEA Family':f===9?'colis postal, carte IKEA Family':f===60?'devant chez toi (commande de plus de 500 €), carte IKEA Family':'devant chez toi, carte IKEA Family';}
+function itemRow(it,role){
+  var tags=[];
+  if(state.site!=='Mix'&&state.style!=='S4'&&it.site!==state.site)tags.push('pris chez '+it.site+' : rien de conforme sur '+state.site);
+  if(it.style!==state.style)tags.push('style '+STY[it.style].toLowerCase());
+  if(it.closed==='en partie')tags.push('fermé en partie');
+  var where=it.pickup?'main propre · '+it.loc:it.ship?'dont envoi '+eur(it.ship):it.site==='IKEA'?'+ livraison IKEA':it.shipnote;
+  return '<tr><td><a href="'+esc(it.url)+'" target="_blank" rel="noopener">'+esc(it.title)+'</a><span class="dim">'+esc(it.site+' · '+it.dims+' cm · '+it.mat)+'</span></td>'+
+    '<td>'+esc(role)+(it.note?'<span class="dim">'+esc(it.note)+'</span>':'')+(tags.length?'<span class="dim warn">'+esc(tags.join(' · '))+'</span>':'')+'</td>'+
+    '<td class="num">'+eur(delivered(it))+'<span class="dim">'+esc(where)+'</span></td></tr>';
+}
+function renderLists(){
+  var ids=curIds(),T=setTotals(state.style,state.site),rows=[];
+  rows.push('<tr><td><a href="https://www.ldlc.com/fiche/PB00713658.html" target="_blank" rel="noopener">TCL C1</a><span class="dim">Full HD · 230 lm ISO · ratio 1,27:1</span></td><td>Projecteur<span class="dim">à guetter au Black Friday (27/11)</span></td><td class="num">≤ 200,00 €</td></tr>');
+  for(var i=0;i<4;i++)rows.push(itemRow(IT[ids[i]],ROLE[SLOTS[i]]));
+  var rg=ids[5]?IT[ids[5]]:null;if(rg)rows.push(itemRow(rg,'Tapis (hors total)').replace(eur(delivered(rg)),rg.price?eur(delivered(rg)):'à vérifier'));
+  if(T.feeBase)rows.push('<tr><td>Livraison IKEA<span class="dim">'+feeLabel(T.feeBase)+'</span></td><td>Une seule commande IKEA</td><td class="num">'+eur(T.feeBase)+'</td></tr>');
+  var tot=r2(T.base+PROJ),mg=r2(CAP1-tot);
+  rows.push('<tr class="total"><td>Total, projecteur compris<span class="dim">meubles seuls : '+eur(T.base)+' sur 450 €</span></td><td>Plafond 650 €'+(mg>=0?' · marge ≥ '+eur(mg):' · <span class="over">dépassé de '+eur(-mg)+'</span>')+'</td><td class="num'+(mg<0?' over':'')+'">≤ '+eur(tot)+'</td></tr>');
+  document.getElementById('list-body').innerHTML=rows.join('');
+  var sf=ids[4]?IT[ids[4]]:null,s2;
+  if(sf){var t2=r2(T.withsofa+PROJ),m2=r2(CAP2-t2);
+    s2='<tr><td><a href="'+esc(sf.url)+'" target="_blank" rel="noopener">'+esc(sf.title)+'</a><span class="dim">'+esc(sf.site+' · '+sf.dims+' cm · couchage '+sf.bed[0]+' × '+sf.bed[1]+(sf.pickup?' · main propre, '+sf.loc:''))+'</span>'+
+      (T.feeSofa!==T.feeBase?'<span class="dim">livraison IKEA : '+eur(T.feeSofa)+' au lieu de '+eur(T.feeBase)+'</span>':'')+'</td>'+
+      '<td class="num">'+eur(T.withsofa)+'</td><td class="num">'+eur(t2)+'</td><td class="num'+(m2<0?' over':'')+'">'+(m2<0?'−'+eur(-m2):eur(m2))+'</td></tr>';}
+  else s2='<tr><td colspan="4">Aucun canapé convertible trouvé en style '+esc(STY[state.style].toLowerCase())+' sur '+esc(state.site)+'.</td></tr>';
+  document.getElementById('s2-body').innerHTML=s2;
+  var bb=document.getElementById('bud-big');bb.textContent='≤ '+eur(tot);bb.classList.toggle('over',mg<0);
+  document.getElementById('bud-small').textContent='sur 650 € · scénario 1, projecteur compris · '+STY[state.style]+' · '+SITE_NAME[state.site];
+  var pk=[];ids.slice(0,4).forEach(function(i){var x=IT[i];if(x.pickup&&pk.indexOf(x.loc)<0)pk.push(x.loc);});
+  document.getElementById('set-desc').textContent=STY[state.style]+' · '+SITE_NAME[state.site]+'. '+(pk.length?'À récupérer en main propre : '+pk.join(', ')+' (transport non compté).':'Tout est livré.');
+}
+function pt(cls,pill,b,t){return '<li><span class="pill '+cls+'">'+pill+'</span><span><b>'+esc(b)+'</b> '+esc(t)+'</span></li>';}
+function renderPoints(){
+  var g=GEO,tv=curIt('tv'),sp=curIt('support'),sf=curIt('sofa'),ids=curIds(),h=[];
+  h.push(pt('opt','Vue','Meilleures places côté projecteur.',"Avec ton canapé actuel, l'image est vue à 16° de biais depuis la place de droite, 27° au milieu et 37° côté fenêtre."));
+  var dm=Math.floor(g.doorMargin*100+1e-6);
+  h.push(pt(dm>=3?'keep':'opt',dm>=3?'OK':'Attention',"Porte d'entrée.","Le meuble télé s'arrête à "+cmF(L-g.tv.z1)+' du coin : la porte passe avec '+dm+' cm de marge.'));
+  var rd=Math.round(180-g.leafHit*180/Math.PI),ld=g.leftLeaf;
+  var lt=ld<=1?'Le gauche reste bloqué par le canapé, comme aujourd’hui.':ld>=160?'Le gauche s’ouvre en grand : le canapé commence à '+cmF(g.sofa.z0)+' de la fenêtre.':'Le gauche s’ouvre jusqu’à environ '+Math.round(ld)+'° avant de toucher le canapé.';
+  h.push(pt(rd>=95?'keep':'opt',rd>=95?'OK':'Serré','Porte-fenêtre.',(rd>=178?'Le battant droit s’ouvre en grand.':'Le battant droit s’ouvre jusqu’à environ '+rd+'° avant de toucher le bureau.')+' '+lt));
+  var gap=g.deskGap;
+  h.push(pt(gap<0.75?'opt':'keep',gap<0.75?'Serré':'OK',cmF(gap)+' entre le bureau et le meuble télé.',gap<0.75?'Pour te lever, recule la chaise en biais vers la pièce.':'La chaise recule sans gêne.'));
+  var under=IMG.y0-g.tv.h;
+  if(under<-0.001)h.push(pt('opt','Attention','Meuble télé plus haut que le bas de l’image.','Il dépasse de '+cmR(-under)+' : remonte l’image d’autant, ou choisis un meuble plus bas.'));
+  else if(under<0.03)h.push(pt('opt','Serré','Meuble télé à la limite de l’image.','Son plateau ('+cmR(g.tv.h)+') arrive au bas de l’image (50 cm) : ne pose rien dessus, ou remonte l’image de quelques centimètres.'));
+  else h.push(pt('keep','OK','Hauteur du meuble télé.','Son plateau est à '+cmR(g.tv.h)+', soit '+cmF(under)+' sous le bas de l’image.'));
+  var n=g.tv.niches;
+  if(tv.closed==='en partie')h.push(pt('opt','Rangement','Façade en partie ouverte.',(n>1?n+' niches restent visibles':'Une niche reste visible')+' : dossiers et jeux derrière les portes, la box dans une niche.'));
+  else if(!n)h.push(pt('opt','Box','Façade entièrement fermée.','La box se pose dessus, ou dans un compartiment dont la porte reste entrouverte pour le Wi-Fi.'));
+  else h.push(pt('keep','OK','Rangement fermé.','Tout est derrière des portes, sauf la niche de la box.'));
+  var deg=g.tilt*180/Math.PI;
+  h.push(pt(deg>10?'opt':'',deg>10?'Serré':'Info','Hauteur du projecteur.','Sur un support de '+cmR(dimsOf(sp).h)+', l’objectif du C1 est à environ '+cmR(LENS.y)+' de haut et vise '+fr(deg,1)+'° vers le haut. Le C1 corrige le trapèze.'));
+  if(state.sofa==='ensemble'&&sf)h.push(pt('','Canapé',"Canapé de l'ensemble.",'Il mesure '+sf.dims+' cm et laisse '+fr(g.passage)+' m jusqu’au meuble télé.'));
+  if(state.sofa==='deplie'&&sf){var bb=bedBox(sf),ps=g.passage;
+    h.push(pt(ps>=0.6?'keep':'opt',ps>=0.6?'OK':ps>=0.4?'Serré':'Attention','Canapé déplié.','Couchage '+Math.round(bb.along*100)+' × '+Math.round(bb.fwd*100)+' cm ('+Math.round(bb.fwd*100)+' vers la pièce) : il reste '+fr(ps)+' m jusqu’au meuble télé, table basse rangée.'+(g.chairClash?' Range la chaise sous le bureau pour la nuit.':'')));}
+  if(GEO.rug){var rgi=IT[ids[5]],chairOn=GEO.rug.x1>GEO.desk.cx-0.31;h.push(pt(chairOn?'opt':'keep',chairOn?'Serré':'OK','Tapis '+rgi.dims+' cm.','Posé de '+fr(GEO.rug.x0)+' à '+fr(GEO.rug.x1)+' m depuis le mur du canapé : les pieds avant du canapé sont dessus, il s’arrête à 3 cm du meuble télé et laisse passer la porte d’entrée.'+(chairOn?' La chaise de bureau roule sur son bord : sur un poil long, mets un tapis de sol sous la chaise ou recule le tapis.':'')));}
+  var base=ids.slice(0,4).map(function(i){return IT[i];}),pk=[];base.forEach(function(x){if(x.pickup&&pk.indexOf(x.loc)<0)pk.push(x.loc);});
+  if(pk.length)h.push(pt('opt','Transport','À récupérer en main propre : '+pk.join(', ')+'.','Le transport n’est pas compté. Sans voiture, prévois une course ou une livraison entre particuliers, à chiffrer avec chaque vendeur.'+(sf&&sf.pickup?' Le canapé du scénario 2 est à '+sf.loc+'.':'')));
+  var other=SLOTS.map(function(c,i){var x=ids[i]?IT[ids[i]]:null;return x&&state.site!=='Mix'&&state.style!=='S4'&&x.site!==state.site?ROLE[c].toLowerCase()+' ('+x.site+')':null;}).filter(Boolean);
+  if(other.length)h.push(pt('','Info','Rien de conforme sur '+state.site+' pour :',other.join(', ')+'. Ces meubles viennent d’un autre site.'));
+  var sty=SLOTS.map(function(c,i){var x=ids[i]?IT[ids[i]]:null;return x&&x.style!==state.style?ROLE[c].toLowerCase()+' ('+STY[x.style].toLowerCase()+')':null;}).filter(Boolean);
+  if(sty.length)h.push(pt('','Info','Pris dans un autre style, faute d’offre :',sty.join(', ')+'.'));
+  if(ids.some(function(i){return i&&IT[i].site==='Amazon';}))h.push(pt('','Info','Livraison Amazon.','Gratuite affichée pour une première commande seulement ; sinon des frais peuvent s’ajouter.'));
+  h.push(pt('opt','Proprio','Étagères au-dessus du bureau.','Elles demandent de percer. Sans accord, les dossiers vont dans le meuble télé.'));
+  h.push(pt('','Info','PS5.','Elle se pose à côté du support le temps de jouer, avec un câble HDMI court vers le C1.'));
+  h.push(pt('','Info',"Mur de l'entrée.",'La zone étagère/cuisine et les hauteurs de portes sont estimées d’après tes photos. Les meubles d’occasion sont dessinés d’après les dimensions et photos des annonces.'));
+  document.getElementById('points').innerHTML=h.join('');
+}
+function renderSpecs(){
+  var sp=curIt('support'),deg=GEO.tilt*180/Math.PI;
+  document.getElementById('spec-sup').textContent=sp.title.split(',')[0]+' · '+cmR(dimsOf(sp).h);
+  document.getElementById('spec-lens').textContent='60 cm du mur · ~'+cmR(LENS.y)+' de haut';
+  document.getElementById('spec-tilt').textContent='~'+fr(deg,1)+'°, corrigée par le C1';
+}
+var VIEWS={
+  maquette:{p:[-2.25,4.3,6.25],t:[1.65,0.55,1.75],f:42,fit:1},
+  dessus:{p:[1.5,10,1.867],t:[1.5,0,1.86],f:30,plan:1},
+  entree:{p:[2.05,2.05,3.82],t:[1.0,0.65,1.1],f:74},
+  canape:{p:[0.42,1.05,1.45],t:[W,1.0,IMG.cz],f:62},
+  bureau:{p:[1.2,1.62,2.1],t:[2.45,0.9,0.3],f:60},
+  fenetre:{p:[1.55,2.15,0.22],t:[1.25,0.75,3.2],f:74},
+  salon:{p:[2.33,1.45,3.62],t:[0.7,0.42,0.95],f:62}
+};
+var tween=null;
+function goView(name,instant){
+  var v=VIEWS[name];state.view=name;press('view',name);
+  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var p1=new THREE.Vector3().fromArray(v.p),t1=new THREE.Vector3().fromArray(v.t);
+  if(v.plan){var need=Math.max(2.45,1.95/camera.aspect)/Math.tan(v.f*Math.PI/360);p1.y=H+need;}
+  if(v.fit&&camera.aspect<1.35){var k=Math.pow(1.35/camera.aspect,0.85);p1.sub(t1).multiplyScalar(k).add(t1);}
+  if(instant||reduce){camera.position.copy(p1);controls.target.copy(t1);camera.fov=v.f;camera.updateProjectionMatrix();controls.update();tween=null;return;}
+  tween={p0:camera.position.clone(),t0:controls.target.clone(),f0:camera.fov,p1:p1,t1:t1,f1:v.f,start:performance.now(),dur:800};
+}
+controls.addEventListener('start',function(){tween=null;});
+function press(group,v){document.querySelectorAll('[data-group="'+group+'"] button').forEach(function(b){b.setAttribute('aria-pressed',b.dataset.v===v?'true':'false');});}
+document.querySelectorAll('[data-group] button').forEach(function(b){b.addEventListener('click',function(){if(b.disabled)return;var g=b.parentNode.dataset.group,v=b.dataset.v;
+  if(g==='mode')setMode(v);else if(g==='view')goView(v);else if(g==='sofa')setSofa(v);else if(g==='style')applySet(v,state.site);else if(g==='site')applySet(state.style,v);});});
+document.getElementById('opt-shelves').addEventListener('change',function(e){shelves.visible=e.target.checked;});
+document.getElementById('opt-cotes').addEventListener('change',function(e){cotes.visible=e.target.checked;});
+
+/* ---------- Fiches produits au clic ---------- */
+var ITEMS={
+  tcl:{s:'Black Friday',c:'opt',t:'TCL C1',m:'Full HD · 230 lumens ISO · ratio 1,27:1',n:'',p:'≤ 200 € visé',u:'https://www.ldlc.com/fiche/PB00713658.html'},
+  sofa:{s:'Conservé',c:'keep',t:'Ton canapé',m:'200 × 85 cm',n:'Scénario 1. Il bloque le battant gauche de la porte-fenêtre, comme aujourd’hui.',p:''},
+  shelves:{s:'Option',c:'opt',t:'Étagères au-dessus du bureau',m:'2 tablettes · 72 × 24 cm',n:'Il faut percer : à faire valider par ton propriétaire. Non chiffrées.',p:''},
+  chair:{s:'Conservée',c:'keep',t:'Ta chaise de bureau',m:'',n:'',p:''},
+  monitor:{s:'Conservé',c:'keep',t:'Ton écran 27″',m:'≈ 61 × 37 cm',n:'',p:''},
+  pendant:{s:'Conservée',c:'keep',t:'Ta suspension',m:'Papier plié',n:'Passe-la en ampoule chaude 2700 K. Éteinte pendant les films.',p:''},
+  curtain:{s:'Conservé',c:'keep',t:'Ton rideau occultant',m:'',n:'Il permet de regarder un film en journée.',p:''},
+  image:{s:'Réglage',c:'',t:'Image projetée',m:'80″ · 177 × 100 cm',n:'Bas à 50 cm du sol, haut à 1,50 m, centrée à 2,23 m du coin de la fenêtre.',p:''},
+  box:{s:'Conservée',c:'keep',t:'Box internet',m:'',n:"Éteins ses voyants dans ses réglages : dans le noir, ils se voient sous l'image.",p:''},
+  cushion:{s:'Suggestion',c:'opt',t:'Coussin terracotta',m:'Housse 45 × 45 cm',n:'Hors budget. Il apporte la touche terracotta de la palette.',p:''}
+};
+var info=document.getElementById('info');
+function itemInfo(k){
+  if(/^set_/.test(k)){var cat=k.slice(4),it=curIt(cat);if(!it)return null;var so=cat==='sofa';
+    return {s:so?'Scénario 2':'À acheter',c:so?'opt':'buy',t:it.title,m:it.site+' · '+it.dims+' cm · '+it.mat,
+      n:[ROLE[cat],it.note,it.cond,it.pickup?'main propre, '+it.loc:it.shipnote].filter(Boolean).join(' · '),
+      p:eur(delivered(it))+(it.ship?' envoi compris':''),u:it.url,lt:(it.site==='IKEA'||it.site==='Amazon')?'Voir le produit':"Voir l'annonce"};}
+  var b=ITEMS[k];if(!b)return null;b=Object.assign({},b);
+  if(k==='box')b.m=GEO.tv.niches?'Dans la niche ouverte du meuble télé':'Posée sur le meuble télé';
+  if(k==='monitor')b.n='Sur '+cmR(GEO.desk.depth)+' de profondeur, tes yeux sont à environ '+cmR(GEO.desk.depth+0.15)+" de l'écran.";
+  if(k==='chair')b.n=cmF(GEO.deskGap)+' entre le bureau et le meuble télé'+(GEO.deskGap<0.75?' : recule-la en biais pour te lever.':'.');
+  if(k==='tcl')b.n='Objectif à 60 cm du mur du canapé et à environ '+cmR(LENS.y)+" de haut pour une image de 80″. À acheter s'il passe sous 200 €.";
+  return b;
+}
+function showInfo(k){
+  var it=k?itemInfo(k):null;infoKey=it?k:null;if(!it){info.hidden=true;return;}
+  var st=document.getElementById('info-status');st.textContent=it.s;st.className='pill '+it.c;
+  document.getElementById('info-title').textContent=it.t;
+  var me=document.getElementById('info-meta');me.textContent=it.m;me.hidden=!it.m;
+  var no=document.getElementById('info-note');no.textContent=it.n;no.hidden=!it.n;
+  var pr=document.getElementById('info-price');pr.textContent=it.p;
+  var a=document.getElementById('info-link');if(it.u){a.href=it.u;a.textContent=it.lt||'Voir le produit';a.hidden=false;}else{a.hidden=true;}
+  pr.parentNode.hidden=!it.p&&!it.u;
+  info.hidden=false;document.getElementById('hint').hidden=true;
+}
+document.getElementById('info-close').addEventListener('click',function(){info.hidden=true;infoKey=null;});
+var ray=new THREE.Raycaster(),ndc=new THREE.Vector2(),down=null;
+function visibleChain(o){while(o){if(!o.visible)return false;o=o.parent;}return true;}
+function keyOf(o){while(o){if(o.userData&&o.userData.key)return o.userData.key;o=o.parent;}return null;}
+renderer.domElement.addEventListener('pointerdown',function(e){down=[e.clientX,e.clientY];});
+renderer.domElement.addEventListener('pointerup',function(e){
+  if(!down||Math.hypot(e.clientX-down[0],e.clientY-down[1])>6)return;
+  var r=renderer.domElement.getBoundingClientRect();ndc.set((e.clientX-r.left)/r.width*2-1,-(e.clientY-r.top)/r.height*2+1);
+  ray.setFromCamera(ndc,camera);
+  var hits=ray.intersectObjects(scene.children,true).filter(function(h){return h.object.isMesh&&visibleChain(h.object);});
+  showInfo(hits.length?keyOf(hits[0].object):null);
+});
+
+/* ---------- Boucle ---------- */
+function resize(){var w=stage.clientWidth,h=stage.clientHeight;renderer.setSize(w,h,false);labelRenderer.setSize(w,h);camera.aspect=w/h;camera.updateProjectionMatrix();}
+if(window.ResizeObserver)new ResizeObserver(resize).observe(stage);else window.addEventListener('resize',resize);
+resize();
+function frame(now){
+  if(tween){var k=Math.min(1,(now-tween.start)/tween.dur),e=k<0.5?4*k*k*k:1-Math.pow(-2*k+2,3)/2;
+    camera.position.lerpVectors(tween.p0,tween.p1,e);controls.target.lerpVectors(tween.t0,tween.t1,e);camera.fov=tween.f0+(tween.f1-tween.f0)*e;camera.updateProjectionMatrix();if(k>=1)tween=null;}
+  controls.update();
+  var p=camera.position;
+  A.visible=p.z>=0;B.visible=p.x<=W;C.visible=p.z<=L;D.visible=p.x>=0;ceiling.visible=rosette.visible=p.y<H;
+  var inside=p.x>0&&p.x<W&&p.z>0&&p.z<L&&p.y<H;
+  cotes.children.forEach(function(o){if(o.isCSS2DObject)o.visible=cotes.visible&&!(o.userData.ext&&inside);});
+  renderer.render(scene,camera);labelRenderer.render(scene,camera);
+  requestAnimationFrame(frame);
+}
+setMode('soiree');
+var PERSO={tv:'az_tv_s3',rug:'tp_shaggy'};
+try{var sv=JSON.parse(localStorage.getItem('salon-ma-selection')||'null');if(sv&&IT[sv.tv])PERSO.tv=sv.tv;if(sv&&(sv.rug==='none'||IT[sv.rug]))PERSO.rug=sv.rug;}catch(e){}
+function applyPerso(){SETS.S4.Perso=[PERSO.tv,'ik_tonstad','ik_kronoren','lm_table3','md_dylane',PERSO.rug==='none'?null:PERSO.rug];press('tvsel',PERSO.tv);press('rugsel',PERSO.rug);
+  try{localStorage.setItem('salon-ma-selection',JSON.stringify(PERSO));}catch(e){}applySet('S4','Perso');}
+document.querySelectorAll('[data-group="tvsel"] button,[data-group="rugsel"] button').forEach(function(b){b.addEventListener('click',function(){if(b.parentNode.dataset.group==='tvsel')PERSO.tv=b.dataset.v;else PERSO.rug=b.dataset.v;applyPerso();});});
+state.sofa='ensemble';applyPerso();goView('salon',true);
+requestAnimationFrame(frame);
+window.__salon={setMode:setMode,setSofa:setSofa,goView:goView,showInfo:showInfo,cotes:cotes,applySet:applySet,setTotals:setTotals,state:state,GEO:GEO,SETS:SETS,IT:IT,LENS:LENS};
+})();
+</script>
+
+</body></html>

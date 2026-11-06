@@ -1,6 +1,6 @@
 # Note projet — Portfolio Nizar Tajmouti
 
-Mise à jour : 27 septembre 2026.
+Mise à jour : 6 novembre 2026.
 À lire avant toute nouvelle modification. Elle résume ce qui a été fait, l'état
 réel du site et les prochaines étapes, par ordre de priorité.
 
@@ -17,7 +17,8 @@ réel du site et les prochaines étapes, par ordre de priorité.
 | Arbre de travail | Propre, tout est commité et publié |
 | Domaine `nizar-tajmouti.fr` | Ne résout pas |
 
-Le site est une page statique unique, sans framework ni étape de compilation.
+Le site est statique, sans framework ni étape de compilation : la page d'accueil,
+les pages légales et la page du projet Salon cocon japandi.
 Ce qui est dans le dépôt est ce qui est publié.
 
 ---
@@ -48,7 +49,7 @@ Pour publier, pousser sur `main`. Netlify déploie en une vingtaine de secondes.
 | `assets/css/contact-form.css` | Formulaire de contact et notifications |
 | `assets/css/avatar.css` | Carte de l'avatar 3D |
 | `assets/js/editorial.js` | Menu, apparitions, orbites, aperçus ASCII, fiches projet |
-| `assets/js/projects-data.js` | Contenu détaillé des sept études de cas |
+| `assets/js/projects-data.js` | Contenu détaillé des huit études de cas |
 | `assets/js/contact-automation.js` | Envoi du formulaire vers le workflow n8n |
 | `assets/js/avatar.js` | Chargement et commandes de l'avatar, en module |
 | `assets/js/avatar-model.js` | Construction, rendu et zones du personnage |
@@ -84,6 +85,35 @@ Détails complets dans `docs/IMAGES-ET-AVATAR.md`.
 local. Mode d'emploi dans `docs/ESPACE-PROJETS-LOCAL.md`.
 
 ---
+
+### Deux 3D à ne pas confondre
+
+| | Avatar | Maquette de l'appartement |
+| --- | --- | --- |
+| Ce que c'est | Mon personnage | Le projet Salon cocon japandi |
+| Où | Section À propos de l'accueil | `salon-japandi.html` et `maquette/` |
+| Three.js | r180, local, dans `assets/js/vendor/` | r147, chargé depuis jsDelivr |
+| Vocabulaire du site | « avatar 3D » | « maquette 3D d'intérieur » ou « d'appartement » |
+
+### Le projet Salon cocon japandi
+
+La carte ouvre une fiche, comme les autres projets, et entre dans
+Précédent / Suivant. La page n'est accessible que par le lien de cette fiche :
+elle est absente du sitemap et marquée `noindex`.
+
+| Fichier | Rôle |
+| ------- | ---- |
+| `salon-japandi.html` | La page, sans aucun script |
+| `assets/css/case-study.css` | Son style |
+| `maquette/salon-ma-selection.html` | Maquette de ma sélection, affichée dans la page avec `?expo` |
+| `maquette/salon-japandi.html` | Maquette aux 14 ensembles |
+| `assets/img/realisations/salon-japandi/` | 8 rendus et l'aperçu de la vidéo, en WebP |
+| `assets/video/salon-japandi-visite.mp4` | Vidéo compressée, 3,9 Mo |
+
+Les maquettes sont des copies des originaux, sans le lien vers la Google Sheet
+privée. `salon-ma-selection.html` contient en plus le mode `?expo`, qui ne garde
+que la scène et les choix de meubles. Les PNG des rendus sont dans `.cache/`, hors
+du dépôt.
 
 ## Ce qui a été fait pendant cette session
 
@@ -165,9 +195,19 @@ Aucun score Lighthouse n'a été mesuré.
 
 ## Pièges connus
 
-- **Netlify publie tout le dépôt.** `scripts/`, `docs/`, `AGENTS.md`, cette note
-  et les anciennes librairies sont accessibles en ligne. L'éditeur local est
-  visible sur `/scripts/project-editor.html`, sans pouvoir rien écrire.
+- **`_headers` liste les pages une par une.** Ni la CSP ni `X-Frame-Options` ne
+  sont sur `/*`, pour laisser `/maquette/*` avoir ses propres règles. Toute nouvelle
+  page doit y être ajoutée, ainsi que dans `PAGES` de `scripts/serve.js`. Une
+  adresse inconnue qui affiche la 404 n'a ni l'une ni l'autre.
+- **Le serveur local n'applique pas `_headers`.** Seul un aperçu Netlify prouve
+  que la CSP et le cadre de la maquette fonctionnent.
+- **`check:html` ne contrôle que `home.html`.** La page du salon n'est pas couverte.
+- **Écart de chiffres assumé.** La page dit 500 € de meubles et 150 € de projecteur,
+  comme la fiche ; les versions complètes des maquettes disent 450 € et 200 €.
+- **La vidéo montre le scénario IKEA neuf**, pas les meubles de « Ma sélection ».
+- **Netlify publie tout le dépôt.** Seul `_redirects` renvoie en 404 `scripts/`,
+  `docs/`, `AGENTS.md`, cette note et les anciennes librairies. Tout nouveau fichier
+  de travail à la racine doit y être ajouté.
 - **Deux sources pour les projets.** Le contenu vit à la fois dans
   `projects-data.js` et dans les cartes de `home.html`. Modifier l'un sans l'autre
   crée des incohérences.

@@ -138,4 +138,26 @@ window.portfolioProjects = {
     image: "./assets/img/realisations/cards/andre-bach-card-1200.webp",
     fullImage: "./assets/img/realisations/full/andre-bach-full.webp",
   },
+  "salon-japandi": {
+    title: "Salon cocon japandi",
+    category: "Design d'intérieur",
+    summary:
+      "Réaménagement de mon salon de 11 m² à Paris (home cinéma 80″, bureau, couchage d'appoint) pour 500 € de meubles.",
+    context:
+      "Projet personnel de design d'intérieur : mon propre salon de 11,1 m² à Paris 12e, en location. Conception terminée en novembre 2026, meubles pas encore achetés.",
+    problem:
+      "Une pièce de 3,91 × 2,85 m qui doit tout faire : home cinéma avec une image de 80″, coin bureau pour le télétravail, canapé où un invité peut dormir, rangements fermés. Le tout en tant que locataire, sans voiture et avec 500 € de meubles.",
+    solution:
+      "Brief, relevé, calculs de projection et de dégagements, maquette 3D interactive à l'échelle, puis plus de 50 annonces relevées sur IKEA, Leboncoin, Vinted et Amazon, et 14 ensembles composés avec leur budget.",
+    role: "Direction artistique, recueil du besoin, choix et validation à chaque étape. La production est assistée par IA (Claude, Claude Code) : je l'ai pilotée, vérifiée et corrigée.",
+    stack: "Three.js / GSAP / HyperFrames / Playwright / Google Sheets / Claude",
+    impact:
+      "Scénario IKEA neuf à 623,98 € au plus, projecteur compris, pour un plafond de 650 €. Ensembles d'occasion de 130 à 300 € de meubles. 41 annonces sur 41 encore en ligne à la vérification.",
+    tags: ["Projet personnel", "Maquette 3D d'appartement", "Sourcing", "Budget"],
+    link: "./salon-japandi.html",
+    linkLabel: "VOIR LA PAGE DU PROJET ↗",
+    image: "./assets/img/realisations/cards/salon-japandi-card-1200.webp",
+    fullImage:
+      "./assets/img/realisations/salon-japandi/sel-01-noyer-shaggy-salon-soiree-1600.webp",
+  },
 };

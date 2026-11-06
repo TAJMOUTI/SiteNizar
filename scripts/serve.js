@@ -16,6 +16,7 @@ const mime = {
   ".ttf": "font/ttf",
   ".woff2": "font/woff2",
   ".pdf": "application/pdf",
+  ".mp4": "video/mp4",
   ".ico": "image/x-icon",
   ".xml": "application/xml; charset=utf-8",
   ".txt": "text/plain; charset=utf-8",
@@ -153,7 +154,7 @@ function createPreviewServer(root = path.resolve(__dirname, "..")) {
     // « page.html » et redirige la racine vers /home.
     if (["/", "/home", "/home.html"].includes(requested))
       requested = "/home.html";
-    const PAGES = ["mentions-legales", "confidentialite", "404"];
+    const PAGES = ["mentions-legales", "confidentialite", "salon-japandi", "404"];
     for (const page of PAGES) {
       if (requested === "/" + page) requested = "/" + page + ".html";
     }
@@ -167,7 +168,7 @@ function createPreviewServer(root = path.resolve(__dirname, "..")) {
       "/sitemap.xml",
     ];
     const autorise =
-      /^\/(?:home\.html$|assets\/|files\/)/.test(requested) ||
+      /^\/(?:home\.html$|assets\/|files\/|maquette\/)/.test(requested) ||
       PAGES.some((page) => requested === "/" + page + ".html") ||
       RACINE.includes(requested);
     if (

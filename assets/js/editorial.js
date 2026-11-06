@@ -233,8 +233,18 @@
     });
     var link = document.getElementById("case-link");
     link.hidden = !project.link;
-    if (project.link) link.href = project.link;
-    else link.removeAttribute("href");
+    if (project.link) {
+      var internal = project.link.startsWith("./");
+      link.href = project.link;
+      link.textContent = project.linkLabel || "VOIR LE SITE ↗";
+      if (internal) {
+        link.removeAttribute("target");
+        link.removeAttribute("rel");
+      } else {
+        link.target = "_blank";
+        link.rel = "noopener noreferrer";
+      }
+    } else link.removeAttribute("href");
     document.getElementById("case-contact").hidden =
       project.action !== "smart-contact";
     var wasOpen = dialog.open;
